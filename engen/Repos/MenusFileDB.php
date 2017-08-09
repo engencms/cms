@@ -71,6 +71,59 @@ class MenusFileDB implements MenusInterface
 
 
     /**
+     * Update a menu
+     *
+     * @param  string $id
+     * @param  array  $data
+     * @return Menu|null
+     */
+    public function updateMenu($id, array $data)
+    {
+        if (!$menu = $this->menus[$id] ?? null) {
+            return false;
+        }
+
+        $data = array_replace($menu->toArray(['id']), $data);
+
+        if ($this->db->menus->where('id', $id)->update($data) < 1) {
+            return false;
+        }
+
+        $this->loadMenus();
+        return $this->menus[$id] ?? false;
+    }
+
+
+    /**
+     * Add a new menu
+     *
+     * @param  Menu   $menu
+     * @return Menu|null
+     */
+    public function createMenu(Menu $menu)
+    {
+        if (!$id = $this->db->menus->insert($menu->toArray(['id']))) {
+            return false;
+        }
+
+        $this->loadMenus();
+        return $this->menus[$id] ?? false;
+    }
+
+
+    /**
+     * Delete a menu
+     *
+     * @param  string $id
+     * @return boolean
+     */
+    public function deleteMenu($id)
+    {
+        return $this->db->menus->where('id', $id)->delete() > 0;
+    }
+
+
+    /**
      * Load menus
      */
     protected function loadMenus()
@@ -85,28 +138,22 @@ class MenusFileDB implements MenusInterface
 
         $this->menus = $menus;
 
-        // Create the key => id index
+        // Create the key => id index and set the correct page urls
         foreach ($menus as $menu) {
             $this->menuKeys[$menu->key] = $menu->id;
-        }
 
-        // Get items and put them in th right menu
-        $items = $this->db->menu_items->orderBy('order', 'asc')->get();
+            $items = [];
+            foreach ($menu->items as $item) {
+                if ($item['page_id'] && !$page = $this->db->pages->find($item['page_id'])) {
+                    // THe linked page doesn't exist
+                    continue;
+                }
 
-        foreach ($items as $item) {
-            if (!array_key_exists($item['menu_id'], $this->menus)) {
-                // The menu doesn't exist
-                continue;
+                $item['link']        = $item['page_id'] ? $page['uri'] : $item['link'];
+                $item['page_status'] = $item['page_id'] ? $page['status'] : 'published';
+                $items[] = MenuItem::make($item);
             }
-
-            if ($item['page_id'] && !$page = $this->db->pages->find($item['page_id'])) {
-                // THe linked page doesn't exist
-                continue;
-            }
-
-            $item['link']        = $item['page_id'] ? $page['uri'] : $item['link'];
-            $item['page_status'] = $item['page_id'] ? $page['status'] : 'published';
-            $this->menus[$item['menu_id']]->addItem(MenuItem::make($item));
+            $menu->items = $items;
         }
     }
 }

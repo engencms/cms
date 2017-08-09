@@ -91,6 +91,10 @@
             &.add:before {
                 content: '\f055';
             }
+
+            &.delete:before {
+                content: '\f1f8';
+            }
         }
 
         &:hover {

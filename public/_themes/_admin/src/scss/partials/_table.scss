@@ -89,6 +89,11 @@
             &.target {
                 width: 180px;
             }
+
+            &.delete {
+                width: 50px;
+                text-align: right;
+            }
         }
 
         &:hover {
@@ -99,6 +104,12 @@
 
         &:last-child .prop {
             border-bottom: 0;
+        }
+    }
+
+    &.sortable {
+        .item .prop {
+            cursor: move;
         }
     }
 }

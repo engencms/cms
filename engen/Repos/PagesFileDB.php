@@ -209,13 +209,17 @@ class PagesFileDB implements PagesInterface
             $page->created = time();
         }
 
+        if (!empty($info['is_home']) && $info['is_home'] == 1) {
+            // This is set to be the home page, remove the current
+            $this->db->pages->where('is_home', 1)->update(['is_home' => 0]);
+        }
+
         $data = array_replace($page->toArray(['id', 'content']), $info);
 
         if ($this->db->pages->where('id', $id)->update($data) < 1) {
             return false;
         }
 
-        $this->pages[$id] = $this->db->pages->asObj('Engen\Entities\Page')->find($id);
         $this->regenerateUris();
         return $this->pages[$id] ?? false;
     }
@@ -233,6 +237,11 @@ class PagesFileDB implements PagesInterface
         $page->created = (int) $page->created > 0 ? $page->created : time();
         $page->updated = (int) $page->updated > 0 ? $page->updated : time();
 
+        if ($page->is_home == 1) {
+            // This is set to be the home page, remove the current
+            $this->db->pages->where('is_home', 1)->update(['is_home' => 0]);
+        }
+
         if (!$id = $this->db->pages->insert($page->toArray(['id', 'content']))) {
             return false;
         }
@@ -242,7 +251,6 @@ class PagesFileDB implements PagesInterface
             return false;
         }
 
-        $this->pages[$id] = $this->db->pages->asObj('Engen\Entities\Page')->find($id);
         $this->regenerateUris();
         return $this->pages[$id] ?? false;
     }
@@ -282,6 +290,9 @@ class PagesFileDB implements PagesInterface
      */
     public function regenerateUris()
     {
+        // Load all stored info
+        $this->loadPages();
+
         foreach ($this->pages as &$page) {
             if ($page->is_home) {
                 $uri   = '/';
@@ -303,6 +314,7 @@ class PagesFileDB implements PagesInterface
                 ->update(['uri' => $page->uri, 'level' => $page->level]);
         }
 
+        // Load all update info
         $this->loadPages();
     }
 

@@ -68,4 +68,24 @@ class EngenRules extends Ruleset
             ? true
             : "There already is a page with this key";
     }
+
+
+    public function ruleMenuKey($key)
+    {
+        if (preg_match('/^([\w\-]+)$/', $key) === 1) {
+            return true;
+        }
+
+        return "Keys can only contain alphanumeric characters, underscores and dashes.";
+    }
+
+
+    public function ruleUniqueMenuKey($key, $menuId = null)
+    {
+        $menu = $this->app->menus->getMenuByKey($key);
+
+        return !$menu || $menu->id == $menuId
+            ? true
+            : "There already is a menu with this key";
+    }
 }

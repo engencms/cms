@@ -11569,19 +11569,33 @@ if (!app) {
 }
 
 $(function () {
-    /**
-    var el = document.querySelector('.recursive-list');
-    var sortable = new Sortable(el, {
-        sort: true,  // sorting inside list
-        delay: 0, // time in milliseconds to define when the sorting should start
-        disabled: false, // Disables the sortable if set to true.
-        store: null,  // @see Store
-        animation: 150,  // ms, animation speed moving items when sorting, `0` — without animation
-        handle: ".handle",  // Drag handle selector within list items
-        draggable: ".row",  // Specifies which items inside the element should be draggable
-        scroll: true, // or HTMLElement
+    $('body').on('click', '#delete-sub-nav-btn', function (e) {
+        e.preventDefault();
+
+        if (confirm('Are you sure you want to delete this item?\nThis cannot be undone!')) {
+            var data = {
+                ref:   $(this).data('ref'),
+                token: $(this).data('token')
+            };
+
+            $.post($(this).attr('href'), data, function (r) {
+                var r = app.response.make(r);
+
+                if (r.success()) {
+                    location.href = r.data();
+                    return;
+                }
+
+                var errors = r.hasErrors()
+                    ? r.errors()
+                    : ['Unknown error'];
+
+                app.notify.error(errors);
+            }, 'json').fail(function () {
+                app.notify.error('An unknow server error occurred');
+            });
+        }
     });
-    */
 });
 
 app.formStatus = {
@@ -11684,17 +11698,45 @@ app.ajaxform = (function () {
                 dataType: dataType ? dataType : 'json',
                 data: $form.serialize(),
             }).done(function (r) {
-                execCallback(formName, 'done', new response(r || null), $button);
+                execCallback(formName, 'done', app.response.make(r || null), $button);
             }).fail(function (xhr, code, msg) {
                 execCallback(formName, 'fail', code || null, $button);
             }).always(function (r) {
-                execCallback(formName, 'always', new response(r || null), $button);
+                execCallback(formName, 'always', app.response.make(r || null), $button);
             });
         }
 
         return {
             submit: submit
         }
+    }
+
+    function execCallback(formName, callback, passthrou, $button)
+    {
+        if (callbacks[formName] && typeof callbacks[formName][callback] == 'function') {
+
+            if (passthrou == undefined) {
+                callbacks[formName][callback].call(this, $button);
+                return;
+            }
+
+            callbacks[formName][callback].call(this, passthrou, $button);
+        }
+    }
+
+    return {
+        register: register,
+        form: form,
+        callback: callback
+    }
+
+})();
+
+app.response = (function () {
+
+    function make(r)
+    {
+        return new response(r || false);
     }
 
     function response(r)
@@ -11745,28 +11787,39 @@ app.ajaxform = (function () {
         }
     }
 
-    function execCallback(formName, callback, passthrou, $button)
-    {
-        if (callbacks[formName] && typeof callbacks[formName][callback] == 'function') {
+    return {
+        make: make
+    }
 
-            if (passthrou == undefined) {
-                callbacks[formName][callback].call(this, $button);
+})();;
+$(function () {
+    app.ajaxform.callback('menu-edit', {
+        before: function ($btn) {
+            app.formStatus.disableButton($btn);
+        },
+
+        done: function (r, $btn) {
+            if (r.success()) {
+                location.href = r.data();
                 return;
             }
 
-            callbacks[formName][callback].call(this, passthrou, $button);
+            var errors = r.hasErrors()
+                ? r.errors()
+                : ['Unknown error'];
+
+            app.notify.error(errors);
+        },
+
+        fail: function () {
+            app.notify.error('An unknown server error occrurred');
+        },
+
+        always: function (response, $btn) {
+            app.formStatus.enableButton($btn);
         }
-    }
-
-    return {
-        register: register,
-        form: form,
-        callback: callback
-    }
-
-})();
-
-;
+    });
+});;
 $(function () {
     app.ajaxform.callback('page-edit', {
         before: function ($btn) {

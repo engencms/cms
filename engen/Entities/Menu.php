@@ -8,9 +8,4 @@ class Menu extends \Enstart\Entity\Entity
         'key'       => null,
         'items'     => [],
     ];
-
-    public function addItem(MenuItem $item)
-    {
-        $this->_params['items'][] = $item;
-    }
 }

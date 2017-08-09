@@ -37,6 +37,18 @@ $app->router->group(['prefix' => $adminPrefix, 'before' => 'admin_setup'], funct
             'name' => 'engen.menus'
         ]);
 
+        $router->get('/new', 'Engen\Controllers\MenusController@showNew', [
+            'name' => 'engen.menus.new'
+        ]);
+
+        $router->post('/save', 'Engen\Controllers\MenusController@saveMenu', [
+            'name' => 'engen.menus.save'
+        ]);
+
+        $router->post('/delete', 'Engen\Controllers\MenusController@deleteMenu', [
+            'name' => 'engen.menus.delete'
+        ]);
+
         $router->get('/(:any)', 'Engen\Controllers\MenusController@editMenu', [
             'name' => 'engen.menus.edit'
         ]);

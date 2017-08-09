@@ -68,6 +68,13 @@
                             </select>
                         </div>
 
+                        <div class="form-item">
+                            <label for="frm-is_home">Is home page</label>
+                            <label class="normal">
+                                <input type="checkbox" id="frm-is_home" name="info[is_home]" value="1" <?= $page->is_home || count($this->pages()) == 0? 'checked' : ''?> /> Set this page as the home page
+                            </label>
+                        </div>
+
                     </div>
 
                 </div>
@@ -100,15 +107,3 @@
         </div>
 
     </form>
-
-    <script>
-    $(function () {
-        <?php foreach ($this->flash('success') as $msg): ?>
-            app.notify.success('<?= $msg ?>');
-        <?php endforeach ?>
-
-        <?php foreach ($this->flash('error') as $msg): ?>
-            app.notify.error('<?= $msg ?>');
-        <?php endforeach ?>
-    });
-    </script>

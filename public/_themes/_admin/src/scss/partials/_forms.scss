@@ -28,6 +28,11 @@ input[type='url'], input[type='week'], select, textarea {
     }
 }
 
+input[type="checkbox"] {
+    margin: 0 7px 0 0;
+    vertical-align: -2px;
+}
+
 textarea {
     min-height: 300px;
 
@@ -56,6 +61,13 @@ label {
     padding: 0;
     margin: 0 0 5px 0;
     text-transform: uppercase;
+
+    &.normal {
+        display: inline-block;
+        text-transform: none;
+        margin: 0;
+        line-height: 40px;
+    }
 }
 
 

@@ -77,17 +77,45 @@ app.ajaxform = (function () {
                 dataType: dataType ? dataType : 'json',
                 data: $form.serialize(),
             }).done(function (r) {
-                execCallback(formName, 'done', new response(r || null), $button);
+                execCallback(formName, 'done', app.response.make(r || null), $button);
             }).fail(function (xhr, code, msg) {
                 execCallback(formName, 'fail', code || null, $button);
             }).always(function (r) {
-                execCallback(formName, 'always', new response(r || null), $button);
+                execCallback(formName, 'always', app.response.make(r || null), $button);
             });
         }
 
         return {
             submit: submit
         }
+    }
+
+    function execCallback(formName, callback, passthrou, $button)
+    {
+        if (callbacks[formName] && typeof callbacks[formName][callback] == 'function') {
+
+            if (passthrou == undefined) {
+                callbacks[formName][callback].call(this, $button);
+                return;
+            }
+
+            callbacks[formName][callback].call(this, passthrou, $button);
+        }
+    }
+
+    return {
+        register: register,
+        form: form,
+        callback: callback
+    }
+
+})();
+
+app.response = (function () {
+
+    function make(r)
+    {
+        return new response(r || false);
     }
 
     function response(r)
@@ -138,24 +166,8 @@ app.ajaxform = (function () {
         }
     }
 
-    function execCallback(formName, callback, passthrou, $button)
-    {
-        if (callbacks[formName] && typeof callbacks[formName][callback] == 'function') {
-
-            if (passthrou == undefined) {
-                callbacks[formName][callback].call(this, $button);
-                return;
-            }
-
-            callbacks[formName][callback].call(this, passthrou, $button);
-        }
-    }
-
     return {
-        register: register,
-        form: form,
-        callback: callback
+        make: make
     }
 
 })();
-

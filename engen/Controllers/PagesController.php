@@ -84,7 +84,8 @@ class PagesController extends BaseController
             'template'  => $data['template']  ?? null,
             'title'     => $data['title']     ?? null,
             'parent_id' => $data['parent_id'] ?? null,
-            'status'    => $data['status'] ?? null,
+            'is_home'   => $data['is_home']   ?? 0,
+            'status'    => $data['status']    ?? null,
         ];
 
         $result = $this->validator->page($info, $id);

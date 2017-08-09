@@ -1,5 +1,13 @@
 <?php $this->layout('admin::layout') ?>
 
+<?php $this->start('sub-nav') ?>
+
+    <a href="<?= $this->route('engen.menus.delete') ?>" id="delete-sub-nav-btn" data-ref="<?= $menu->id ?>" data-token="<?= $this->csrfToken('delete-menu')?>">
+       <span class="icon delete"></span>Delete this menu
+    </a>
+
+<?php $this->stop() ?>
+
     <form method="post" action="<?= $this->route('engen.menus.save') ?>" id="form-edit-menu" data-ajaxform="menu-edit" data-ajaxform-button="edit-menu-submit">
 
         <input type="hidden" name="id" id="frm-id" value="<?= $menu->id ?>" />
@@ -23,7 +31,7 @@
 
             <h2 class="form-heading">Items</h2>
 
-            <div class="table" id="menu-items-list">
+            <div class="table sortable" id="menu-items-list">
 
                 <div class="header">
 
@@ -31,46 +39,20 @@
                     <div class="prop link-type">Link type</div>
                     <div class="prop link">Link</div>
                     <div class="prop target">Target</div>
+                    <div class="prop"></div>
 
                 </div>
 
             <?php foreach ($menu->items as $item): ?>
 
-                <div class="item">
-
-                    <div class="prop menu-name">
-                        <input type="text" value="<?= $item->label ?>" name="item[][label]" />
-                    </div>
-                    <div class="prop link-type">
-                        <select class="link-type">
-                            <option value="page" <?= $item->page_id ? 'selected' : '' ?>>Link to page</option>
-                            <option value="custom" <?= !$item->page_id ? 'selected' : '' ?>>Custom</option>
-                        </select>
-                    </div>
-                    <div class="prop link">
-                        <div class="link-type-page hide <?= $item->page_id ? 'selected' : ''?>">
-                            <select name="item[][page_id]">
-                                <?php $this->pageOptions($item->page_id, $item->page_id) ?>
-                            </select>
-                        </div>
-                        <div class="link-type-custom hide <?= !$item->page_id ? 'selected' : ''?>">
-                            <input type="text" value="<?= !$item->page_id ? $item->link : '' ?>" name="item[][link]" />
-                        </div>
-                    </div>
-                    <div class="prop target">
-                        <select name="item[][target]">
-                            <option value="" <?= $item->target != '_blank' ? 'selected' : '' ?>>Self</option>
-                            <option value="_blank" <?= $item->target == '_blank' ? 'selected' : '' ?>>New window/tab</option>
-                        </select>
-                    </div>
-
-                </div>
+                <?php $this->insert('admin::menus/partials/item', ['item' => $item]) ?>
 
             <?php endforeach ?>
 
-                <div class="item add">
+                <div class="item" id="menu-item-add-row">
 
-                    <div class="prop"><a href="#">+ Add a menu item</a></div>
+                    <div class="prop"><a href="#" id="add-menu-item-btn">+ Add a menu item</a></div>
+                    <div class="prop"></div>
                     <div class="prop"></div>
                     <div class="prop"></div>
                     <div class="prop"></div>
@@ -91,14 +73,46 @@
 
     </form>
 
+
+    <script type="text/template" id="menu-item-template">
+
+        <?php $this->insert('admin::menus/partials/item') ?>
+
+    </script>
+
+
     <script>
     $(function () {
-        <?php foreach ($this->flash('success') as $msg): ?>
-            app.notify.success('<?= $msg ?>');
-        <?php endforeach ?>
+        var sortable = new Sortable(document.getElementById('menu-items-list'), {
+            sort: true,  // sorting inside list
+            delay: 0, // time in milliseconds to define when the sorting should start
+            disabled: false, // Disables the sortable if set to true.
+            store: null,  // @see Store
+            animation: 150,  // ms, animation speed moving items when sorting, `0` — without animation
+            handle: ".item",  // Drag handle selector within list items
+            draggable: ".item",  // Specifies which items inside the element should be draggable
+            scroll: true, // or HTMLElement
+        });
 
-        <?php foreach ($this->flash('error') as $msg): ?>
-            app.notify.error('<?= $msg ?>');
-        <?php endforeach ?>
+        $('#menu-items-list').on('change', '.link-type-select', function (e) {
+            var val     = $(this).val();
+            var $parent = $(this).closest('.item');
+
+            $('.link-type-action', $parent).removeClass('selected');
+            $('.link-type-' + val, $parent).addClass('selected');
+        });
+
+        $('#menu-items-list').on('click', '.remove-item-btn', function (e) {
+            e.preventDefault();
+            if (confirm('Are you sure you want to completely remove this item?')) {
+                $(this).closest('.item').remove();
+            }
+        });
+
+        $('#add-menu-item-btn').on('click', function (e) {
+            e.preventDefault();
+
+            $($('#menu-item-template').html()).insertBefore('#menu-item-add-row');
+        });
     });
     </script>

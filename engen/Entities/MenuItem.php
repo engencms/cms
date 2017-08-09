@@ -8,8 +8,6 @@ class MenuItem extends \Enstart\Entity\Entity
         'link'        => null,
         'target'      => null,
         'page_id'     => null,
-        'menu_id'     => null,
         'page_status' => 'published',
-        'order'       => 99,
     ];
 }
