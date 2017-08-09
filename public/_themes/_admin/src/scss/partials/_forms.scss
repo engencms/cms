@@ -1,0 +1,122 @@
+.form-item {
+    position: relative;
+    padding: 0 0 25px 0;
+}
+
+input[type='color'], input[type='date'], input[type='datetime-local'],
+input[type='email'], input[type='number'], input[type='password'],
+input[type='search'], input[type='tel'], input[type='text'], input[type='time'],
+input[type='url'], input[type='week'], select, textarea {
+    border: solid 1px #ccc;
+    background-color: #fff;
+    padding: 7px;
+    font: 16px $font-default;
+    color: #555;
+    margin: 0;
+    width: 100%;
+
+    &.large {
+        font-size: 18px;
+    }
+
+    &:disabled {
+        background-color: transparent;
+        border: 0;
+        padding: 0;
+        color: #777;
+        font-style: italic;
+    }
+}
+
+textarea {
+    min-height: 300px;
+
+    &.small {
+        min-height: 150px;
+    }
+}
+
+button {
+    border: 0;
+    background-color: #333;
+    padding: 7px 25px;
+    text-transform: uppercase;
+    font: 14px $font-default;
+    color: #fff;
+    margin: 0;
+
+    &.confirm {
+        background-color: #00B16A;
+    }
+}
+
+label {
+    position: relative;
+    display: block;
+    padding: 0;
+    margin: 0 0 5px 0;
+    text-transform: uppercase;
+}
+
+
+.form-columns {
+    position: relative;
+    display: flex;
+    width: 100%;
+
+    .form-item {
+        padding-left: 10px;
+        padding-right: 10px;
+        flex-grow: 1;
+
+        &:first-child {
+            padding-left: 0;
+        }
+
+        &:last-child {
+            padding-right: 0;
+        }
+    }
+
+    &.col-1-2 {
+        .form-item {
+            max-width: 50%;
+        }
+    }
+}
+
+#form-actions {
+    position: fixed;
+    padding: 10px 20px;
+    left: $nav-width;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(220, 220, 220, 0.8);
+    border-top: solid 1px #d2d2d2;
+    display: flex;
+
+    button {
+        margin-right: 15px;
+        background-image: url(img/loader-confirm.gif);
+        background-repeat: no-repeat;
+        background-position: -100px -100px;
+
+        &.loading {
+            background-position: center center;
+
+            span {
+                visibility: hidden;
+            }
+        }
+    }
+}
+
+h2.form-heading {
+    font-size: 20px;
+    text-transform: uppercase;
+    color: #444;
+    margin: 0 0 20px 0;
+    padding: 20px 0 5px 0;
+    border-bottom: solid 1px #ddd;
+    font-weight: 400;
+}

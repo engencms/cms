@@ -1,0 +1,110 @@
+.list {
+    margin: 0;
+    padding: 10px 20px;
+    background-color: #fff;
+    list-style: none;
+
+    a {
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+            color: inherit;
+        }
+    }
+
+    &.sub-list {
+        padding: 0;
+        background-color: transparent;
+    }
+
+    .row {
+        margin: 0;
+
+        .prop {
+            padding: 10px;
+
+            &:first-child {
+                padding-left: 0;
+            }
+        }
+
+        @for $i from 1 through 15 {
+            &.level-#{$i} > .item > .title{
+                padding-left: 0px + ($i * 25);
+            }
+        }
+
+        &.header {
+            .title {
+                padding-left: 0;
+            }
+        }
+    }
+
+    .item {
+        position: relative;
+        width: 100%;
+        display: flex;
+        border-top: solid 1px #eee;
+
+        &:hover {
+            background-color: #f8f8f8;
+        }
+
+        .title {
+            flex-grow: 1;
+        }
+
+        .move {
+            width: 25px;
+            flex: 0 0 auto;
+
+            .handle {
+                display: inline-block;
+                width: 25px;
+                text-align: center;
+                color: #111;
+                font-family: fontawesome;
+                cursor: row-resize;
+                opacity: 0.3;
+
+                &:before {
+                    content: '\f0dc';
+                }
+
+                &:hover {
+                    opacity: 1;
+                }
+            }
+        }
+
+        .key {
+            width: 250px;
+            flex: 0 0 auto;
+            font-style: italic;
+            color: #aaa;
+        }
+
+        .date {
+            width: 180px;
+            flex: 0 0 auto;
+            font-style: italic;
+            color: #aaa;
+        }
+    }
+
+    .header {
+        .item {
+            border-bottom: solid 2px #ddd;
+            border-top: 0;
+        }
+
+        .prop {
+            font-weight: 700;
+            font-style: normal;
+            color: #444;
+        }
+
+    }
+}

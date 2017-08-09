@@ -1,0 +1,25 @@
+{
+    "name": "engen/engen",
+    "description": "A static site generator and CMS",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Magnus Eriksson",
+            "email": "mange@reloop.se"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "enstart/core": "dev-develop",
+        "symfony/console": "^3.3",
+        "maer/file-db": "^0.3.1",
+        "erusev/parsedown": "^1.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "Engen\\": "engen/"
+        }
+    }
+}

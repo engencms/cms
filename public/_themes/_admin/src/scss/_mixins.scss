@@ -1,0 +1,38 @@
+@mixin clearfix() {
+    &:after {
+        content: ".";
+        display: block;
+        clear: both;
+        visibility: hidden;
+        line-height: 0;
+        height: 0;
+    }
+}
+
+@mixin horizontalList() {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    @include clearfix;
+
+    > li {
+        margin: 0;
+        padding: 0;
+        float: left;
+    }
+}
+
+@mixin anim($target: all, $speed:0.3s, $delay: 0s) {
+    -webkit-transition: $target $speed ease-in-out;
+    -moz-transition: $target $speed ease-in-out;
+    -ms-transition: $target $speed ease-in-out;
+    -o-transition: $target $speed ease-in-out;
+    transition: $target $speed ease-in-out;
+}
+
+@mixin placeholder {
+    &::-webkit-input-placeholder {@content}
+    &:-moz-placeholder           {@content}
+    &::-moz-placeholder          {@content}
+    &:-ms-input-placeholder      {@content}
+}

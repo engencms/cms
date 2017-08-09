@@ -1,0 +1,56 @@
+#header {
+    position: relative;
+    width: 100%;
+    height: 40px;
+    border-bottom: solid 1px #e8e8e8;
+
+    .inner {
+        position: relative;
+        width: 100%;
+        max-width: $site-width;
+        margin: 0 auto;
+        padding: 0 20px;
+        height: 100%;
+        display: flex;
+
+        #logo {
+            position: relative;
+            flex: 1 0 auto;
+
+            a {
+                line-height: 40px;
+                font-size: 20px;
+                font-weight: 700;
+                color: #222;
+                text-decoration: none;
+            }
+        }
+
+        #main-menu {
+            position: relative;
+            flex: 0 1 auto;
+            text-align: right;
+            padding: 10px 0;
+            display: flex;
+
+
+            a {
+                display: inline-block;
+                margin-left: 20px;
+                color: #666;
+                text-decoration: none;
+                line-height: 20px;
+                text-transform: uppercase;
+
+                &:hover {
+                    color: #222;
+                }
+
+                &.current {
+                    color: #222;
+                    font-weight: 700;
+                }
+            }
+        }
+    }
+}

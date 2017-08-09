@@ -1,0 +1,28 @@
+#notify {
+    position: absolute;
+    top: 0;
+    left: $nav-width;
+    right: 0;
+    z-index: 200;
+
+    .message {
+        position: relative;
+        padding: 10px;
+        text-align: center;
+        background-color: #fff;
+        color: #fff;
+        display: none;
+
+        &.info {
+            background-color: #446CB3;
+        }
+
+        &.error {
+            background-color: #D91E18;
+        }
+
+        &.success {
+            background-color: #03A678;
+        }
+    }
+}

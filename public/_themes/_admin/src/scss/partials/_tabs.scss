@@ -1,0 +1,39 @@
+.tabs {
+    .tab {
+        position: relative;
+        display: none;
+
+        &.open {
+            display: block;
+        }
+    }
+
+    .tab-links {
+        position: relative;
+        display: flex;
+        flex-wrap: wrap;
+        background-color: #404244;
+        padding: 0;
+
+        a {
+            display: inline-block;
+            font-size: 12px;
+            padding: 10px 20px;
+            color: #fff;
+            text-decoration: none;
+            text-transform: uppercase;
+            border-top: solid 2px transparent;
+
+            &:first-child {
+                padding-left: 20px;
+            }
+
+            &.open {
+                text-decoration: none;
+                color: #333;
+                background-color: $background-color;
+                border-top: solid 2px #19B5FE;
+            }
+        }
+    }
+}

@@ -1,0 +1,105 @@
+#main-nav {
+    .group {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .title {
+        margin: 0 20px 8px 20px;
+        padding: 0;
+        font-size: 12px;
+        color: #fff;
+        text-transform: uppercase;
+        font-weight: 700;
+    }
+
+    .item {
+        margin: 0 10px;
+        padding: 0;
+
+        a {
+            display: block;
+            padding: 4px 10px;
+            color: #ddd;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 12px;
+
+            .icon {
+                display: inline-block;
+                width: 25px;
+                color: #ddd;
+                font-family: fontawesome;
+                font-size: 85%;
+                opacity: 0.4;
+
+                &.pages:before { content: '\f016'; }
+
+                &.menus:before { content: '\f0c9'; }
+
+                &.settings:before { content: '\f013'; }
+            }
+
+            &:hover {
+                background-color: rgba(255, 255, 255, 0.1);
+
+                .icon {
+                    opacity: 1;
+                }
+            }
+        }
+
+        &.current {
+            a {
+                background-color: #3A539B;
+                background-color: #1975ae;
+                color: #fff;
+
+                .icon {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+}
+
+#sub-nav {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    background-color: #10151a;
+    padding: 11px 20px 9px 20px;
+    min-height: $top-height;
+
+    a {
+        font-size: 12px;
+        line-height: 20px;
+        margin: 0 25px 0 0;
+        color: #fff;
+        text-decoration: none;
+        text-transform: uppercase;
+        opacity: 0.70;
+        flex: 0 1 auto;
+
+        .icon {
+            display: inline-block;
+            margin: 0 8px 0 0;
+            font-family: fontawesome;
+
+            &.add:before {
+                content: '\f055';
+            }
+        }
+
+        &:hover {
+            opacity: 1;
+        }
+
+        &.current {
+            opacity: 1;
+            font-weight: 700;
+        }
+    }
+}

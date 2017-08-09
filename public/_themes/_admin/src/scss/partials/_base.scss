@@ -1,0 +1,100 @@
+/*
+* INIT
+* --------------------------------------
+*/
+
+@-ms-viewport {
+    width: device-width;
+}
+
+* {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    background-color: $background-color;
+    margin: 0;
+    padding: 0;
+    font: $font-default-size $font-default;
+    color: $font-default-color;
+    height: 100%;
+}
+
+form, img {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.clearfix:after {
+    content: ".";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    line-height: 0;
+    height: 0;
+}
+
+a {
+    color: #1E8BC3;
+
+    &:hover {
+        text-decoration: none;
+        color: #222;
+    }
+}
+
+
+/*
+* LAYOUT
+* --------------------------------------
+*/
+
+#wrapper {
+    position: relative;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+
+    #main-nav {
+        position: relative;
+        width: $nav-width;
+        flex: 0 0 auto;
+        background-color: #222830;
+        padding-top: $top-height + 20px;
+    }
+
+    #content {
+        position: relative;
+        flex: 1 0 auto;
+        padding-top: $top-height;
+        padding-bottom: 40px;
+
+        .content-inner {
+            position: relative;
+            padding: 20px;
+        }
+    }
+}
+
+#header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: $top-height;
+    background-color: #fff;
+    z-index: 100;
+    display: flex;
+}
+
+.size-medium {
+    max-width: 1000px;
+}

@@ -1,0 +1,104 @@
+.table {
+    margin: 0;
+    padding: 10px 10px;
+    background-color: #fff;
+    display: table;
+    width: 100%;
+
+    a {
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+            color: inherit;
+        }
+    }
+
+    .prop {
+        position: relative;
+        padding: 10px;
+        display: table-cell;
+
+        &.first-child {
+            padding-left: 0;
+        }
+
+        &.last-child {
+            padding-right: 0;
+        }
+    }
+
+    .header {
+        display: table-row;
+
+        .prop {
+            font-weight: 700;
+            font-style: normal;
+            color: #444;
+            border-bottom: solid 1px #eee;
+
+            &.items {
+                width: 120px;
+                text-align: center;
+            }
+        }
+    }
+
+    .item {
+        display: table-row;
+
+        .prop {
+            border-bottom: solid 1px #eee;
+
+            select, input[type="text"] {
+                padding: 4px;
+                font-size: 14px;
+            }
+
+            &.discreet {
+                font-style: italic;
+                color: #aaa;
+            }
+
+            &.menu-name {
+            }
+
+            &.items {
+                width: 120px;
+                text-align: center;
+            }
+
+            &.key {
+                width: 150px;
+            }
+
+            &.link-type {
+                width: 150px;
+            }
+
+            &.link {
+                .hide {
+                    display: none;
+                }
+
+                .selected {
+                    display: block;
+                }
+            }
+
+            &.target {
+                width: 180px;
+            }
+        }
+
+        &:hover {
+            .prop {
+                background-color: #f8f8f8;
+            }
+        }
+
+        &:last-child .prop {
+            border-bottom: 0;
+        }
+    }
+}
