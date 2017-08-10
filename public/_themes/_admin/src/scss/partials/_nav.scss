@@ -1,6 +1,6 @@
 #main-nav {
     .group {
-        margin: 0;
+        margin: 0 0 20px 0;
         padding: 0;
         list-style: none;
     }
@@ -39,6 +39,8 @@
                 &.menus:before { content: '\f0c9'; }
 
                 &.settings:before { content: '\f013'; }
+
+                &.play:before { content: '\f144'; }
             }
 
             &:hover {

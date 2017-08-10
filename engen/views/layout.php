@@ -51,14 +51,23 @@
                     <span class="icon pages"></span>Pages
                 </a>
             </li>
-            <li class="item <?= $this->uriStart($this->route('engen.menus'), 'current') ?>"">
+            <li class="item <?= $this->uriStart($this->route('engen.menus'), 'current') ?>">
                 <a href="<?= $this->route('engen.menus') ?>">
                     <span class="icon menus"></span>Menus
                 </a>
             </li>
-            <li class="item">
-                <a href="#">
+            <li class="item <?= $this->uriStart($this->route('engen.settings'), 'current') ?>">
+                <a href="<?= $this->route('engen.settings') ?>">
                     <span class="icon settings"></span>Settings
+                </a>
+            </li>
+            </ul>
+
+            <ul class="group">
+            <li class="title">Actions</li>
+            <li class="item">
+                <a href="<?= $this->route('engen.build') ?>" id="build-btn">
+                    <span class="icon play"></span>Build
                 </a>
             </li>
             </ul>

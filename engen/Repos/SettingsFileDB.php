@@ -53,6 +53,36 @@ class SettingsFileDB implements SettingsInterface
 
 
     /**
+     * Update settings
+     *
+     * @param  array  $data
+     * @param  string $type
+     * @return boolean
+     */
+    public function updateSettings(array $data, $type)
+    {
+        $db = $this->db->settings;
+
+        foreach ($data as $key => $value) {
+            if (isset($this->settings[$key])) {
+                $db->where('key', $key)
+                    ->where('type', $type)
+                    ->update(['value' => $value]);
+                continue;
+            }
+
+            $db->insert([
+                'key'   => $key,
+                'value' => $value,
+                'type'  => $type
+            ]);
+        }
+
+        return true;
+    }
+
+
+    /**
      * Load settings
      */
     protected function loadSettings()

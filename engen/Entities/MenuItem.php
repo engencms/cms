@@ -3,7 +3,6 @@
 class MenuItem extends \Enstart\Entity\Entity
 {
     protected $_params = [
-        'id'          => null,
         'label'       => null,
         'link'        => null,
         'target'      => null,

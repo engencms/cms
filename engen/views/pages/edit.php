@@ -1,6 +1,6 @@
 <?php $this->layout('admin::layout') ?>
 
-    <form method="post" action="<?= $this->route('engen.pages.save') ?>" id="form-edit-page" data-ajaxform="page-edit" data-ajaxform-button="edit-page-submit" data-ajaxform-status="edit-page-status">
+    <form method="post" action="<?= $this->route('engen.pages.save') ?>" id="form-edit-page" data-ajaxform="page-edit" data-ajaxform-button="edit-page-submit">
 
         <input type="hidden" name="id" id="frm-id" value="<?= $page->id ?>" />
         <input type="hidden" name="token" value="<?= $this->csrfToken('edit-page') ?>" />

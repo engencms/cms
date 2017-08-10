@@ -53,6 +53,31 @@ $app->router->group(['prefix' => $adminPrefix, 'before' => 'admin_setup'], funct
             'name' => 'engen.menus.edit'
         ]);
     });
+
+    /**
+     * Settings
+     * ----------------------------------------------------
+     */
+    $router->group(['prefix' => 'settings'], function ($router) {
+        $router->get('/', 'Engen\Controllers\SettingsController@editSettings', [
+            'name' => 'engen.settings'
+        ]);
+
+        $router->post('/save', 'Engen\Controllers\SettingsController@saveSettings', [
+            'name' => 'engen.settings.save'
+        ]);
+    });
+
+    /**
+     * Actions
+     * ----------------------------------------------------
+     */
+    $router->group(['prefix' => 'actions'], function ($router) {
+        $router->post('/build', 'Engen\Controllers\BuildController@build', [
+            'name' => 'engen.build'
+        ]);
+    });
+
 });
 
 

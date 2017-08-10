@@ -30,6 +30,21 @@ $(function () {
             });
         }
     });
+
+    $('#build-btn').on('click', function (e) {
+        e.preventDefault();
+        var url = $(this).attr('href');
+        $.post(url, function (response) {
+            var r = app.response.make(response || false);
+            if (r.success()) {
+                app.notify.success('Built!');
+                return;
+            }
+            app.notify.error('An error occurred');
+        }, 'json').fail(function () {
+            app.notify.error('A request error occurred');
+        });
+    });
 });
 
 app.formStatus = {
