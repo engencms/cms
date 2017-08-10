@@ -7,7 +7,10 @@ return [
         'timezone' => 'UTC',
     ],
 
-    'theme' => 'default',
+    'themes' => [
+        'path'  => __DIR__ . '/public/_themes',
+        'theme' => 'default',
+    ],
 
     'views' => [
         'extensions' => [
@@ -15,6 +18,16 @@ return [
             'Engen\ViewExtensions\PagesExtension',
             'Engen\ViewExtensions\MenusExtension',
         ],
+    ],
+
+    'build' => [
+        'path' => __DIR__ . '/build',
+        'permissions' => [
+            'directiories' => 0775,
+            'files' => 0664,
+        ],
+        'before' => [],
+        'after'  => [],
     ],
 
     'providers' => [

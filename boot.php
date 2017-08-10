@@ -14,7 +14,6 @@ $app->addPath([
     'root'   => __DIR__,
     'app'    => __DIR__ . '/app',
     'public' => __DIR__ . '/public',
-    'build'  => __DIR__ . '/build',
     'data'   => __DIR__ . '/data',
 ]);
 

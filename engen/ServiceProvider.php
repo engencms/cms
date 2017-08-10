@@ -50,8 +50,8 @@ class ServiceProvider implements ServiceProviderInterface
     protected function views(ContainerInterface $c)
     {
         // Set the correct theme path
-        $views  = rtrim($c->app->path('themes'), '/');
-        $views .= '/' . $c->config->get('theme');
+        $views  = rtrim($c->config->get('themes.path'), '/');
+        $views .= '/' . $c->config->get('themes.theme');
         $c->config->set('views.path', $views);
     }
 

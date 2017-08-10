@@ -10,7 +10,7 @@ input[type='url'], input[type='week'], select, textarea {
     border: solid 1px #ccc;
     background-color: #fff;
     padding: 7px;
-    font: 16px $font-default;
+    font: 1.1em $font-default;
     color: #555;
     margin: 0;
     width: 100%;
@@ -46,7 +46,7 @@ button {
     background-color: #333;
     padding: 7px 25px;
     text-transform: uppercase;
-    font: 14px $font-default;
+    font: 1em $font-default;
     color: #fff;
     margin: 0;
 
@@ -124,7 +124,7 @@ label {
 }
 
 h2.form-heading {
-    font-size: 20px;
+    font-size: 1.5em;
     text-transform: uppercase;
     color: #444;
     margin: 0 0 20px 0;

@@ -73,3 +73,17 @@ if (!function_exists('rcopy')) {
         }
     }
 }
+
+if (!function_exists('rchmod')) {
+    function rchmod($dir, $dirPermissions, $filePermissions)
+    {
+        foreach(glob($dir . '/*') as $file) {
+            if(is_dir($file)) {
+                chmod($file, $dirPermissions);
+                rchmod($file, $dirPermissions, $filePermissions);
+            } else {
+                chmod($file, $filePermissions);
+            }
+        }
+    }
+}

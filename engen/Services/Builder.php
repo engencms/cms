@@ -12,6 +12,7 @@ class Builder
     protected $controller;
     protected $error;
     protected $mockRequest;
+    protected $perms = [];
 
 
     /**
@@ -22,7 +23,11 @@ class Builder
         $this->app        = $app;
         $this->pages      = $pages;
         $this->controller = $controller;
-        $this->target     = realpath($this->app->path('build'));
+        $this->target     = realpath($app->config->get('build.path'));
+        $this->perms      = [
+            'dirs'  => $app->config->get('build.permissions.directories', 0775),
+            'files' => $app->config->get('build.permissions.files', 0664),
+        ];
     }
 
 
@@ -49,6 +54,9 @@ class Builder
         }
 
         $this->copyAssets();
+        // Set the file permissions on all the files
+        // so they can be run through both CLI and the CMS
+        rchmod($this->target, $this->perms['dirs'], $this->perms['files']);
         return true;
     }
 
@@ -118,7 +126,7 @@ class Builder
         $path     = $this->target . '/' . trim($uri, '/');
 
         if (!is_dir($path)) {
-            mkdir($path, 0777, true);
+            mkdir($path, $this->perms['dirs'], true);
         }
 
         return file_put_contents($path . '/index.html', $content) > 0;

@@ -4,6 +4,7 @@
     background-color: #fff;
     display: table;
     width: 100%;
+    font-size: 1em;
 
     a {
         text-decoration: none;
@@ -36,6 +37,7 @@
             font-style: normal;
             color: #444;
             border-bottom: solid 1px #eee;
+            font-size: 1.1em;
 
             &.items {
                 width: 120px;
@@ -49,10 +51,11 @@
 
         .prop {
             border-bottom: solid 1px #eee;
+            font-size: 1.1em;
 
             select, input[type="text"] {
                 padding: 4px;
-                font-size: 14px;
+                font-size: 1em;
             }
 
             &.discreet {

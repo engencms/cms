@@ -79,7 +79,9 @@ class EngenExtension implements ExtensionInterface
 
         $theme = '';
         if (!defined('IS_BUILD')) {
-            $theme  = '/_themes/' . $this->app->config->get('theme') . '/static';
+            $viewPath = $this->app->config->get('views.path');
+            $relative = substr($viewPath, strlen($this->app->path('public')));
+            $theme    = "{$relative}/static";
         }
 
         $file   = $theme . '/' . ltrim($file, '/');
@@ -115,7 +117,12 @@ class EngenExtension implements ExtensionInterface
             return $file;
         }
 
-        $theme  = '/_themes/_admin';
+        $themesPath = substr(
+            $this->app->config->get('themes.path'),
+            strlen($this->app->path('public'))
+        );
+
+        $theme = $themesPath . '/_admin';
 
         $file   = $theme . '/' . ltrim($file, '/');
         $public = rtrim($this->app->path('public'), '/');
