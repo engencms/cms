@@ -1,12 +1,18 @@
 <?php $this->layout('admin::layout') ?>
 
-<?php $this->start('sub-nav') ?>
+<?php
+if ($menu->id):
+    $this->start('sub-nav')
+?>
 
     <a href="<?= $this->route('engen.menus.delete') ?>" id="delete-sub-nav-btn" data-ref="<?= $menu->id ?>" data-token="<?= $this->csrfToken('delete-menu')?>">
        <span class="icon delete"></span>Delete this menu
     </a>
 
-<?php $this->stop() ?>
+<?php
+    $this->stop();
+endif;
+?>
 
     <form method="post" action="<?= $this->route('engen.menus.save') ?>" id="form-edit-menu" data-ajaxform="menu-edit" data-ajaxform-button="edit-menu-submit">
 

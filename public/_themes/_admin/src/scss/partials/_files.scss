@@ -1,0 +1,68 @@
+#files-list {
+
+    .header {
+        .prop {
+            &.file-info {
+                text-align: right;
+            }
+        }
+    }
+
+    .item {
+        .prop {
+            font-size: 1em;
+
+            &.name {
+                color: #888;
+
+                .path {
+                    font-size: 0.9em;
+                    padding-top: 4px;
+                }
+            }
+
+            &.thumb {
+                width: 80px;
+                text-align: center;
+
+                img {
+                    max-width: 80px;
+                    max-height: 40px;
+                    vertical-align: top;
+                }
+
+                .icon {
+                    display: inline-block;
+                    width: 30px;
+                    height: 30px;
+                    background-color: #ccc;
+                    border-radius: 50%;
+                    line-height: 30px;
+                    text-align: center;
+                    color: #fff;
+
+                    &:before {
+                        display: inline-block;
+                        font: 14px fontawesome;
+                        content: '\f15b';
+                    }
+                }
+            }
+
+            &.file-info {
+                width: 120px;
+                text-align: right;
+
+                .type {
+                    font-size: 0.9em;
+                    padding-top: 3px;
+
+                    .dimensions {
+                        display: inline-block;
+                        margin-left: 2px;
+                    }
+                }
+            }
+        }
+    }
+}

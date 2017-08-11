@@ -6,29 +6,17 @@ $(function () {
     $('body').on('click', '#delete-sub-nav-btn', function (e) {
         e.preventDefault();
 
-        if (confirm('Are you sure you want to delete this item?\nThis cannot be undone!')) {
-            var data = {
-                ref:   $(this).data('ref'),
-                token: $(this).data('token')
-            };
+        app.delete.item($(this), function (r) {
+            location.href = r.data();
+        });
+    });
 
-            $.post($(this).attr('href'), data, function (r) {
-                var r = app.response.make(r);
+    $('body').on('click', '.delete-file-btn', function (e) {
+        e.preventDefault();
 
-                if (r.success()) {
-                    location.href = r.data();
-                    return;
-                }
-
-                var errors = r.hasErrors()
-                    ? r.errors()
-                    : ['Unknown error'];
-
-                app.notify.error(errors);
-            }, 'json').fail(function () {
-                app.notify.error('An unknow server error occurred');
-            });
-        }
+        app.delete.item($(this), function (r) {
+            location.reload();
+        });
     });
 
     $('#build-btn').on('click', function (e) {
@@ -46,6 +34,35 @@ $(function () {
         });
     });
 });
+
+app.delete = {
+
+    item: function ($this, successCallback) {
+        if (confirm('Are you sure you want to delete this item?\nThis cannot be undone!')) {
+            var data = {
+                ref:   $this.data('ref'),
+                token: $this.data('token')
+            };
+
+            $.post($this.attr('href'), data, function (r) {
+                var r = app.response.make(r);
+
+                if (r.success()) {
+                    successCallback.call(this, r);
+                    return;
+                }
+
+                var errors = r.hasErrors()
+                    ? r.errors()
+                    : ['Unknown error'];
+
+                app.notify.error(errors);
+            }, 'json').fail(function () {
+                app.notify.error('An unknow server error occurred');
+            });
+        }
+    }
+};
 
 app.formStatus = {
     timer: null,

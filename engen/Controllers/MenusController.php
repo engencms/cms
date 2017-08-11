@@ -1,7 +1,6 @@
 <?php namespace Engen\Controllers;
 
 use Engen\Entities\Menu;
-use Engen\Entities\MenuItem;
 
 class MenusController extends BaseController
 {
