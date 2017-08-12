@@ -39,6 +39,13 @@ class ServiceProvider implements ServiceProviderInterface
 
         $c->singleton('Engen\ViewExtensions\BreadCrumbs');
         $c->alias('Engen\ViewExtensions\BreadCrumbs', 'breadCrumbs');
+
+        $c->singleton('Engen\Repos\FilesInterface', function ($c) {
+            return new \Engen\Repos\FilesLocalFS(
+                $c->config->get('uploads.path')
+            );
+        });
+        $c->alias('Engen\Repos\FilesInterface', 'files');
     }
 
 

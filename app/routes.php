@@ -69,6 +69,25 @@ $app->router->group(['prefix' => $adminPrefix, 'before' => 'admin_setup'], funct
     });
 
     /**
+     * Files
+     * ----------------------------------------------------
+     */
+    $router->group(['prefix' => 'files'], function ($router) {
+        $router->get('/', 'Engen\Controllers\FilesController@showFiles', [
+            'name' => 'engen.files'
+        ]);
+
+        $router->post('/delete', 'Engen\Controllers\FilesController@deleteFile', [
+            'name' => 'engen.files.delete'
+        ]);
+
+        $router->post('/upload', 'Engen\Controllers\FilesController@upload', [
+            'name' => 'engen.files.upload'
+        ]);
+    });
+
+
+    /**
      * Actions
      * ----------------------------------------------------
      */
@@ -77,7 +96,6 @@ $app->router->group(['prefix' => $adminPrefix, 'before' => 'admin_setup'], funct
             'name' => 'engen.build'
         ]);
     });
-
 });
 
 

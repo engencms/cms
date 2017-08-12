@@ -17,6 +17,7 @@ return [
             'Engen\ViewExtensions\EngenExtension',
             'Engen\ViewExtensions\PagesExtension',
             'Engen\ViewExtensions\MenusExtension',
+            'Engen\ViewExtensions\FilesExtension',
         ],
     ],
 
@@ -28,6 +29,11 @@ return [
         ],
         'before' => [],
         'after'  => [],
+    ],
+
+    'uploads' => [
+        'path' => __DIR__  . '/public/uploads',
+        'uri'  => '/uploads'
     ],
 
     'providers' => [

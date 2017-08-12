@@ -24,6 +24,10 @@ body {
     font: $font-default-size $font-default;
     color: $font-default-color;
     height: 100%;
+
+    &.no-scroll {
+        overflow: hidden;
+    }
 }
 
 form, img {

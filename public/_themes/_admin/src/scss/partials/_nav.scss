@@ -34,13 +34,15 @@
                 font-size: 0.85em;
                 opacity: 0.4;
 
-                &.pages:before { content: '\f016'; }
+                &.pages:before { content: '\f15b'; }
 
                 &.menus:before { content: '\f0c9'; }
 
                 &.settings:before { content: '\f013'; }
 
                 &.play:before { content: '\f144'; }
+
+                &.files:before { content: '\f07c'; }
             }
 
             &:hover {

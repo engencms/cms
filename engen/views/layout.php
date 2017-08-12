@@ -51,6 +51,11 @@
                     <span class="icon pages"></span>Pages
                 </a>
             </li>
+            <li class="item <?= $this->uriStart($this->route('engen.files'), 'current') ?>">
+                <a href="<?= $this->route('engen.files') ?>">
+                    <span class="icon files"></span>Files
+                </a>
+            </li>
             <li class="item <?= $this->uriStart($this->route('engen.menus'), 'current') ?>">
                 <a href="<?= $this->route('engen.menus') ?>">
                     <span class="icon menus"></span>Menus
@@ -88,6 +93,13 @@
 
     </div>
 
+    <div id="lightbox">
+        <div id="lightbox-inner">
+            <div id="lightbox-content">
+                here be some content<br />...
+            </div>
+        </div>
+    </div>
     <div id="notify"></div>
 
     <script>
