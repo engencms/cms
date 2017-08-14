@@ -2,6 +2,7 @@
 
 use Engen\Entities\User;
 use Engen\Repos\UsersInterface;
+use Enstart\Http\SessionInterface;
 
 class Auth
 {
@@ -9,6 +10,11 @@ class Auth
      * @var UsersInterface
      */
     protected $db;
+
+    /**
+     * @var SessionInterface
+     */
+    protected $session;
 
     /**
      * Current logged in user
@@ -32,9 +38,14 @@ class Auth
     /**
      * @param UsersInterface $db
      */
-    public function __construct(UsersInterface $db)
+    public function __construct(UsersInterface $db, SessionInterface $session)
     {
-        $this->db = $db;
+        $this->db      = $db;
+        $this->session = $session;
+
+        if ($user = $session->get('engen-admin/user')) {
+            $this->user = is_array($user) ? User::make($user) : null;
+        }
     }
 
 
@@ -54,6 +65,16 @@ class Auth
         $this->setUser($user);
 
         return true;
+    }
+
+
+    /**
+     * Log out user
+     */
+    public function logout()
+    {
+        $this->session->clear();
+        $this->user = null;
     }
 
 
@@ -100,16 +121,21 @@ class Auth
      *
      * @param mixed
      */
-    public function setUser($user)
+    public function setUser(User $user)
     {
         $this->user = $user;
+        $this->session->set('engen-admin/user', $user->toArray([
+            'password',
+            'reset_token',
+            'reset_date',
+        ]));
     }
 
 
     /**
      * Get the current user
      *
-     * @param mixed
+     * @param User|null
      */
     public function getUser()
     {

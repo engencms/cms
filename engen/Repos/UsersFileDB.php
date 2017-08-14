@@ -35,6 +35,7 @@ class UsersFileDB implements UsersInterface
     {
         return $this->db->users
             ->orderBy('username', 'asc')
+            ->asObj('Engen\Entities\User')
             ->get();
     }
 
@@ -49,6 +50,7 @@ class UsersFileDB implements UsersInterface
     {
         return $this->db->users
             ->where('username', $username)
+            ->asObj('Engen\Entities\User')
             ->first();
     }
 
@@ -63,6 +65,7 @@ class UsersFileDB implements UsersInterface
     {
         return $this->db->users
             ->where('email', $email)
+            ->asObj('Engen\Entities\User')
             ->first();
     }
 
@@ -77,6 +80,7 @@ class UsersFileDB implements UsersInterface
     {
         return $this->db->users
             ->where('id', $id)
+            ->asObj('Engen\Entities\User')
             ->first();
     }
 

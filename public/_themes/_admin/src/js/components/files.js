@@ -57,8 +57,7 @@ app.upload = (function () {
             success: function(res) {
                 var r = app.response.make(res || false);
                 if (r.success()) {
-                    console.log(r.data());
-                    app.notify.success('Files uploaded');
+                    location.reload();
                     return;
                 }
 

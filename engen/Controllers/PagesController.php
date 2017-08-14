@@ -110,4 +110,67 @@ class PagesController extends BaseController
 
         return $response->setData($this->router->getRoute('engen.pages.edit', [$id]));
     }
+
+
+    /**
+     * Create a unique page slug
+     *
+     * @return JsonEntity
+     */
+    public function slugifySlug()
+    {
+        $response = $this->makeJsonEntity();
+
+        $text     = $this->request->get('text');
+        $pageId   = $this->request->get('page_id');
+        $parentId = $this->request->get('parent_id');
+        $text     = $this->slugifier->slugify($text);
+
+        $parentId = empty($parentId) ? null : $parentId;
+
+        $slug   = $text;
+        $i      = 2;
+        $exists = true;
+
+        while ($exists) {
+            $pages = $this->app->pages->getPagesWithSlug($slug);
+            if (!$pages) {
+                break;
+            }
+
+            foreach ($pages as $page) {
+                if ($page->id != $pageId && $page->parent_id == $parentId) {
+                    $slug = $text . '-' . $i;
+                    $i++;
+                    break;
+                }
+            }
+        }
+
+        return $response->setData($slug);
+    }
+
+
+    /**
+     * Create a unique page key
+     *
+     * @return JsonEntity
+     */
+    public function slugifyKey()
+    {
+        $response = $this->makeJsonEntity();
+
+        $text     = $this->request->get('text');
+        $text     = $this->slugifier->slugify($text);
+
+        $key      = $text;
+        $i        = 2;
+
+        while ($page = $this->pages->getPageByKey($key)) {
+            $key = $text . '-' . $i;
+            $i++;
+        }
+
+        return $response->setData($key);
+    }
 }

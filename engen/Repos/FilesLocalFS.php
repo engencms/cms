@@ -117,7 +117,7 @@ class FilesLocalFS implements FilesInterface
         $error = $this->uploadErrors[$file->getError()] ?? null;
 
         if ($error) {
-            return $response->setError($error);
+            return $error;
         }
 
         try {

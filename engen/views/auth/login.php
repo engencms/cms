@@ -3,16 +3,18 @@
 
         <form method="POST" action="<?= $this->route('engen.login.do') ?>" data-ajaxform="login" data-ajaxform-button="login-submit-btn">
 
+            <input type="hidden" name="token" value="<?= $this->csrfToken('login') ?>" />
+
             <h1>Login</h1>
 
             <div class="form-item">
                 <label for="username">Username</label>
-                <input type="text" name="username" />
+                <input type="text" name="username" id="username" />
             </div>
 
             <div class="form-item">
                 <label for="password">Password</label>
-                <input type="password" name="password" />
+                <input type="password" name="password" id="password" />
             </div>
 
             <div class="form-item">
@@ -20,3 +22,5 @@
             </div>
 
         </form>
+
+        <script>document.getElementById('username').focus();</script>

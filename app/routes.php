@@ -12,99 +12,122 @@ $app->router->group(['prefix' => $adminPrefix, 'before' => 'admin_setup'], funct
         'name' => 'engen.login.do'
     ]);
 
-    $router->get('/', 'Engen\Controllers\DashboardController@showDashboard', [
-        'name' => 'engen.dashboard'
-    ]);
 
-    /**
-     * Pages
-     * ----------------------------------------------------
-     */
-    $router->group(['prefix' => 'pages'], function ($router) {
-        $router->get('/', 'Engen\Controllers\PagesController@showPages', [
-            'name' => 'engen.pages'
+    $router->group(['before' => 'engen_auth'], function ($router) {
+        $router->get('/', 'Engen\Controllers\DashboardController@showDashboard', [
+            'name' => 'engen.dashboard'
         ]);
 
-        $router->post('/save', 'Engen\Controllers\PagesController@savePage', [
-            'name' => 'engen.pages.save'
-        ]);
+        /**
+         * Pages
+         * ----------------------------------------------------
+         */
+        $router->group(['prefix' => 'pages'], function ($router) {
+            $router->get('/', 'Engen\Controllers\PagesController@showPages', [
+                'name' => 'engen.pages'
+            ]);
 
-        $router->get('/new', 'Engen\Controllers\PagesController@newPage', [
-            'name' => 'engen.pages.new'
-        ]);
+            $router->post('/save', 'Engen\Controllers\PagesController@savePage', [
+                'name' => 'engen.pages.save'
+            ]);
 
-        $router->get('/(:any)', 'Engen\Controllers\PagesController@editPage', [
-            'name' => 'engen.pages.edit'
-        ]);
-    });
+            $router->get('/new', 'Engen\Controllers\PagesController@newPage', [
+                'name' => 'engen.pages.new'
+            ]);
 
-    /**
-     * Menus
-     * ----------------------------------------------------
-     */
-    $router->group(['prefix' => 'menus'], function ($router) {
-        $router->get('/', 'Engen\Controllers\MenusController@showMenus', [
-            'name' => 'engen.menus'
-        ]);
+            // Slugify the page slug
+            $router->get('/slugify-slug', 'Engen\Controllers\PagesController@slugifySlug', [
+                'name' => 'engen.pages.slugify.slug'
+            ]);
 
-        $router->get('/new', 'Engen\Controllers\MenusController@showNew', [
-            'name' => 'engen.menus.new'
-        ]);
+            // Slugify the page key
+            $router->get('/slugify-key', 'Engen\Controllers\PagesController@slugifyKey', [
+                'name' => 'engen.pages.slugify.key'
+            ]);
 
-        $router->post('/save', 'Engen\Controllers\MenusController@saveMenu', [
-            'name' => 'engen.menus.save'
-        ]);
+            $router->get('/(:any)', 'Engen\Controllers\PagesController@editPage', [
+                'name' => 'engen.pages.edit'
+            ]);
+        });
 
-        $router->post('/delete', 'Engen\Controllers\MenusController@deleteMenu', [
-            'name' => 'engen.menus.delete'
-        ]);
+        /**
+         * Menus
+         * ----------------------------------------------------
+         */
+        $router->group(['prefix' => 'menus'], function ($router) {
+            $router->get('/', 'Engen\Controllers\MenusController@showMenus', [
+                'name' => 'engen.menus'
+            ]);
 
-        $router->get('/(:any)', 'Engen\Controllers\MenusController@editMenu', [
-            'name' => 'engen.menus.edit'
-        ]);
-    });
+            $router->get('/new', 'Engen\Controllers\MenusController@showNew', [
+                'name' => 'engen.menus.new'
+            ]);
 
-    /**
-     * Settings
-     * ----------------------------------------------------
-     */
-    $router->group(['prefix' => 'settings'], function ($router) {
-        $router->get('/', 'Engen\Controllers\SettingsController@editSettings', [
-            'name' => 'engen.settings'
-        ]);
+            $router->post('/save', 'Engen\Controllers\MenusController@saveMenu', [
+                'name' => 'engen.menus.save'
+            ]);
 
-        $router->post('/save', 'Engen\Controllers\SettingsController@saveSettings', [
-            'name' => 'engen.settings.save'
-        ]);
-    });
+            $router->post('/delete', 'Engen\Controllers\MenusController@deleteMenu', [
+                'name' => 'engen.menus.delete'
+            ]);
 
-    /**
-     * Files
-     * ----------------------------------------------------
-     */
-    $router->group(['prefix' => 'files'], function ($router) {
-        $router->get('/', 'Engen\Controllers\FilesController@showFiles', [
-            'name' => 'engen.files'
-        ]);
+            $router->get('/(:any)', 'Engen\Controllers\MenusController@editMenu', [
+                'name' => 'engen.menus.edit'
+            ]);
+        });
 
-        $router->post('/delete', 'Engen\Controllers\FilesController@deleteFile', [
-            'name' => 'engen.files.delete'
-        ]);
+        /**
+         * Settings
+         * ----------------------------------------------------
+         */
+        $router->group(['prefix' => 'settings'], function ($router) {
+            $router->get('/', 'Engen\Controllers\SettingsController@editSettings', [
+                'name' => 'engen.settings'
+            ]);
 
-        $router->post('/upload', 'Engen\Controllers\FilesController@upload', [
-            'name' => 'engen.files.upload'
-        ]);
-    });
+            $router->post('/save', 'Engen\Controllers\SettingsController@saveSettings', [
+                'name' => 'engen.settings.save'
+            ]);
+        });
 
+        /**
+         * Files
+         * ----------------------------------------------------
+         */
+        $router->group(['prefix' => 'files'], function ($router) {
+            $router->get('/', 'Engen\Controllers\FilesController@showFiles', [
+                'name' => 'engen.files'
+            ]);
 
-    /**
-     * Actions
-     * ----------------------------------------------------
-     */
-    $router->group(['prefix' => 'actions'], function ($router) {
-        $router->post('/build', 'Engen\Controllers\BuildController@build', [
-            'name' => 'engen.build'
-        ]);
+            $router->post('/delete', 'Engen\Controllers\FilesController@deleteFile', [
+                'name' => 'engen.files.delete'
+            ]);
+
+            $router->post('/upload', 'Engen\Controllers\FilesController@upload', [
+                'name' => 'engen.files.upload'
+            ]);
+        });
+
+        /**
+         * Users
+         * ----------------------------------------------------
+         */
+        $router->group(['prefix' => 'users'], function ($router) {
+            $router->get('logout', 'Engen\Controllers\AuthController@logout', [
+                'name' => 'engen.logout'
+            ]);
+        });
+
+        /**
+         * Actions
+         * ----------------------------------------------------
+         */
+        $router->group(['prefix' => 'actions'], function ($router) {
+            // Build the static site
+            $router->post('/build', 'Engen\Controllers\BuildController@build', [
+                'name' => 'engen.build'
+            ]);
+        });
     });
 });
 

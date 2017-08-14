@@ -43,6 +43,8 @@
                 &.play:before { content: '\f144'; }
 
                 &.files:before { content: '\f07c'; }
+
+                &.logout:before { content: '\f08b'; }
             }
 
             &:hover {

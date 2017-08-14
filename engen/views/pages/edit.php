@@ -20,12 +20,12 @@
 
                         <div class="form-item">
                             <label for="frm-slug">Slug</label>
-                            <input type="text" id="frm-slug" name="info[slug]" value="<?= $this->e($page->slug) ?>" />
+                            <input type="text" id="frm-slug" class="frm-page-slug" name="info[slug]" value="<?= $this->e($page->slug) ?>" />
                         </div>
 
                         <div class="form-item">
                             <label for="frm-key">Key</label>
-                            <input type="text" id="frm-key" name="info[key]" value="<?= $this->e($page->key) ?>" />
+                            <input type="text" id="frm-key" class="frm-page-key" name="info[key]" value="<?= $this->e($page->key) ?>" />
                         </div>
 
                     </div>
@@ -83,7 +83,7 @@
 
                     <div class="form-item">
                         <label for="frm-title">Title</label>
-                        <input type="text" id="frm-title" name="info[title]" value="<?= $this->e($page->title) ?>" />
+                        <input type="text" id="frm-title" class="frm-page-title" name="info[title]" value="<?= $this->e($page->title) ?>" />
                     </div>
 
                     <?php

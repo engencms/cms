@@ -77,6 +77,15 @@
             </li>
             </ul>
 
+            <ul class="group">
+            <li class="title">Users</li>
+            <li class="item">
+                <a href="<?= $this->route('engen.logout') ?>">
+                    <span class="icon logout"></span>Log out
+                </a>
+            </li>
+            </ul>
+
         </div>
 
         <div id="content">

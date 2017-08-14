@@ -47,6 +47,9 @@ class ServiceProvider implements ServiceProviderInterface
         });
         $c->alias('Engen\Repos\FilesInterface', 'files');
 
+        $c->singleton('Engen\Libraries\Slugifier');
+        $c->alias('Engen\Libraries\Slugifier', 'slugifier');
+
         // Auth
         $c->singleton('Engen\Services\Auth');
         $c->alias('Engen\Services\Auth', 'auth');

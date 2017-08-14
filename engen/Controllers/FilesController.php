@@ -65,7 +65,7 @@ class FilesController extends BaseController
         $errors = [];
         foreach ($files as $file) {
             $msg = $this->files->upload($file);
-            if (!$msg !== true) {
+            if ($msg !== true) {
                 $errors[] = $file->getClientOriginalName() . " could not be uploaded. Reason: {$msg}";
             }
             $count++;
@@ -76,8 +76,11 @@ class FilesController extends BaseController
         }
 
         if ($errors) {
-            $response->setMessage($errors);
+            $this->session->setFlash('error', $errors);
         }
+
+        $this->session->setFlash('success', 'Files uploaded!');
+
 
         return $response;
     }
