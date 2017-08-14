@@ -1,7 +1,17 @@
 <?php
+
 $adminPrefix =  $app->config->get('admin.url_prefix', 'admin');
 
 $app->router->group(['prefix' => $adminPrefix, 'before' => 'admin_setup'], function ($router) {
+
+    $router->get('/login', 'Engen\Controllers\AuthController@showLogin', [
+        'name' => 'engen.login'
+    ]);
+
+    $router->post('/login', 'Engen\Controllers\AuthController@login', [
+        'name' => 'engen.login.do'
+    ]);
+
     $router->get('/', 'Engen\Controllers\DashboardController@showDashboard', [
         'name' => 'engen.dashboard'
     ]);

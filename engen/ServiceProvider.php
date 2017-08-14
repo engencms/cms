@@ -46,6 +46,10 @@ class ServiceProvider implements ServiceProviderInterface
             );
         });
         $c->alias('Engen\Repos\FilesInterface', 'files');
+
+        // Auth
+        $c->singleton('Engen\Services\Auth');
+        $c->alias('Engen\Services\Auth', 'auth');
     }
 
 
@@ -89,6 +93,10 @@ class ServiceProvider implements ServiceProviderInterface
         // Menus
         $c->singleton('Engen\Repos\MenusInterface', 'Engen\Repos\MenusFileDB');
         $c->alias('Engen\Repos\MenusInterface', 'menus');
+
+        // Users
+        $c->singleton('Engen\Repos\UsersInterface', 'Engen\Repos\UsersFileDB');
+        $c->alias('Engen\Repos\UsersInterface', 'users');
 
         // Menus
         $c->singleton('Engen\Repos\SettingsInterface', 'Engen\Repos\SettingsFileDB');
