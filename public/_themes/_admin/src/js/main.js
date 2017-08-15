@@ -22,21 +22,7 @@ $(function () {
     $('#build-btn').on('click', function (e) {
         e.preventDefault();
 
-        var $form = $("#build-form");
-
-        if ($("#build-form").length == 0) {
-            var url   = $(this).attr('href');
-
-            $form = $('<form id="build-form" />')
-                .attr('action', url)
-                .attr('target', '_blank')
-                .attr('method', 'post');
-
-            $('body').append($form);
-        }
-
-        $form.submit();
-        return;
+        var url   = $(this).attr('href');
 
         $.post(url, function (response) {
             var r = app.response.make(response || false);

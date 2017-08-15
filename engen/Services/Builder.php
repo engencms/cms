@@ -25,8 +25,8 @@ class Builder
         $this->controller = $controller;
         $this->target     = realpath($app->config->get('build.path'));
         $this->perms      = [
-            'dirs'  => $app->config->get('build.permissions.directories', 0775),
-            'files' => $app->config->get('build.permissions.files', 0664),
+            'dirs'  => $app->config->get('build.permissions.directories', 0777),
+            'files' => $app->config->get('build.permissions.files', 0666),
         ];
     }
 

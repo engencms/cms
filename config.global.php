@@ -26,7 +26,7 @@ return [
         'path' => __DIR__ . '/build',
         'permissions' => [
             'directiories' => 0777,
-            'files' => 0777,
+            'files' => 0666,
         ],
         'before' => [],
         'after'  => [],
