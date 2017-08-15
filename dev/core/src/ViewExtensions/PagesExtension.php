@@ -25,7 +25,7 @@ class PagesExtension implements ExtensionInterface
         'pages',
         'pageChildren',
         'pagesRecursive',
-        'pageTemplateDefinition',
+        'pageDefinition',
         'pageTemplates',
         'pageOptions',
     ];
@@ -99,9 +99,9 @@ class PagesExtension implements ExtensionInterface
      * @param  string $template
      * @return array
      */
-    public function pageTemplateDefinition($template)
+    public function pageDefinition($template)
     {
-        return $this->app->templates->getPageTemplateDefinition($template);
+        return $this->app->definitions->getPageDefinition($template);
     }
 
 

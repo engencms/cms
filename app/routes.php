@@ -146,7 +146,7 @@ $app->router->group(['prefix' => $adminPrefix, 'before' => 'admin_setup'], funct
          * Blocks
          * ----------------------------------------------------
          */
-        $router->group(['prefix' => 'block'], function ($router) {
+        $router->group(['prefix' => 'blocks'], function ($router) {
             $router->get('/', 'Engen\Controllers\BlocksController@showBlocks', [
                 'name' => 'engen.blocks'
             ]);

@@ -89,7 +89,7 @@
                     <?php
                     $this->insert('admin::fields/show-fields', [
                         'content' => $page->content,
-                        'fields'  => $this->pageTemplateDefinition($page->template),
+                        'fields'  => $this->pageDefinition($page->template),
                     ])
                     ?>
 

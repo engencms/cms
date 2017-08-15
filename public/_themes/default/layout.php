@@ -38,5 +38,9 @@
 
     <?= $this->section('content') ?>
 
+    <footer id="footer">
+        <?= $this->block('footer', 'copyright') ?>
+    </footer>
+
 </body>
 </html>

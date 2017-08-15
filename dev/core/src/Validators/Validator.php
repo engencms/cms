@@ -129,7 +129,7 @@ class Validator
 
         $rules = [
             'name'    => ['required', 'minLength:2', 'noTrailingWhiteSpace'],
-            'key'     => ['required', 'minLength:1', 'blockKey', "uniqueBlockKey:{$blockId}"],
+            'key'     => ['required', 'minLength:1', 'noTrailingWhiteSpace', "uniqueBlockKey:{$blockId}"],
         ];
 
         $v = $this->validator->make($data, $rules);

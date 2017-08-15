@@ -9,21 +9,21 @@
 
             <div class="form-item">
                 <label for="frm-name">Name</label>
-                <input type="text" id="frm-name" class="frm-block-name" name="info[name]" value="<?= $this->e($block->name) ?>" />
+                <input type="text" id="frm-name" class="frm-block-name" name="name" value="<?= $this->e($block->name) ?>" />
             </div>
 
             <div class="form-columns col-1-2">
 
                 <div class="form-item">
                     <label for="frm-key">Key</label>
-                    <input type="text" id="frm-name" class="frm-block-key" name="info[key]" value="<?= $this->e($block->key) ?>" />
+                    <input type="text" id="frm-key" class="frm-block-key" name="key" value="<?= $this->e($block->key) ?>" />
                 </div>
 
                 <div class="form-item">
-                    <label for="frm-definition">Definition</label>
-                    <select id="frm-definition" name="info[definition]">>
+                    <label for="frm-definition">Block templates</label>
+                    <select id="frm-definition" name="definition">>
                         <option value="">Select a definition file</option>
-                        <?php foreach ([] as $definition): ?>
+                        <?php foreach ($this->blockDefinitions() as $definition): ?>
 
                         <option value="<?= $definition ?>" <?= $block->definition == $definition ? 'selected' : '' ?>>
                             <?= $definition ?>
@@ -38,7 +38,7 @@
             <?php
             $this->insert('admin::fields/show-fields', [
                 'content' => $block->content,
-                'fields'  => [], //$this->blockTemplateDefinition($block->template),
+                'fields'  => $this->blockDefinition($block->definition),
             ])
             ?>
 

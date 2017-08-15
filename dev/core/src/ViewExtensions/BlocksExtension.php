@@ -22,7 +22,10 @@ class BlocksExtension implements ExtensionInterface
      * @var array
      */
     protected $methods = [
+        'block',
         'blocks',
+        'blockDefinition',
+        'blockDefinitions',
     ];
 
 
@@ -52,6 +55,22 @@ class BlocksExtension implements ExtensionInterface
 
 
     /**
+     * Get a block by key
+     *
+     * @return array
+     */
+    public function block($blockKey, $key = null, $fallback = null)
+    {
+        $block = $this->app->blocks->getBlockByKey($blockKey);
+        if (!$block || is_null($blockKey)) {
+            return $block;
+        }
+
+        return $block->content($key, $fallback);
+    }
+
+
+    /**
      * Get all blocks
      *
      * @return array
@@ -59,5 +78,28 @@ class BlocksExtension implements ExtensionInterface
     public function blocks()
     {
         return $this->app->blocks->getBlocks();
+    }
+
+
+    /**
+     * Get a block definition
+     *
+     * @param  string $template
+     * @return array
+     */
+    public function blockDefinition($template)
+    {
+        return $this->app->definitions->getBlockDefinition($template);
+    }
+
+
+    /**
+     * Get all block definitions
+     *
+     * @return array
+     */
+    public function blockDefinitions()
+    {
+        return $this->app->definitions->getBlockDefinitions();
     }
 }

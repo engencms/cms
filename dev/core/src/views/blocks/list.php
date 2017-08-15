@@ -14,9 +14,9 @@
 
             <div class="header">
 
-                <div class="prop"></div>
                 <div class="prop">Name</div>
                 <div class="prop key">Key</div>
+                <div class="prop template">Template</div>
                 <div class="prop date">Created</div>
 
             </div>
@@ -33,6 +33,10 @@
 
                 <div class="prop key">
                     <?= $this->e($item->key) ?>
+                </div>
+
+                <div class="prop key">
+                    <?= $this->e($item->definition) ?>
                 </div>
 
                 <div class="prop date"><?= $item->date('created', 'Y-m-d H:i:s') ?></div>

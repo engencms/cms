@@ -22,11 +22,14 @@ class ServiceProvider implements ServiceProviderInterface
         $this->parsers($c);
 
         $c->singleton('Engen\Services\Templates', function ($c) {
-            return new \Engen\Services\Templates(
-                $c->config->get('views.path')
-            );
+            return new \Engen\Services\Templates($c->config->get('views.path') . '/templates');
         });
         $c->alias('Engen\Services\Templates', 'templates');
+
+        $c->singleton('Engen\Services\Definitions', function ($c) {
+            return new \Engen\Services\Definitions($c->config->get('views.path') . '/definitions');
+        });
+        $c->alias('Engen\Services\Definitions', 'definitions');
 
         $c->singleton('Enstart\Validator\ValidatorInterface', function ($c) {
             $v = new \Enstart\Validator\Validator();
