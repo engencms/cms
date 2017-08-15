@@ -51,6 +51,11 @@
                     <span class="icon pages"></span>Pages
                 </a>
             </li>
+            <li class="item <?= $this->uriStart($this->route('engen.blocks'), 'current') ?>">
+                <a href="<?= $this->route('engen.blocks') ?>">
+                    <span class="icon blocks"></span>Blocks
+                </a>
+            </li>
             <li class="item <?= $this->uriStart($this->route('engen.files'), 'current') ?>">
                 <a href="<?= $this->route('engen.files') ?>">
                     <span class="icon files"></span>Files

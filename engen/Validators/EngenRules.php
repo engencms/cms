@@ -5,15 +5,27 @@ use Maer\Validator\Rules\Ruleset;
 
 class EngenRules extends Ruleset
 {
+    /**
+     * @var App
+     */
     protected $app;
 
 
+    /**
+     * @param App $app
+     */
     public function __construct(App $app)
     {
         $this->app = $app;
     }
 
 
+    /**
+     * Check if the input starts or ends wihth white spaces
+     *
+     * @param  string $input
+     * @return true|string
+     */
     public function ruleNoTrailingWhiteSpace($input)
     {
         if (trim($input) === $input) {
@@ -24,6 +36,12 @@ class EngenRules extends Ruleset
     }
 
 
+    /**
+     * Validate a url slug
+     *
+     * @param  string $slug
+     * @return true|string
+     */
     public function ruleSlug($slug)
     {
         if (preg_match('/^([\w\-]+)$/', $slug) === 1) {
@@ -34,6 +52,14 @@ class EngenRules extends Ruleset
     }
 
 
+    /**
+     * Checl if the url slug already exists with the same parent
+     *
+     * @param  string $slug
+     * @param  string $pageId
+     * @param  string $parentId
+     * @return true|string
+     */
     public function ruleUniqueSlug($slug, $pageId, $parentId = null)
     {
         $parentId = empty($parentId) ? null : $parentId;
@@ -50,6 +76,12 @@ class EngenRules extends Ruleset
     }
 
 
+    /**
+     * Validate a page key
+     *
+     * @param  string $key
+     * @return true|string
+     */
     public function rulePageKey($key)
     {
         if (preg_match('/^([\w\-]+)$/', $key) === 1) {
@@ -60,16 +92,30 @@ class EngenRules extends Ruleset
     }
 
 
+
+    /**
+     * Check if the page key is unique
+     *
+     * @param  string $key
+     * @param  string $pageId
+     * @return true|string
+     */
     public function ruleUniquePageKey($key, $pageId = null)
     {
         $page = $this->app->pages->getPageByKey($key);
 
         return !$page || $page->id == $pageId
             ? true
-            : "There already is a page with this key";
+            : "There's already is a page with this key";
     }
 
 
+    /**
+     * Validate menu key
+     *
+     * @param  string $key
+     * @return true|string
+     */
     public function ruleMenuKey($key)
     {
         if (preg_match('/^([\w\-]+)$/', $key) === 1) {
@@ -80,6 +126,13 @@ class EngenRules extends Ruleset
     }
 
 
+    /**
+     * Check if the menu key is unique
+     *
+     * @param  string $key
+     * @param  string $menuId
+     * @return true|string
+     */
     public function ruleUniqueMenuKey($key, $menuId = null)
     {
         $menu = $this->app->menus->getMenuByKey($key);
@@ -89,6 +142,14 @@ class EngenRules extends Ruleset
             : "There already is a menu with this key";
     }
 
+
+    /**
+     * Check if the username is unique
+     *
+     * @param  string $username
+     * @param  string $id
+     * @return true|string
+     */
     public function ruleUniqueUserUsername($username, $id = null)
     {
         $user = $this->app->users->getUserByUsername($username);
@@ -98,6 +159,14 @@ class EngenRules extends Ruleset
             : "The username is already taken";
     }
 
+
+    /**
+     * Check if the user email is unique
+     *
+     * @param  string $email
+     * @param  string $id
+     * @return true|string
+     */
     public function ruleUniqueUserEmail($email, $id = null)
     {
         $user = $this->app->users->getUserByEmail($email);
@@ -107,10 +176,34 @@ class EngenRules extends Ruleset
             : "The email address is already registered";
     }
 
+
+    /**
+     * Validate password
+     *
+     * @param  string $password
+     * @return true|string
+     */
     public function rulePassword($password)
     {
         return strlen($password) >= 5
             ? true
             : "The password must contain at least 8 characters";
+    }
+
+
+    /**
+     * Check if the block key is unique
+     *
+     * @param  string $key
+     * @param  string $blockId
+     * @return true|string
+     */
+    public function ruleUniqueBlockKey($key, $blockId = null)
+    {
+        $block = $this->app->blocks->getBlockByKey($key);
+
+        return !$block || $block->id == $blockId
+            ? true
+            : "There's already is a block with this key";
     }
 }

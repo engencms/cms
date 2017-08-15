@@ -16,6 +16,7 @@ return [
         'extensions' => [
             'Engen\ViewExtensions\EngenExtension',
             'Engen\ViewExtensions\PagesExtension',
+            'Engen\ViewExtensions\BlocksExtension',
             'Engen\ViewExtensions\MenusExtension',
             'Engen\ViewExtensions\UsersExtension',
             'Engen\ViewExtensions\FilesExtension',

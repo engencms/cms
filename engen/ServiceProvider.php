@@ -93,6 +93,15 @@ class ServiceProvider implements ServiceProviderInterface
         });
         $c->alias('Engen\Repos\PagesInterface', 'pages');
 
+        // Pages
+        $c->singleton('Engen\Repos\BlocksInterface', function ($c) {
+            return new \Engen\Repos\BlocksFileDB(
+                $c->make('Maer\FileDB\FileDB'),
+                $c->app->path('data') . '/blocks'
+            );
+        });
+        $c->alias('Engen\Repos\BlocksInterface', 'blocks');
+
         // Menus
         $c->singleton('Engen\Repos\MenusInterface', 'Engen\Repos\MenusFileDB');
         $c->alias('Engen\Repos\MenusInterface', 'menus');

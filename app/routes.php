@@ -143,6 +143,32 @@ $app->router->group(['prefix' => $adminPrefix, 'before' => 'admin_setup'], funct
         });
 
         /**
+         * Blocks
+         * ----------------------------------------------------
+         */
+        $router->group(['prefix' => 'block'], function ($router) {
+            $router->get('/', 'Engen\Controllers\BlocksController@showBlocks', [
+                'name' => 'engen.blocks'
+            ]);
+
+            $router->post('/save', 'Engen\Controllers\BlocksController@saveBlock', [
+                'name' => 'engen.blocks.save'
+            ]);
+
+            $router->get('/new', 'Engen\Controllers\BlocksController@newBlock', [
+                'name' => 'engen.blocks.new'
+            ]);
+
+            $router->get('/slugify-key', 'Engen\Controllers\BlocksController@slugifyKey', [
+                'name' => 'engen.blocks.slugify.key'
+            ]);
+
+            $router->get('/(:any)', 'Engen\Controllers\BlocksController@editBlock', [
+                'name' => 'engen.blocks.edit'
+            ]);
+        });
+
+        /**
          * Actions
          * ----------------------------------------------------
          */
