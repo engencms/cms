@@ -79,6 +79,11 @@
 
             <ul class="group">
             <li class="title">Users</li>
+            <li class="item <?= $this->uriStart($this->route('engen.users'), 'current') ?>">
+                <a href="<?= $this->route('engen.users') ?>">
+                    <span class="icon users"></span>Users
+                </a>
+            </li>
             <li class="item">
                 <a href="<?= $this->route('engen.logout') ?>">
                     <span class="icon logout"></span>Log out

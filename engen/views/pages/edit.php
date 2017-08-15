@@ -1,6 +1,6 @@
 <?php $this->layout('admin::layout') ?>
 
-    <form method="post" action="<?= $this->route('engen.pages.save') ?>" id="form-edit-page" data-ajaxform="page-edit" data-ajaxform-button="edit-page-submit">
+    <form method="post" action="<?= $this->route('engen.pages.save') ?>" id="form-edit-page" data-ajaxform="page-edit" data-ajaxform-button="edit-page-submit" target="_blank">
 
         <input type="hidden" name="id" id="frm-id" value="<?= $page->id ?>" />
         <input type="hidden" name="token" value="<?= $this->csrfToken('edit-page') ?>" />
@@ -93,7 +93,6 @@
                     ])
                     ?>
 
-
                 </div>
 
             </div>
@@ -103,6 +102,10 @@
         <div id="form-actions">
             <button type="submit" class="confirm" id="edit-page-submit">
                 <span>Save</span>
+            </button>
+
+            <button type="button" class="right" id="edit-page-preview" data-form-id="form-edit-page" data-url="<?= $this->route('engen.pages.preview') ?>">
+                <span>Preview</span>
             </button>
         </div>
 

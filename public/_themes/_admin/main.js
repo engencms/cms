@@ -11587,7 +11587,23 @@ $(function () {
 
     $('#build-btn').on('click', function (e) {
         e.preventDefault();
-        var url = $(this).attr('href');
+
+        var $form = $("#build-form");
+
+        if ($("#build-form").length == 0) {
+            var url   = $(this).attr('href');
+
+            $form = $('<form id="build-form" />')
+                .attr('action', url)
+                .attr('target', '_blank')
+                .attr('method', 'post');
+
+            $('body').append($form);
+        }
+
+        $form.submit();
+        return;
+
         $.post(url, function (response) {
             var r = app.response.make(response || false);
             if (r.success()) {
@@ -11607,6 +11623,32 @@ app.delete = {
         if (confirm('Are you sure you want to delete this item?\nThis cannot be undone!')) {
             var data = {
                 ref:   $this.data('ref'),
+                token: $this.data('token')
+            };
+
+            $.post($this.attr('href'), data, function (r) {
+                var r = app.response.make(r);
+
+                if (r.success()) {
+                    successCallback.call(this, r);
+                    return;
+                }
+
+                var errors = r.hasErrors()
+                    ? r.errors()
+                    : ['Unknown error'];
+
+                app.notify.error(errors);
+            }, 'json').fail(function () {
+                app.notify.error('An unknow server error occurred');
+            });
+        }
+    },
+
+    items: function ($this, refs, successCallback) {
+        if (confirm('Are you sure you want to delete these items?\nThis cannot be undone!')) {
+            var data = {
+                ref: refs,
                 token: $this.data('token')
             };
 
@@ -11711,6 +11753,10 @@ app.ajaxform = (function () {
     function ajaxForm($form)
     {
         $form.on('submit', function (e) {
+            if ($(this).data('disable-ajax') == '1') {
+                return;
+            }
+
             e.preventDefault();
             submit();
         });
@@ -11923,6 +11969,52 @@ $(function () {
             createPageKey(title, id, $("#frm-key"));
         }
     });
+
+    $('.frm-page-slug').on('blur', function () {
+        var title  = $('#frm-title').val();
+        var slug   = $(this).val();
+        var id     = $('#frm-id').val();
+        var parent = $('#frm-parent_id').val();
+
+        var text = slug;
+
+        if (slug == '' && title == '') {
+            return;
+        }
+
+        if (slug == '' && title != '') {
+            text = title;
+        }
+
+        createPageSlug(text, id, parent, $(this));
+    });
+
+    $('.frm-page-key').on('blur', function () {
+        var title  = $('#frm-title').val();
+        var key    = $(this).val();
+        var id     = $('#frm-id').val();
+
+        if (key == '') {
+            createPageKey(title, id, $(this));
+        }
+    });
+
+    $('#edit-page-preview').on('click', function (e) {
+        e.preventDefault();
+        var $this   = $(this);
+        var newUrl  = $this.data('url');
+        var $form   = $('#' + $this.data('form-id'));
+        var realUrl = $form.attr('action');
+
+        $form.attr('action', newUrl);
+        $form.data('disable-ajax', 1);
+
+        $form.submit();
+
+        $form.attr('action', realUrl);
+        $form.data('disable-ajax', 0);
+    });
+
 });
 
 function createPageSlug(text, pageId, parentId, $slug)
@@ -11973,6 +12065,35 @@ $(function () {
     });
 });;
 $(function () {
+    app.ajaxform.callback('user-edit', {
+        before: function ($btn) {
+            app.formStatus.disableButton($btn);
+        },
+
+        done: function (r, $btn) {
+            if (r.success()) {
+                location.href = r.data();
+                return;
+            }
+
+            var errors = r.hasErrors()
+                ? r.errors()
+                : ['Unknown error'];
+
+            app.notify.error(errors);
+        },
+
+        fail: function () {
+            app.notify.error('An unknown server error occrurred');
+        },
+
+        always: function (response, $btn) {
+            app.formStatus.enableButton($btn);
+        }
+    });
+});
+;
+$(function () {
     $('#add-files-btn').on('click', function (e) {
         e.preventDefault();
 
@@ -11980,6 +12101,37 @@ $(function () {
         var token    = $(this).data('token');
 
         app.upload.fileSelect(url, token);
+    });
+
+    $('#toggle-file-list-select').on('click', function () {
+        var toggle   = $(this).prop('checked');
+        var $checked = $('input[name="selected[]"]:checked');
+
+        if (!toggle) {
+            $checked.prop('checked', false);
+            return;
+        }
+
+        $('input[name="selected[]"]').prop('checked', true);
+
+    });
+
+    $('#files-delete-selected').on('click', function (e) {
+        e.preventDefault();
+        var $checked = $('input[name="selected[]"]:checked');
+        var files    = [];
+
+        if ($checked.length == 0) {
+            return;
+        }
+
+        files = $checked.map(function(){
+            return $(this).val();
+        }).get();
+
+        app.delete.items($(this), files, function (r) {
+            location.reload();
+        });
     });
 });
 

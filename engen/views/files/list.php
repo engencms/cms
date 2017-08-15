@@ -14,6 +14,9 @@
 
             <div class="header">
 
+                <div class="prop checkbox">
+                    <input type="checkbox" id="toggle-file-list-select" />
+                </div>
                 <div class="prop"></div>
                 <div class="prop">File</div>
                 <div class="prop file-info">Info</div>
@@ -25,6 +28,10 @@
             <?php foreach ($this->files() as $item): ?>
 
             <div class="item">
+
+                <div class="prop checkbox">
+                    <input type="checkbox" value="<?= $item->name ?>" name="selected[]" />
+                </div>
 
                 <div class="prop thumb">
                     <?php if($item->realType() == 'image'): ?>
@@ -77,6 +84,10 @@
             </div>
 
             <?php endforeach ?>
+
+            <div class="footer">
+                <a href="<?= $this->route('engen.files.delete') ?>" data-token="<?= $this->csrfToken('delete-file') ?>" id="files-delete-selected">Delete selected</a>
+            </div>
 
         </div>
 

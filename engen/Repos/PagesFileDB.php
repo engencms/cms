@@ -92,6 +92,23 @@ class PagesFileDB implements PagesInterface
 
 
     /**
+     * Get the page with slug and parent
+     *
+     * @param  string $slug
+     * @param  string $parentId
+     * @return array
+     */
+    public function getPageWithSlugAndParent($slug, $parentId)
+    {
+        return $this->db->pages
+            ->where('slug', $slug)
+            ->where('parent_id', $parentId)
+            ->asObj('Engen\Entities\Page')
+            ->first();
+    }
+
+
+    /**
      * Get a page by id
      *
      * @param  integer $id

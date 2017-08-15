@@ -15,6 +15,13 @@
         }
     }
 
+    .footer {
+        caption-side: bottom;
+        display: table-caption;
+        background-color: #fff;
+        padding: 10px 20px;
+    }
+
     .prop {
         position: relative;
         padding: 10px;
@@ -26,6 +33,16 @@
 
         &.last-child {
             padding-right: 0;
+        }
+
+        &.checkbox {
+            width: 20px;
+
+            input[type="checkbox"] {
+                border: solid 1px #ccc;
+                margin: 0;
+                padding: 0;
+            }
         }
     }
 
@@ -101,6 +118,10 @@
                 width: 50px;
                 text-align: right;
             }
+
+            &.thumb {
+                width: 35px;
+            }
         }
 
         &:hover {
@@ -119,4 +140,31 @@
             cursor: move;
         }
     }
+
+    &#users-list {
+        .item {
+            .prop {
+                vertical-align: top;
+
+                &.thumb {
+                    img {
+                        border-radius: 50%;
+                    }
+                }
+
+                &.name {
+                    a {
+                        font-weight: 700;
+                    }
+                }
+            }
+
+            &.me {
+                .prop:first-child {
+                    border-left: solid 3px #3FC380;
+                }
+            }
+        }
+    }
 }
+

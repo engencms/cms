@@ -130,21 +130,14 @@ class PagesController extends BaseController
 
         $slug   = $text;
         $i      = 2;
-        $exists = true;
 
-        while ($exists) {
-            $pages = $this->app->pages->getPagesWithSlug($slug);
-            if (!$pages) {
+        while ($page = $this->app->pages->getPageWithSlugAndParent($slug, $parentId)) {
+            if ($page->id == $pageId) {
                 break;
             }
 
-            foreach ($pages as $page) {
-                if ($page->id != $pageId && $page->parent_id == $parentId) {
-                    $slug = $text . '-' . $i;
-                    $i++;
-                    break;
-                }
-            }
+            $slug = $text . '-' . $i;
+            $i++;
         }
 
         return $response->setData($slug);
@@ -161,12 +154,17 @@ class PagesController extends BaseController
         $response = $this->makeJsonEntity();
 
         $text     = $this->request->get('text');
+        $pageId   = $this->request->get('page_id');
         $text     = $this->slugifier->slugify($text);
 
         $key      = $text;
         $i        = 2;
 
         while ($page = $this->pages->getPageByKey($key)) {
+            if ($page->id == $pageId) {
+                break;
+            }
+
             $key = $text . '-' . $i;
             $i++;
         }

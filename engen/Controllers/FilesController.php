@@ -34,13 +34,34 @@ class FilesController extends BaseController
         $token = $this->request->post('token');
 
         if (!$this->csrf->validateToken($token, 'delete-file')) {
-            return $response->addError('Invalid call. Update your page and try again.');
+            return $response->setError('Invalid call. Update your page and try again.');
         }
 
-        $result = $this->files->deleteFile($file);
+        if (is_null($file) || $file == '') {
+            return $response->setError('No files were selected');
+        }
+
+        $deleteCount = 0;
+
+        if (is_array($file)) {
+            foreach ($file as $f) {
+                $result = $this->files->deleteFile($f);
+                if ($result === true) {
+                    $deleteCount++;
+                }
+            }
+        } else {
+            $result = $this->files->deleteFile($file);
+            if ($result === true) {
+                $deleteCount++;
+            }
+        }
 
         if (true !== $result) {
             return $response->setError($result);
+        } else {
+            $files = $deleteCount . ' ' . ($deleteCount == 1 ? 'file' : 'files');
+            $this->session->setFlash('success', "Successfuly deleted {$files}");
         }
 
         return $response;

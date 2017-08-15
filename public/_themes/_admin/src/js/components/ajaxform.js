@@ -58,6 +58,10 @@ app.ajaxform = (function () {
     function ajaxForm($form)
     {
         $form.on('submit', function (e) {
+            if ($(this).data('disable-ajax') == '1') {
+                return;
+            }
+
             e.preventDefault();
             submit();
         });

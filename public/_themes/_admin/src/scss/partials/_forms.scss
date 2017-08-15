@@ -3,6 +3,12 @@
     padding: 0 0 25px 0;
 }
 
+.form-description {
+    position: relative;
+    padding: 0 0 25px 0;
+    margin: 0;
+}
+
 input[type='color'], input[type='date'], input[type='datetime-local'],
 input[type='email'], input[type='number'], input[type='password'],
 input[type='search'], input[type='tel'], input[type='text'], input[type='time'],
@@ -120,7 +126,15 @@ label {
                 visibility: hidden;
             }
         }
+
+        &.right {
+            margin-left: auto;
+        }
     }
+}
+
+#form-page-preview {
+    display: none;
 }
 
 h2.form-heading {

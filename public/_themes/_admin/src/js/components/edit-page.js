@@ -41,6 +41,52 @@ $(function () {
             createPageKey(title, id, $("#frm-key"));
         }
     });
+
+    $('.frm-page-slug').on('blur', function () {
+        var title  = $('#frm-title').val();
+        var slug   = $(this).val();
+        var id     = $('#frm-id').val();
+        var parent = $('#frm-parent_id').val();
+
+        var text = slug;
+
+        if (slug == '' && title == '') {
+            return;
+        }
+
+        if (slug == '' && title != '') {
+            text = title;
+        }
+
+        createPageSlug(text, id, parent, $(this));
+    });
+
+    $('.frm-page-key').on('blur', function () {
+        var title  = $('#frm-title').val();
+        var key    = $(this).val();
+        var id     = $('#frm-id').val();
+
+        if (key == '') {
+            createPageKey(title, id, $(this));
+        }
+    });
+
+    $('#edit-page-preview').on('click', function (e) {
+        e.preventDefault();
+        var $this   = $(this);
+        var newUrl  = $this.data('url');
+        var $form   = $('#' + $this.data('form-id'));
+        var realUrl = $form.attr('action');
+
+        $form.attr('action', newUrl);
+        $form.data('disable-ajax', 1);
+
+        $form.submit();
+
+        $form.attr('action', realUrl);
+        $form.data('disable-ajax', 0);
+    });
+
 });
 
 function createPageSlug(text, pageId, parentId, $slug)

@@ -1,6 +1,7 @@
 <?php namespace Engen\Repos;
 
 use Engen\Entities\User;
+use Engen\Libraries\Security;
 use Maer\FileDB\FileDB;
 
 class UsersFileDB implements UsersInterface
@@ -9,6 +10,11 @@ class UsersFileDB implements UsersInterface
      * @var FileDB
      */
     protected $db;
+
+    /**
+     * @var Security
+     */
+    protected $sec;
 
     /**
      * List of users
@@ -20,9 +26,10 @@ class UsersFileDB implements UsersInterface
     /**
      * @param FileDB $db
      */
-    public function __construct(FileDB $db)
+    public function __construct(FileDB $db, Security $sec)
     {
-        $this->db = $db;
+        $this->db  = $db;
+        $this->sec = $sec;
     }
 
 
@@ -106,6 +113,10 @@ class UsersFileDB implements UsersInterface
             $data['created'] = time();
         }
 
+        if (!empty($data['password'])) {
+            $data['password'] = $this->sec->hashPassword($data['password']);
+        }
+
         $data = array_replace($user->toArray(['id']), $data);
 
         if ($this->db->users->where('id', $id)->update($data) < 1) {
@@ -131,6 +142,8 @@ class UsersFileDB implements UsersInterface
         if ($user->created == 0) {
             $user->created = time();
         }
+
+        $user->password = $this->sec->hashPassword($user->password);
 
         if (!$id = $this->db->users->insert($user->toArray(['id']))) {
             return false;

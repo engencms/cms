@@ -7,6 +7,37 @@ $(function () {
 
         app.upload.fileSelect(url, token);
     });
+
+    $('#toggle-file-list-select').on('click', function () {
+        var toggle   = $(this).prop('checked');
+        var $checked = $('input[name="selected[]"]:checked');
+
+        if (!toggle) {
+            $checked.prop('checked', false);
+            return;
+        }
+
+        $('input[name="selected[]"]').prop('checked', true);
+
+    });
+
+    $('#files-delete-selected').on('click', function (e) {
+        e.preventDefault();
+        var $checked = $('input[name="selected[]"]:checked');
+        var files    = [];
+
+        if ($checked.length == 0) {
+            return;
+        }
+
+        files = $checked.map(function(){
+            return $(this).val();
+        }).get();
+
+        app.delete.items($(this), files, function (r) {
+            location.reload();
+        });
+    });
 });
 
 app.upload = (function () {

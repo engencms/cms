@@ -16,7 +16,6 @@ class Validator
         $parentId = $data['parent_id'] ?? null;
         $id       = $id ?? 0;
 
-
         $rules = [
             'title'   => ['required', 'minLength:1', 'noTrailingWhiteSpace'],
             'slug'    => ['required', 'minLength:1', 'slug', "uniqueSlug:{$id},{$parentId}"],
@@ -51,6 +50,29 @@ class Validator
         ];
 
         $v = $this->validator->make($item, $rules);
+
+        return $v->passes() ?: $v->errors()->all();
+    }
+
+    public function user(array $data, $id = null)
+    {
+        $id       = $id ?? 0;
+
+        $rules = [
+            'username'   => ['required', 'minLength:1', 'noTrailingWhiteSpace', "uniqueUserUsername:{$id}"],
+            'email'      => ['required', 'email', "uniqueUserEmail:{$id}"],
+            'first_name' => ['required', 'minLength:1', 'noTrailingWhiteSpace'],
+            'last_name'  => ['allowEmpty', 'minLength:1', 'noTrailingWhiteSpace'],
+        ];
+
+        $p1 = $data['p1'] ?? null;
+
+        if (!$id || !empty($p1)) {
+            $rules['password']         = ['required', 'noTrailingWhiteSpace', 'password'];
+            $rules['password_confirm'] = ['required', 'same:password'];
+        }
+
+        $v = $this->validator->make($data, $rules);
 
         return $v->passes() ?: $v->errors()->all();
     }

@@ -18,6 +18,10 @@ $app->router->group(['prefix' => $adminPrefix, 'before' => 'admin_setup'], funct
             'name' => 'engen.dashboard'
         ]);
 
+        $router->get('/logout', 'Engen\Controllers\AuthController@logout', [
+            'name' => 'engen.logout'
+        ]);
+
         /**
          * Pages
          * ----------------------------------------------------
@@ -43,6 +47,10 @@ $app->router->group(['prefix' => $adminPrefix, 'before' => 'admin_setup'], funct
             // Slugify the page key
             $router->get('/slugify-key', 'Engen\Controllers\PagesController@slugifyKey', [
                 'name' => 'engen.pages.slugify.key'
+            ]);
+
+            $router->post('/preview', 'App\Controllers\HomeController@preview', [
+                'name' => 'engen.pages.preview'
             ]);
 
             $router->get('/(:any)', 'Engen\Controllers\PagesController@editPage', [
@@ -113,8 +121,24 @@ $app->router->group(['prefix' => $adminPrefix, 'before' => 'admin_setup'], funct
          * ----------------------------------------------------
          */
         $router->group(['prefix' => 'users'], function ($router) {
-            $router->get('logout', 'Engen\Controllers\AuthController@logout', [
-                'name' => 'engen.logout'
+            $router->get('/', 'Engen\Controllers\UsersController@showUsers', [
+                'name' => 'engen.users'
+            ]);
+
+            $router->get('/new', 'Engen\Controllers\UsersController@showNew', [
+                'name' => 'engen.users.new'
+            ]);
+
+            $router->post('/save', 'Engen\Controllers\UsersController@saveUser', [
+                'name' => 'engen.users.save'
+            ]);
+
+            $router->post('/delete', 'Engen\Controllers\UsersController@deleteUser', [
+                'name' => 'engen.users.delete'
+            ]);
+
+            $router->get('/(:any)', 'Engen\Controllers\UsersController@editUser', [
+                'name' => 'engen.users.edit'
             ]);
         });
 

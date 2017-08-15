@@ -17,6 +17,7 @@ return [
             'Engen\ViewExtensions\EngenExtension',
             'Engen\ViewExtensions\PagesExtension',
             'Engen\ViewExtensions\MenusExtension',
+            'Engen\ViewExtensions\UsersExtension',
             'Engen\ViewExtensions\FilesExtension',
         ],
     ],
@@ -24,8 +25,8 @@ return [
     'build' => [
         'path' => __DIR__ . '/build',
         'permissions' => [
-            'directiories' => 0775,
-            'files' => 0664,
+            'directiories' => 0777,
+            'files' => 0777,
         ],
         'before' => [],
         'after'  => [],

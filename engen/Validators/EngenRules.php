@@ -88,4 +88,29 @@ class EngenRules extends Ruleset
             ? true
             : "There already is a menu with this key";
     }
+
+    public function ruleUniqueUserUsername($username, $id = null)
+    {
+        $user = $this->app->users->getUserByUsername($username);
+
+        return !$user || $user->id == $id
+            ? true
+            : "The username is already taken";
+    }
+
+    public function ruleUniqueUserEmail($email, $id = null)
+    {
+        $user = $this->app->users->getUserByEmail($email);
+
+        return !$user || $user->id == $id
+            ? true
+            : "The email address is already registered";
+    }
+
+    public function rulePassword($password)
+    {
+        return strlen($password) >= 5
+            ? true
+            : "The password must contain at least 8 characters";
+    }
 }

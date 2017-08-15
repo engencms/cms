@@ -10,9 +10,13 @@ class BuildController extends BaseController
     public function build()
     {
         define('IS_BUILD', true);
-        $builder = $this->container->make('Engen\Services\Builder');
-        $builder->build();
+        $response = $this->makeJsonEntity();
 
-        return $this->makeJsonEntity();
+        $builder = $this->container->make('Engen\Services\Builder');
+        if (!$builder->build()) {
+            $response->setError($builder->getError() ?: 'Unknown error occurred');
+        }
+
+        return $response;
     }
 }

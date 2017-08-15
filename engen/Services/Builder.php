@@ -129,7 +129,9 @@ class Builder
             mkdir($path, $this->perms['dirs'], true);
         }
 
-        return file_put_contents($path . '/index.html', $content) > 0;
+        if (file_put_contents($path . '/index.html', $content) > 0) {
+            chmod($path . '/index.html', $this->perms['files']);
+        }
     }
 
 
