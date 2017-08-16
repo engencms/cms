@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="<?= $this->themeAsset('/main.css')?>" />
 </head>
 <body>
+<div id="wrapper">
 
     <header id="header">
         <div class="inner">
@@ -35,12 +36,14 @@
         </div>
     </header>
 
-
-    <?= $this->section('content') ?>
+    <div id="middle">
+        <?= $this->section('content') ?>
+    </div>
 
     <footer id="footer">
         <?= $this->block('footer', 'copyright') ?>
     </footer>
 
+</div>
 </body>
 </html>

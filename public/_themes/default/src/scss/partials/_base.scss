@@ -61,6 +61,25 @@ a {
 * LAYOUT
 * --------------------------------------
 */
+#wrapper {
+    position: relative;
+    min-height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#header {
+    flex: 0 0 auto;
+}
+
+#middle {
+    flex: 1 1 auto;
+}
+
+#footer {
+    flex-shrink: 1;
+}
 
 #hero {
     position: relative;
