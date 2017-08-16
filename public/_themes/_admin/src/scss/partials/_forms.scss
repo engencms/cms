@@ -9,6 +9,38 @@
     margin: 0;
 }
 
+.form-group {
+    position: relative;
+    padding: 0;
+    border-left: solid 5px #ddd;
+
+    .group-title {
+        position: relative;
+        padding: 10px;
+        background-color: #ddd;
+        font-weight: 700;
+        color: #222;
+        text-transform: uppercase;
+    }
+
+    .group-content {
+        position: relative;
+        padding: 20px;
+        border-bottom: solid 5px #eee;
+        border: solid 1px #ddd;
+        background-color: #fff;
+        margin: 10px 0 10px 10px;
+
+        &:last-child {
+            border-bottom: 0;
+        }
+    }
+
+    .form-item:last-child {
+        padding-bottom: 0;
+    }
+}
+
 input[type='color'], input[type='date'], input[type='datetime-local'],
 input[type='email'], input[type='number'], input[type='password'],
 input[type='search'], input[type='tel'], input[type='text'], input[type='time'],
