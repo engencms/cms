@@ -35,6 +35,8 @@ $(function () {
             app.notify.error('A request error occurred');
         });
     });
+
+    makeSortable();
 });
 
 app.delete = {
@@ -113,3 +115,23 @@ app.formStatus = {
         $btn.prop('disabled', false);
     }
 };
+
+function makeSortable()
+{
+    var $sorts = $(".sortable");
+
+    if ($sorts.length > 0) {
+        $.each($sorts, function (i, el) {
+            var sortable = new Sortable(el, {
+                sort: true,  // sorting inside list
+                delay: 0, // time in milliseconds to define when the sorting should start
+                disabled: false, // Disables the sortable if set to true.
+                store: null,  // @see Store
+                animation: 150,  // ms, animation speed moving items when sorting, `0` — without animation
+                handle: ".sortable-item",  // Drag handle selector within list items
+                draggable: ".sortable-item",  // Specifies which items inside the element should be draggable
+                scroll: true, // or HTMLElement
+            });
+        });
+    }
+}

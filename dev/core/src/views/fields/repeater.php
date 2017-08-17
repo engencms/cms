@@ -6,7 +6,7 @@
 
 ?>
 
-    <div class="form-group">
+    <div class="form-group sortable">
 
         <div class="group-title"><?= $field['label'] ?? 'Repeater' ?></div>
 
@@ -17,7 +17,7 @@
 
             ?>
 
-            <div class="group-content">
+            <div class="group-content sortable-item">
 
             <?php
 
@@ -41,6 +41,30 @@
             endfor;
             ?>
 
+            <a href="#" id="add-field-btn" data-template="field-template-<?= $key ?>">+ Add field</a>
+
         </div>
+
+        <script type="text/template" id="field-template-<?= $key ?>">
+            <div class="group-content">
+
+            <?php
+
+            foreach ($field['fields'] as $k => $f):
+
+                $this->insert('admin::fields/' . $f['type'], [
+                    'field'    => $f,
+                    'key'      => $k,
+                    'value'    => null,
+                    'name'     => "{$name}[{$k}][]",
+                    'id'       => '',
+                ]);
+
+            endforeach;
+
+            ?>
+
+            </div>
+        </script>
 
     </div>

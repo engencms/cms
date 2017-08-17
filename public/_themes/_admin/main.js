@@ -11601,6 +11601,8 @@ $(function () {
             app.notify.error('A request error occurred');
         });
     });
+
+    makeSortable();
 });
 
 app.delete = {
@@ -11678,7 +11680,27 @@ app.formStatus = {
         $btn.removeClass('loading');
         $btn.prop('disabled', false);
     }
-};;
+};
+
+function makeSortable()
+{
+    var $sorts = $(".sortable");
+
+    if ($sorts.length > 0) {
+        $.each($sorts, function (i, el) {
+            var sortable = new Sortable(el, {
+                sort: true,  // sorting inside list
+                delay: 0, // time in milliseconds to define when the sorting should start
+                disabled: false, // Disables the sortable if set to true.
+                store: null,  // @see Store
+                animation: 150,  // ms, animation speed moving items when sorting, `0` — without animation
+                handle: ".sortable-item",  // Drag handle selector within list items
+                draggable: ".sortable-item",  // Specifies which items inside the element should be draggable
+                scroll: true, // or HTMLElement
+            });
+        });
+    }
+};
 $(function () {
     $('form[data-ajaxform]').each(function (i, el) {
         var form = app.ajaxform.register($(el).data('ajaxform'), $(el));
@@ -11973,6 +11995,27 @@ $(function () {
             app.formStatus.enableButton($btn);
         }
     });
+
+    $('#menu-items-list').on('change', '.link-type-select', function (e) {
+        var val     = $(this).val();
+        var $parent = $(this).closest('.item');
+
+        $('.link-type-action', $parent).removeClass('selected');
+        $('.link-type-' + val, $parent).addClass('selected');
+    });
+
+    $('#menu-items-list').on('click', '.remove-item-btn', function (e) {
+        e.preventDefault();
+        if (confirm('Are you sure you want to completely remove this item?')) {
+            $(this).closest('.item').remove();
+        }
+    });
+
+    $('#add-menu-item-btn').on('click', function (e) {
+        e.preventDefault();
+
+        $($('#menu-item-template').html()).insertBefore('#menu-item-add-row');
+    });
 });;
 $(function () {
     app.ajaxform.callback('page-edit', {
@@ -12138,6 +12181,17 @@ $(function () {
         always: function (response, $btn) {
             app.formStatus.enableButton($btn);
         }
+    });
+});
+;
+$(function () {
+    $('#add-field-btn').on('click', function (e) {
+        e.preventDefault();
+
+        var $this = $(this);
+        var tmpl  = $('#' + $this.data('template')).html();
+
+        $this.before(tmpl);
     });
 });
 ;

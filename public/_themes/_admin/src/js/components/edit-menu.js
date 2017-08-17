@@ -25,4 +25,25 @@ $(function () {
             app.formStatus.enableButton($btn);
         }
     });
+
+    $('#menu-items-list').on('change', '.link-type-select', function (e) {
+        var val     = $(this).val();
+        var $parent = $(this).closest('.item');
+
+        $('.link-type-action', $parent).removeClass('selected');
+        $('.link-type-' + val, $parent).addClass('selected');
+    });
+
+    $('#menu-items-list').on('click', '.remove-item-btn', function (e) {
+        e.preventDefault();
+        if (confirm('Are you sure you want to completely remove this item?')) {
+            $(this).closest('.item').remove();
+        }
+    });
+
+    $('#add-menu-item-btn').on('click', function (e) {
+        e.preventDefault();
+
+        $($('#menu-item-template').html()).insertBefore('#menu-item-add-row');
+    });
 });

@@ -86,39 +86,3 @@ endif;
 
     </script>
 
-
-    <script>
-    $(function () {
-        var sortable = new Sortable(document.getElementById('menu-items-list'), {
-            sort: true,  // sorting inside list
-            delay: 0, // time in milliseconds to define when the sorting should start
-            disabled: false, // Disables the sortable if set to true.
-            store: null,  // @see Store
-            animation: 150,  // ms, animation speed moving items when sorting, `0` — without animation
-            handle: ".item",  // Drag handle selector within list items
-            draggable: ".item",  // Specifies which items inside the element should be draggable
-            scroll: true, // or HTMLElement
-        });
-
-        $('#menu-items-list').on('change', '.link-type-select', function (e) {
-            var val     = $(this).val();
-            var $parent = $(this).closest('.item');
-
-            $('.link-type-action', $parent).removeClass('selected');
-            $('.link-type-' + val, $parent).addClass('selected');
-        });
-
-        $('#menu-items-list').on('click', '.remove-item-btn', function (e) {
-            e.preventDefault();
-            if (confirm('Are you sure you want to completely remove this item?')) {
-                $(this).closest('.item').remove();
-            }
-        });
-
-        $('#add-menu-item-btn').on('click', function (e) {
-            e.preventDefault();
-
-            $($('#menu-item-template').html()).insertBefore('#menu-item-add-row');
-        });
-    });
-    </script>

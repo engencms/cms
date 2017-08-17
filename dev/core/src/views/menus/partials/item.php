@@ -1,6 +1,6 @@
 
 
-    <div class="item">
+    <div class="item sortable-item">
 
         <div class="prop menu-name">
             <input type="text" value="<?= $item->label ?? null ?>" name="item[label][]" />

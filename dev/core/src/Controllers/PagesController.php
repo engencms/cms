@@ -94,7 +94,9 @@ class PagesController extends BaseController
                 ->setMessage('validation_error');
         }
 
-         if ($id) {
+        $fields = $this->reorderFields($fields);
+
+        if ($id) {
             if (!$this->pages->updatePage($id, $info, $fields)) {
                 return $response->setError('Error updating page');
             }
@@ -170,5 +172,52 @@ class PagesController extends BaseController
         }
 
         return $response->setData($key);
+    }
+
+
+    /**
+     * Reorder content
+     *
+     * @param  array $content
+     * @return array
+     */
+    protected function reorderFields(array $content)
+    {
+        $new = [];
+
+        foreach ($content as $key => $value) {
+            if (is_array($value) && count($value) > 0 && !array_key_exists(0, $value)) {
+                $new[$key] = $this->fixPostArray($value);
+                continue;
+            }
+
+            $new[$key] = $value;
+        }
+
+        return $new;
+    }
+
+
+    /**
+     * Fix post arrays to be key => value
+     *
+     * @param  array  $data
+     * @return array
+     */
+    protected function fixPostArray(array $data)
+    {
+        $keys  = array_keys($data);
+        $fixed = [];
+
+        foreach ($data[$keys[0]] as $index => $value) {
+            $item = [];
+            foreach ($keys as $key) {
+                $item[$key] = $data[$key][$index] ?? null;
+            }
+
+            $fixed[] = $item;
+        }
+
+        return $fixed;
     }
 }
