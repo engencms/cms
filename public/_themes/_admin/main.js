@@ -11694,7 +11694,7 @@ function makeSortable()
                 disabled: false, // Disables the sortable if set to true.
                 store: null,  // @see Store
                 animation: 150,  // ms, animation speed moving items when sorting, `0` — without animation
-                handle: ".sortable-item",  // Drag handle selector within list items
+                handle: ".sortable-handle",  // Drag handle selector within list items
                 draggable: ".sortable-item",  // Specifies which items inside the element should be draggable
                 scroll: true, // or HTMLElement
             });
@@ -12188,10 +12188,35 @@ $(function () {
     $('#add-field-btn').on('click', function (e) {
         e.preventDefault();
 
-        var $this = $(this);
+        var $this  = $(this);
         var tmpl  = $('#' + $this.data('template')).html();
 
-        $this.before(tmpl);
+        $(tmpl).insertBefore($this.parent());
+    });
+
+    $('.group-expand').on('click', function (e) {
+        e.preventDefault();
+
+        var $this  = $(this);
+        var $group = $this.closest('.form-group');
+
+        if ($group.hasClass('open')) {
+            $group.removeClass('open');
+        } else {
+            $group.addClass('open');
+        }
+    });
+
+    $('body').on('click', '.group-item-remove', function (e) {
+        e.preventDefault();
+
+        var $group = $(this).closest('.group-content');
+
+        $group.addClass('remove');
+
+        $group.slideUp(400, function () {
+            $(this).remove();
+        });
     });
 });
 ;

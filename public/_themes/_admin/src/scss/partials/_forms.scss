@@ -12,32 +12,132 @@
 .form-group {
     position: relative;
     padding: 0;
-    border-left: solid 5px #ddd;
 
     .group-title {
         position: relative;
-        padding: 10px;
-        background-color: #ddd;
-        font-weight: 700;
-        color: #222;
-        text-transform: uppercase;
+        padding: 0 10px 0 0;
+        background-color: #fff;
+        border: solid 1px #d8d8d8;
+        margin-bottom: 10px;
+        width: 100%;
+        display: flex;
+
+        .arrow {
+            position: relative;
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border-right: solid 1px #d8d8d8;
+            background-color: #fff;
+            text-decoration: none;
+            margin-right: 10px;
+            flex: 0 0 auto;
+
+            .icon:before {
+                display: inline-block;
+                width: 100%;
+                height: 100%;
+                text-align: center;
+                line-height: 30px;
+                color: #aaa;
+                font-weight: 400;
+                font-family: fontawesome;
+                content: '\f105';
+                font-size: 14px;
+                @include anim(all, 0.15s);
+            }
+        }
+
+        .label {
+            padding-top: 6px;
+            font-weight: 700;
+            color: #222;
+            text-transform: uppercase;
+            line-height: 20px;
+        }
     }
 
     .group-content {
         position: relative;
-        padding: 20px;
-        border-bottom: solid 5px #eee;
-        border: solid 1px #ddd;
-        background-color: #fff;
-        margin: 10px 0 10px 10px;
+        margin: 0 0 10px 0;
+        display: none;
+        width: 100%;
+        @include anim(opacity, 0.3s);
 
-        &:last-child {
-            border-bottom: 0;
+        &.remove {
+            opacity: 0;
+        }
+
+        .group-actions {
+            position: relative;
+            width: 30px;
+            flex: 0 0 auto;
+            background-color: #fff;
+            border-right: solid 1px #d8d8d8;
+            margin-right: 2px;
+            border: solid 1px #d8d8d8;
+
+            .group-item-remove {
+                position: absolute;
+                top: 10px;
+                left: 0;
+                right: 0;
+                text-align: center;
+                color: #ccc;
+                text-decoration: none;
+                line-height: 12px;
+
+                .icon:before {
+                    display: inline-block;
+                    font-family: fontawesome;
+                    content: '\f00d';
+                }
+
+                &:hover {
+                    color: #444;
+                }
+            }
+
+        }
+
+        .group-inner {
+            padding: 20px;
+            background-color: #fff;
+            border: solid 1px #d8d8d8;
+            flex-grow: 1;
+        }
+    }
+
+    .add-group-item-container {
+        position: relative;
+        padding-top: 5px;
+        text-align: right;
+
+        a {
+            text-decoration: none;
+
+            .icon:before {
+                display: inline-block;
+                font-family: fontawesome;
+                content: '\f055';
+                margin-right: 5px;
+            }
         }
     }
 
     .form-item:last-child {
         padding-bottom: 0;
+    }
+
+    &.open {
+        .group-title .arrow .icon:before {
+            transform: rotate(90deg);
+            padding-left: 2px;
+        }
+
+        .group-content {
+            display: flex;
+        }
     }
 }
 
@@ -178,3 +278,4 @@ h2.form-heading {
     border-bottom: solid 1px #ddd;
     font-weight: 400;
 }
+
