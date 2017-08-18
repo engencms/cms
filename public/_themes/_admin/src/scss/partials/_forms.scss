@@ -55,17 +55,35 @@
             text-transform: uppercase;
             line-height: 20px;
         }
+
+        .add-field-btn {
+            margin-left: auto;
+            text-decoration: none;
+            line-height: 30px;
+
+            .icon:before {
+                display: inline-block;
+                font-family: fontawesome;
+                content: '\f055';
+                margin-right: 5px;
+            }
+        }
+
     }
 
     .group-content {
         position: relative;
         margin: 0 0 10px 0;
-        display: none;
         width: 100%;
-        @include anim(opacity, 0.3s);
+        @include anim(all, 0.7s);
 
         &.remove {
             opacity: 0;
+        }
+
+        &.new {
+            opacity: 0;
+            display: none;
         }
 
         .group-actions {
@@ -105,23 +123,6 @@
             background-color: #fff;
             border: solid 1px #d8d8d8;
             flex-grow: 1;
-        }
-    }
-
-    .add-group-item-container {
-        position: relative;
-        padding-top: 5px;
-        text-align: right;
-
-        a {
-            text-decoration: none;
-
-            .icon:before {
-                display: inline-block;
-                font-family: fontawesome;
-                content: '\f055';
-                margin-right: 5px;
-            }
         }
     }
 

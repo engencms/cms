@@ -1,11 +1,15 @@
 $(function () {
-    $('#add-field-btn').on('click', function (e) {
+    $('.group-title .add-field-btn').on('click', function (e) {
         e.preventDefault();
 
-        var $this  = $(this);
-        var tmpl  = $('#' + $this.data('template')).html();
+        var $this   = $(this);
+        var $group  = $('#' + $this.data('group-id'));
+        var tmpl    = $('#' + $this.data('template')).html();
 
-        $(tmpl).insertBefore($this.parent());
+        $(tmpl).insertAfter($('.group-title', $group));
+        $('.group-content.new', $group).slideDown(1700, function () {
+            $(this).removeClass('new');
+        });
     });
 
     $('.group-expand').on('click', function (e) {
