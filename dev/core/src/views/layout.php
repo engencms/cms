@@ -6,6 +6,8 @@
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css' />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="<?= $this->adminAsset('/simplemde.css') ?>" />
+    <script src="<?= $this->adminAsset('/simplemde.js') ?>"></script>
     <link rel="stylesheet" type="text/css" href="<?= $this->adminAsset('/main.css') ?>" />
     <script src="<?= $this->adminAsset('/main.js') ?>"></script>
 </head>

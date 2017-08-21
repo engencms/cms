@@ -127,10 +127,13 @@ function makeSortable()
                 delay: 0, // time in milliseconds to define when the sorting should start
                 disabled: false, // Disables the sortable if set to true.
                 store: null,  // @see Store
-                animation: 150,  // ms, animation speed moving items when sorting, `0` — without animation
+                animation: 250,  // ms, animation speed moving items when sorting, `0` — without animation
                 handle: ".sortable-handle",  // Drag handle selector within list items
                 draggable: ".sortable-item",  // Specifies which items inside the element should be draggable
                 scroll: true, // or HTMLElement
+
+                chosenClass: 'sortable-chosen',
+                dragClass: 'sortable-drag',
             });
         });
     }

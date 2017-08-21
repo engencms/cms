@@ -7,6 +7,7 @@ $(function () {
         var tmpl    = $('#' + $this.data('template')).html();
 
         $(tmpl).insertAfter($('.group-title', $group));
+        registerFields();
         $('.group-content.new', $group).slideDown(1700, function () {
             $(this).removeClass('new');
         });
@@ -32,8 +33,32 @@ $(function () {
 
         $group.addClass('remove');
 
-        $group.slideUp(400, function () {
+        $group.slideUp(600, function () {
             $(this).remove();
         });
     });
+
+    registerFields();
 });
+
+function registerFields()
+{
+    registerMarkdownEditors();
+}
+
+function registerMarkdownEditors()
+{
+    var $mdes = $('.mde');
+    $.each($mdes, function (index, el) {
+        if (!$(this).hasClass('initialized')) {
+            $(el).addClass('initialized');
+            var simplemde = new SimpleMDE({
+                element: el,
+                promptURLs: true,
+                spellChecker: false,
+                status: false,
+                tabSize: 4,
+            });
+        }
+    });
+}

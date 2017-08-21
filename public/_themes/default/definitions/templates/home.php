@@ -2,7 +2,7 @@
 
 return [
     'body'  => [
-        'type'  => 'textarea',
+        'type'  => 'markdown',
         'label' => 'Body',
     ],
 
@@ -15,10 +15,10 @@ return [
                 'label' => 'Title',
             ],
             'content' => [
-                'type'  => 'textarea',
+                'type'  => 'markdown',
                 'label' => 'Content',
                 'settings' => [
-                    'attributes' => 'style="min-height: 150px"',
+                    'attributes' => 'style="height: 150px"',
                 ],
             ],
         ],

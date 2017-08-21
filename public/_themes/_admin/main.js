@@ -11693,10 +11693,13 @@ function makeSortable()
                 delay: 0, // time in milliseconds to define when the sorting should start
                 disabled: false, // Disables the sortable if set to true.
                 store: null,  // @see Store
-                animation: 150,  // ms, animation speed moving items when sorting, `0` — without animation
+                animation: 250,  // ms, animation speed moving items when sorting, `0` — without animation
                 handle: ".sortable-handle",  // Drag handle selector within list items
                 draggable: ".sortable-item",  // Specifies which items inside the element should be draggable
                 scroll: true, // or HTMLElement
+
+                chosenClass: 'sortable-chosen',
+                dragClass: 'sortable-drag',
             });
         });
     }
@@ -12193,6 +12196,7 @@ $(function () {
         var tmpl    = $('#' + $this.data('template')).html();
 
         $(tmpl).insertAfter($('.group-title', $group));
+        registerFields();
         $('.group-content.new', $group).slideDown(1700, function () {
             $(this).removeClass('new');
         });
@@ -12218,11 +12222,35 @@ $(function () {
 
         $group.addClass('remove');
 
-        $group.slideUp(400, function () {
+        $group.slideUp(600, function () {
             $(this).remove();
         });
     });
+
+    registerFields();
 });
+
+function registerFields()
+{
+    registerMarkdownEditors();
+}
+
+function registerMarkdownEditors()
+{
+    var $mdes = $('.mde');
+    $.each($mdes, function (index, el) {
+        if (!$(this).hasClass('initialized')) {
+            $(el).addClass('initialized');
+            var simplemde = new SimpleMDE({
+                element: el,
+                promptURLs: true,
+                spellChecker: false,
+                status: false,
+                tabSize: 4,
+            });
+        }
+    });
+}
 ;
 $(function () {
     $('#add-files-btn').on('click', function (e) {

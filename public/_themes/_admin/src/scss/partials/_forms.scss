@@ -75,7 +75,8 @@
         position: relative;
         margin: 0 0 10px 0;
         width: 100%;
-        @include anim(all, 0.7s);
+        @include anim(all, 0.4s);
+        display: none;
 
         &.remove {
             opacity: 0;
@@ -91,9 +92,12 @@
             width: 30px;
             flex: 0 0 auto;
             background-color: #fff;
+            background-color: #C7D0DF;
+            background-color: #42485b;
             border-right: solid 1px #d8d8d8;
             margin-right: 2px;
-            border: solid 1px #d8d8d8;
+            /* border: solid 1px #d8d8d8; */
+            /*border: solid 1px #333;*/
 
             .group-item-remove {
                 position: absolute;
@@ -101,9 +105,10 @@
                 left: 0;
                 right: 0;
                 text-align: center;
-                color: #ccc;
+                color: #fff;
                 text-decoration: none;
                 line-height: 12px;
+                opacity: 0.3;
 
                 .icon:before {
                     display: inline-block;
@@ -112,7 +117,7 @@
                 }
 
                 &:hover {
-                    color: #444;
+                    opacity: 1;
                 }
             }
 
