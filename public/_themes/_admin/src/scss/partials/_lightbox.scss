@@ -4,25 +4,37 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.7);
-    z-index: 180;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
+    background-color: rgba(0, 0, 0, 0.8);
     display: none;
+    z-index: 950;
+    display: none;
+    width: 100%;
+    height: 100%;
+
+
+    &.show {
+        display: flex;
+    }
 
     #lightbox-inner {
+        display: flex;
+        justify-content: space-between;
         position: relative;
-        padding: 10px;
-        max-width: 100%;
-        max-height: 100%;
-        margin: 0 auto;
         overflow: auto;
+        text-align: center;
+        flex-shrink: 1;
+        flex-grow: 0;
+        width: 100%;
 
         #lightbox-content {
             position: relative;
             padding: 20px;
+            display: inline-block;
             background-color: #fff;
+            color: #444;
+            vertical-align: baseline;
+            margin: auto;
+            flex-shrink: 1;
 
             #lightbox-close {
                 position: absolute;

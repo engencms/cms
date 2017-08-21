@@ -38,27 +38,147 @@ $(function () {
         });
     });
 
-    registerFields();
+    app.fields.registerFields();
 });
 
-function registerFields()
-{
-    registerMarkdownEditors();
-}
+app.fields = {
+    registerFields: function () {
+        this.registerMarkdownEditors();
+    },
 
-function registerMarkdownEditors()
-{
-    var $mdes = $('.mde');
-    $.each($mdes, function (index, el) {
-        if (!$(this).hasClass('initialized')) {
-            $(el).addClass('initialized');
-            var simplemde = new SimpleMDE({
-                element: el,
-                promptURLs: true,
-                spellChecker: false,
-                status: false,
-                tabSize: 4,
+    registerMarkdownEditors: function () {
+        var $mdes = $('.mde');
+        $.each($mdes, function (index, el) {
+            if (!$(this).hasClass('initialized')) {
+                $(el).addClass('initialized');
+                var simplemde = new SimpleMDE({
+                    element: el,
+                    spellChecker: false,
+                    status: false,
+                    tabSize: 4,
+                    toolbar: [
+                        'bold', 'italic', 'heading', '|', 'quote','unordered-list', 'ordered-list', '|',
+                        {
+                            name: "custom-link",
+                            action: function customFunction (editor) {
+                                 app.smdeExtend.links(editor);
+                            },
+                            className: "fa fa-link",
+                            title: "Link"
+                        },
+                        'image', '|', 'preview', 'side-by-side', 'fullscreen'
+                    ]
+                });
+            }
+        });
+    }
+};
+
+app.smdeExtend = {
+
+    links: function(editor) {
+        var self    = this;
+        var cm      = editor.codemirror;
+        var pos     = pos || cm.getCursor("start");
+        var stat    = cm.getTokenAt(pos);
+        var insert  = ['[#label#](#url#)'];
+        var url     = "/";
+
+        self.showLinksPopup(function(label, url) {
+            var params = {
+                label: label,
+                url: url
+            };
+
+            app.lbox.pageLinkSelector(function (label, url) {
+                self._replaceSelection(cm, stat.link, insert, 'link', {
+                    label: label,
+                    url: url
+                });
+                app.lbox.close();
             });
+        });
+    },
+
+    imageLibrary: function(editor) {
+        var self    = this;
+        var cm      = editor.codemirror;
+        var pos     = pos || cm.getCursor("start");
+        var stat    = cm.getTokenAt(pos);
+        var insert  = ['![','](#url#)'];
+        var url     = "/uploads/";
+
+        app.uploads.loadFiles(null, function(file) {
+
+            if (!file) {
+                return;
+            }
+
+            var size = '';
+
+            if (typeof file.sizes['preview'] != "undefined") {
+                size = 'preview/';
+            }
+
+            var imageUrl = url + size + file.basename;
+
+            self._replaceSelection(cm, stat.image, insert, imageUrl, file.relative);
+        });
+    },
+
+    _replaceSelection: function(cm, active, startEnd, type, params)
+    {
+        if(/editor-preview-active/.test(cm.getWrapperElement().lastChild.className))
+            return;
+
+        var text;
+        var start = startEnd[0];
+        var end = startEnd[1];
+        var startPoint = cm.getCursor("start");
+        var endPoint = cm.getCursor("end");
+
+        if (!type) {
+            return;
         }
-    });
+
+        if ('link' == type) {
+            start  = start.replace("#label#", params.label || '');
+            start  = start.replace("#url#", params.url || '');
+            if (end) {
+                end    = end.replace("#label#", params.label || '');
+                end    = end.replace("#url#", params.url || '');
+            } else {
+                end = '';
+            }
+        }
+
+        /**
+        if (filename) {
+            start = start.replace("#filename#", filename);
+            end   = end.replace("#filename#", filename);
+        }
+        **/
+
+        if (active) {
+            text = cm.getLine(startPoint.line);
+            start = text.slice(0, startPoint.ch);
+            end = text.slice(startPoint.ch);
+            cm.replaceRange(start + end, {
+                line: startPoint.line,
+                ch: 0
+            });
+        } else {
+            text = cm.getSelection();
+            cm.replaceSelection(start + text + end);
+
+            startPoint.ch += start.length;
+
+            if (startPoint !== endPoint) {
+                endPoint.ch += start.length;
+            }
+        }
+
+        cm.setSelection(startPoint, endPoint);
+        cm.focus();
+    }
 }

@@ -116,9 +116,7 @@
 
     <div id="lightbox">
         <div id="lightbox-inner">
-            <div id="lightbox-content">
-                here be some content<br />...
-            </div>
+            <div id="lightbox-content"></div>
         </div>
     </div>
     <div id="notify"></div>

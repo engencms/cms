@@ -250,6 +250,7 @@ label {
     background-color: rgba(220, 220, 220, 0.8);
     border-top: solid 1px #d2d2d2;
     display: flex;
+    z-index: 800;
 
     button {
         margin-right: 15px;
