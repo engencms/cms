@@ -169,6 +169,20 @@ $app->router->group(['prefix' => $adminPrefix, 'before' => 'admin_setup'], funct
         });
 
         /**
+         * partials
+         * ----------------------------------------------------
+         */
+        $router->group(['prefix' => 'partials'], function ($router) {
+            $router->get('/page-link-selector', 'Engen\Controllers\PartialsController@pageLinkSelector', [
+                'name' => 'engen.partials.page-link-selector'
+            ]);
+
+            $router->get('/file-selector', 'Engen\Controllers\PartialsController@fileSelector', [
+                'name' => 'engen.partials.file-selector'
+            ]);
+        });
+
+        /**
          * Actions
          * ----------------------------------------------------
          */

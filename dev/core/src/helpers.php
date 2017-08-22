@@ -49,10 +49,9 @@ if (!function_exists('rcopy')) {
     {
         $source  = realpath($source);
         $dirname = basename($source);
-        $target  = realpath($target);
 
-        if (!is_dir($target)) {
-            mkdir($target, 0775, true);
+        if (!realpath($target) || !is_dir($target)) {
+            mkdir($target, 0777, true);
         }
 
         foreach (glob($source . '/*') as $file) {
@@ -65,7 +64,7 @@ if (!function_exists('rcopy')) {
             }
 
             if (is_dir($file)) {
-                mkdir($dest, 0775, true);
+                mkdir($dest, 0777, true);
                 rcopy($file, $dest);
             } else {
                 copy($file, $dest);

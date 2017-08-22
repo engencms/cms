@@ -214,7 +214,7 @@ class PagesFileDB implements PagesInterface
         }
 
         $file = $this->contentPath . "/{$id}.json";
-        if (file_put_contents($file, json_encode($content)) < 1) {
+        if (!file_put_contents($file, json_encode($content))) {
             return false;
         }
 

@@ -8,6 +8,7 @@ class Builder
 {
     protected $app;
     protected $target;
+    protected $public;
     protected $pages;
     protected $controller;
     protected $error;
@@ -24,6 +25,7 @@ class Builder
         $this->pages      = $pages;
         $this->controller = $controller;
         $this->target     = realpath($app->config->get('build.path'));
+        $this->public     = realpath($this->public);
         $this->perms      = [
             'dirs'  => $app->config->get('build.permissions.directories', 0777),
             'files' => $app->config->get('build.permissions.files', 0666),
@@ -54,9 +56,10 @@ class Builder
         }
 
         $this->copyAssets();
-        // Set the file permissions on all the files
-        // so they can be run through both CLI and the CMS
+        $this->copyUploads();
+
         rchmod($this->target, $this->perms['dirs'], $this->perms['files']);
+
         return true;
     }
 
@@ -111,6 +114,22 @@ class Builder
         }
 
         rcopy($source, $this->target);
+    }
+
+
+    /**
+     * Copy uploads
+     */
+    protected function copyUploads()
+    {
+        $target  = $this->target . '/uploads';
+        $source  = realpath($this->app->path('public') . '/uploads');
+
+        if (!$target || !$source) {
+            return false;
+        }
+
+        rcopy($source, $target);
     }
 
 

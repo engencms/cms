@@ -76,7 +76,7 @@ class Parsers
     {
         $pages = $this->pages;
 
-        $text = preg_replace_callback('/\[page-url\:([^\]]+)\]/', function ($matches) use ($pages) {
+        $text = preg_replace_callback('/\[page-key\:([^\]]+)\]/', function ($matches) use ($pages) {
             return $pages->getPageUriByKey(trim($matches[1]));
         }, $text);
 

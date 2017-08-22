@@ -286,3 +286,8 @@ h2.form-heading {
     font-weight: 400;
 }
 
+.CodeMirror-fullscreen,
+.editor-toolbar.fullscreen,
+.editor-preview-side {
+    z-index: 999;
+}

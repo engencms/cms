@@ -12245,6 +12245,7 @@ app.fields = {
                     spellChecker: false,
                     status: false,
                     tabSize: 4,
+                    forceSync: true,
                     toolbar: [
                         'bold', 'italic', 'heading', '|', 'quote','unordered-list', 'ordered-list', '|',
                         {
@@ -12255,7 +12256,15 @@ app.fields = {
                             className: "fa fa-link",
                             title: "Link"
                         },
-                        'image', '|', 'preview', 'side-by-side', 'fullscreen'
+                        {
+                            name: "custom-image",
+                            action: function customFunction (editor) {
+                                 app.smdeExtend.files(editor);
+                            },
+                            className: "fa fa-image",
+                            title: "Image"
+                        },
+                        '|', 'preview', 'side-by-side', 'fullscreen'
                     ]
                 });
             }
@@ -12266,52 +12275,33 @@ app.fields = {
 app.smdeExtend = {
 
     links: function(editor) {
-        var self    = this;
-        var cm      = editor.codemirror;
-        var pos     = pos || cm.getCursor("start");
-        var stat    = cm.getTokenAt(pos);
-        var insert  = ['[#label#](#url#)'];
-        var url     = "/";
+        var self     = this;
+        var cm       = editor.codemirror;
+        var pos      = pos || cm.getCursor("start");
+        var stat     = cm.getTokenAt(pos);
+        var selected = cm.getSelection();
+        var insert   = selected ? ['[','](#url#)'] : ['[#label#](#url#)'];
 
-        self.showLinksPopup(function(label, url) {
-            var params = {
-                label: label,
-                url: url
-            };
-
-            app.lbox.pageLinkSelector(function (label, url) {
-                self._replaceSelection(cm, stat.link, insert, 'link', {
-                    label: label,
-                    url: url
-                });
-                app.lbox.close();
-            });
-        });
+        app.lbox.pageLinkSelector(function(label, url, target) {
+            var params = {label: label, url: url};
+            self._replaceSelection(cm, stat.link, insert, 'link', params);
+        }, {label: selected});
     },
 
-    imageLibrary: function(editor) {
+    files: function(editor) {
         var self    = this;
         var cm      = editor.codemirror;
         var pos     = pos || cm.getCursor("start");
         var stat    = cm.getTokenAt(pos);
-        var insert  = ['![','](#url#)'];
-        var url     = "/uploads/";
+        var selected = cm.getSelection();
+        var insert   = selected ? ['![','](#url#)'] : ['![#alt#](#url#)'];
 
-        app.uploads.loadFiles(null, function(file) {
-
-            if (!file) {
-                return;
+        app.lbox.fileSelector(function(url, alt) {
+            if (!alt) {
+                var alt = '';
             }
-
-            var size = '';
-
-            if (typeof file.sizes['preview'] != "undefined") {
-                size = 'preview/';
-            }
-
-            var imageUrl = url + size + file.basename;
-
-            self._replaceSelection(cm, stat.image, insert, imageUrl, file.relative);
+            var params = {url: url, alt: alt};
+            self._replaceSelection(cm, stat.image, insert, 'image', params);
         });
     },
 
@@ -12321,10 +12311,10 @@ app.smdeExtend = {
             return;
 
         var text;
-        var start = startEnd[0];
-        var end = startEnd[1];
+        var start      = startEnd[0];
+        var end        = startEnd[1];
         var startPoint = cm.getCursor("start");
-        var endPoint = cm.getCursor("end");
+        var endPoint   = cm.getCursor("end");
 
         if (!type) {
             return;
@@ -12341,12 +12331,16 @@ app.smdeExtend = {
             }
         }
 
-        /**
-        if (filename) {
-            start = start.replace("#filename#", filename);
-            end   = end.replace("#filename#", filename);
+        if ('image' == type) {
+            start  = start.replace("#alt#", params.alt || '');
+            start  = start.replace("#url#", params.url || '');
+            if (end) {
+                end    = end.replace("#alt#", params.alt || '');
+                end    = end.replace("#url#", params.url || '');
+            } else {
+                end = '';
+            }
         }
-        **/
 
         if (active) {
             text = cm.getLine(startPoint.line);
@@ -12511,37 +12505,73 @@ app.lbox = (function () {
         });
     }
 
-    function pageLinkSelector(onSubmit)
+    function pageLinkSelector(onConfirm, params)
     {
-        openAjax('/pages/page-link-selector', function () {
-            $('#page-link-selector-form').on('submit', function (e) {
+        if (!params) {
+            var params = {};
+        }
+
+        openAjax('/admin/partials/page-link-selector', function () {
+            $('#lightbox-confirm').on('click', function (e) {
                 e.preventDefault();
-                onSubmit.call(
-                    this,
-                    $('#page-link-selector-label'),
-                    $('#page-link-selector-url'),
-                    $('#page-link-selector-target'),
-                )
+                var label  = $('#page-link-selector-label').val();
+                var url    = $('#page-link-selector-page-key').val();
+                var target = $('#page-link-selector-target').val();
+
+                url = url ? '[page-key:' + url + ']' : $('#page-link-selector-url').val();
+
+                onConfirm.call(this, label, url, target);
+                close();
             });
-        });
+        }, params);
+    }
+
+    function fileSelector(onConfirm, params)
+    {
+        if (!params) {
+            var params = {};
+        }
+
+        openAjax('/admin/partials/file-selector', function () {
+            $('a.file-selector-url').on('click', function (e) {
+                e.preventDefault();
+                onConfirm.call(this, $(this).attr('href'));
+                close();
+            });
+        }, params);
     }
 
     function open(content)
     {
         $content.html(content);
         $box.addClass('show');
+        $('body').addClass('no-scroll');
+    }
+
+    function openAjax(url, onSuccess, data)
+    {
+        if (!data) {
+            var data = {};
+        }
+
+        $.get(url, data, function (content) {
+            open(content);
+            onSuccess.call(this);
+        });
     }
 
     function close()
     {
         $box.removeClass('show');
+        $('body').removeClass('no-scroll');
     }
 
     return {
         init: init,
         open: open,
         close: close,
-        pageLinkSelector: pageLinkSelector
+        pageLinkSelector: pageLinkSelector,
+        fileSelector: fileSelector
     }
 })();;
 app.notify = (function () {
