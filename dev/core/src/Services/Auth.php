@@ -111,6 +111,23 @@ class Auth
 
 
     /**
+     * Generate a new reset token
+     *
+     * @return string
+     */
+    public function setResetToken($userId)
+    {
+        $token   = $this->sec->generateToken(64);
+        $updated = $this->db->updateUser($userId, [
+            'reset_token' => $token,
+            'reset_date'  => time(),
+        ]);
+
+        return $updated ? $token : null;
+    }
+
+
+    /**
      * Get the current user
      *
      * @param string $key

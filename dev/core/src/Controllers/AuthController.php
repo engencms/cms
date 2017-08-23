@@ -46,6 +46,41 @@ class AuthController extends BaseController
         );
     }
 
+
+    /**
+     * Log in a user
+     *
+     * @return jsonEntity
+     */
+    public function loginForgot()
+    {
+        $response = $this->makeJsonEntity();
+
+        if (!$this->csrf->validateToken($this->request->post('token'), 'login-forgot')) {
+            return $response->setError('Invalid token. Please update page and try again.');
+        }
+
+        $email = $this->request->post('email');
+
+        if (!$user  = $this->users->getUserByEmail($email)) {
+            return $response;
+        }
+
+        if (!$token = $this->users->setUserResetToken($user->id)) {
+            return $response->setError('Database error');
+        }
+
+        $body = $this->view->render('admin::emails/reset-password', [
+            'token' => $token,
+        ]);
+
+        #if (!$this->mailer->sendPasswordResetMail($email, $token))
+
+
+        return $response;
+    }
+
+
     /**
      * Log out a user
      *

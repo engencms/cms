@@ -32,8 +32,19 @@ body.login {
             width: 100%;
         }
 
-        .form-item:last-child {
-            padding-bottom: 0;
+        .links {
+            text-align: center;
+            font-size: 1.1em;
+        }
+    }
+
+    #login-forgot-box {
+        display: none;
+    }
+
+    #login-forgot-message {
+        &.success {
+            padding-bottom: 20px;
         }
     }
 }

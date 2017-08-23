@@ -12,6 +12,14 @@ $app->router->group(['prefix' => $adminPrefix, 'before' => 'admin_setup'], funct
         'name' => 'engen.login.do'
     ]);
 
+    $router->get('/login/forgot', 'Engen\Controllers\AuthController@showForgot', [
+        'name' => 'engen.login.forgot'
+    ]);
+
+    $router->post('/login/forgot', 'Engen\Controllers\AuthController@loginForgot', [
+        'name' => 'engen.login.forgot.do'
+    ]);
+
 
     $router->group(['before' => 'engen_auth'], function ($router) {
         $router->get('/', 'Engen\Controllers\DashboardController@showDashboard', [
