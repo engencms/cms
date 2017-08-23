@@ -1,11 +1,14 @@
 <?php $this->layout('admin::auth/layout') ?>
 
 
+    <h1><span class="fa fa-lock icon"></span>Log in</h1>
+
+    <div class="login-wrapper-inner">
+
         <form method="POST" action="<?= $this->route('engen.login.do') ?>" data-ajaxform="login" data-ajaxform-button="login-submit-btn">
 
             <input type="hidden" name="token" value="<?= $this->csrfToken('login') ?>" />
 
-            <h1>Login</h1>
 
             <div class="form-item">
                 <label for="username">Username</label>
@@ -23,4 +26,6 @@
 
         </form>
 
-        <script>document.getElementById('username').focus();</script>
+    </div>
+
+    <script>document.getElementById('username').focus();</script>
