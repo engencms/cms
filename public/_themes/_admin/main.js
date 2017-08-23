@@ -12302,7 +12302,7 @@ app.smdeExtend = {
             }
             var params = {url: url, alt: alt};
             self._replaceSelection(cm, stat.image, insert, 'image', params);
-        });
+        }, {type: 'image'});
     },
 
     _replaceSelection: function(cm, active, startEnd, type, params)

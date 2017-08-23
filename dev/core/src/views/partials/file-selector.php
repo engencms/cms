@@ -1,3 +1,5 @@
+<?php $type = $data['type'] ?? null ?>
+
 <div class="table" id="files-list">
 
     <div class="header">
@@ -5,11 +7,15 @@
         <div class="prop"></div>
         <div class="prop">File</div>
         <div class="prop file-info">Info</div>
-        <div class="prop date">Date</div>
+        <div class="prop select"></div>
 
     </div>
 
-    <?php foreach ($this->files() as $item): ?>
+    <?php foreach ($this->files() as $item):
+        if ($type && $type != $item->realType()) {
+            continue;
+        }
+    ?>
 
     <div class="item" data-type="<?= $item->realType() ?>">
 
@@ -29,7 +35,7 @@
 
         <div class="prop name">
 
-            <a href="<?= $this->fileUri($item->name) ?>" class="file-selector-url">
+            <a href="<?= $this->fileUri($item->name) ?>" target="_blank">
                 <?= $item->name ?>
             </a>
 
@@ -55,7 +61,9 @@
 
         </div>
 
-        <div class="prop date"><?= $item->date('created', 'Y-m-d H:i:s') ?></div>
+        <div class="prop select">
+            <a href="<?= $this->fileUri($item->name) ?>" class="file-selector-url">Select</a>
+        </div>
 
     </div>
 
