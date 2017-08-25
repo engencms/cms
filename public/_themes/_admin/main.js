@@ -12234,7 +12234,7 @@ $(function () {
         var tmpl    = $('#' + $this.data('template')).html();
 
         $(tmpl).insertAfter($('.group-title', $group));
-        registerFields();
+        app.fields.registerFields();
         $('.group-content.new', $group).slideDown(1700, function () {
             $(this).removeClass('new');
         });
