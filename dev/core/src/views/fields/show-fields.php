@@ -10,7 +10,7 @@ foreach ($fields as $key => $field):
     $this->insert('admin::fields/' . $field['type'], [
         'field'    => $field,
         'key'      => $key,
-        'value'    => $content[$key] ?? ($field['default'] ?? null),
+        'value'    => $content[$key] ?? null,
         'name'     => $name . "[{$key}]",
         'id'       => $id . '-' . $key,
     ]);

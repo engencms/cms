@@ -56,6 +56,9 @@ class ServiceProvider implements ServiceProviderInterface
         // Auth
         $c->singleton('Engen\Services\Auth');
         $c->alias('Engen\Services\Auth', 'auth');
+
+        // Register fields
+        $this->fields($c);
     }
 
 
@@ -94,7 +97,6 @@ class ServiceProvider implements ServiceProviderInterface
                 $c->app->path('data') . '/pages'
             );
         });
-        $c->alias('Engen\Repos\PagesInterface', 'pages');
 
         // Pages
         $c->singleton('Engen\Repos\BlocksInterface', function ($c) {
@@ -116,6 +118,10 @@ class ServiceProvider implements ServiceProviderInterface
         // Menus
         $c->singleton('Engen\Repos\SettingsInterface', 'Engen\Repos\SettingsFileDB');
         $c->alias('Engen\Repos\SettingsInterface', 'settings');
+
+        // Content
+        $c->singleton('Engen\Services\Pages');
+        $c->alias('Engen\Services\Pages', 'pages');
     }
 
 
@@ -143,4 +149,39 @@ class ServiceProvider implements ServiceProviderInterface
         });
         $c->alias('Engen\Services\Parsers', 'parsers');
     }
+
+
+    /**
+     * @param  ContainerInterface $c
+     */
+    protected function fields(ContainerInterface $c)
+    {
+        $c->singleton('Engen\Services\FieldsCollection');
+        $c->alias('Engen\Services\FieldsCollection', 'fields');
+
+        $c->fields->register(new \Engen\Entities\Field([
+            'name' => 'Markdown',
+            'key'  => 'markdown',
+            'view' => 'admin::fields/markdown',
+        ]));
+
+        $c->fields->register(new \Engen\Entities\Field([
+            'name' => 'Repeater',
+            'key'  => 'repeater',
+            'view' => 'admin::fields/repeater',
+        ]));
+
+        $c->fields->register(new \Engen\Entities\Field([
+            'name' => 'String',
+            'key'  => 'string',
+            'view' => 'admin::fields/string',
+        ]));
+
+        $c->fields->register(new \Engen\Entities\Field([
+            'name' => 'Text area',
+            'key'  => 'textarea',
+            'view' => 'admin::fields/textarea',
+        ]));
+    }
+
 }

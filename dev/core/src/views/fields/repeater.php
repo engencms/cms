@@ -1,12 +1,5 @@
-<?php
 
-    if (empty($field['fields'])) {
-        return;
-    }
-
-?>
-
-    <div class="form-group sortable open" id="group-<?= $groupId = uniqid() ?>">
+    <div class="form-group sortable open" id="group-<?= $id ?>">
 
         <div class="group-title">
             <a href="#" class="group-expand arrow">
@@ -15,16 +8,11 @@
 
             <span class="label"><?= $field['label'] ?? 'Repeater' ?></span>
 
-            <a href="#" class="add-field-btn" data-template="field-template-<?= $key ?>" data-group-id="group-<?= $groupId ?>"><span class="icon"></span>Add field</a>
+            <a href="#" class="add-field-btn" data-template="field-template-<?= $id ?>" data-group-id="group-<?= $id ?>"><span class="icon"></span>Add field</a>
 
         </div>
 
-        <?php
-        $items = is_array($value) ? count($value) : 0;
-
-        for ($i = 0; $i < $items; $i++) :
-
-        ?>
+        <?php if (!is_null($value)) : ?>
 
         <div class="group-content sortable-item">
 
@@ -36,60 +24,33 @@
 
             <div class="group-inner">
 
-        <?php
+            <?php
 
-            foreach ($field['fields'] as $k => $f):
-
-                $this->insert('admin::fields/' . $f['type'], [
-                    'field'    => $f,
-                    'key'      => $k,
-                    'value'    => $value[$i][$k] ?? ($f['default'] ?? null),
-                    'name'     => "{$name}[{$k}][]",
-                    'id'       => "{$id}-{$k}-{$i}",
+                $this->insert('admin::fields/show-fields', [
+                    'fields'   => $field['fields'],
+                    'content'  => $value[$key] ?? [],
+                    'key'      => $key,
+                    'name'     => $name . "[{$key}]",
+                    'id'       => $id . '-' . $key,
                 ]);
 
-            endforeach;
-
-        ?>
+            ?>
 
             </div>
 
         </div>
 
-        <?php
-        endfor;
-        ?>
+        <?php endif ?>
+
 
     </div>
 
-    <script type="text/template" id="field-template-<?= $key ?>">
-        <div class="group-content sortable-item new">
+    <?php
+        $this->addFieldTemplate('admin::fields/templates/repeater', [
+            'fields' => $field['fields'],
+            'id'     => $id,
+            'name'   => $name,
+            'value'  => $value,
+        ]);
+    ?>
 
-            <div class="group-actions sortable-handle">
-                <a href="#" class="group-item-remove">
-                    <span class="icon"></span>
-                </a>
-            </div>
-
-            <div class="group-inner">
-
-        <?php
-
-        foreach ($field['fields'] as $k => $f):
-
-            $this->insert('admin::fields/' . $f['type'], [
-                'field'    => $f,
-                'key'      => $k,
-                'value'    => null,
-                'name'     => "{$name}[{$k}][]",
-                'id'       => '',
-            ]);
-
-        endforeach;
-
-        ?>
-
-            </div>
-
-        </div>
-    </script>

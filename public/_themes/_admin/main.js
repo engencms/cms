@@ -12226,7 +12226,7 @@ $(function () {
 });
 ;
 $(function () {
-    $('.group-title .add-field-btn').on('click', function (e) {
+    $('body').on('click', '.group-title .add-field-btn', function (e) {
         e.preventDefault();
 
         var $this   = $(this);
@@ -12240,7 +12240,7 @@ $(function () {
         });
     });
 
-    $('.group-expand').on('click', function (e) {
+    $('body').on('click', '.group-expand', function (e) {
         e.preventDefault();
 
         var $this  = $(this);

@@ -121,6 +121,12 @@
     </div>
     <div id="notify"></div>
 
+    <?php
+    foreach ($this->fieldTemplates() as $field):
+        $this->insert($field['template'], $field['data']);
+    endforeach;
+    ?>
+
     <script>
     $(function () {
         <?php foreach ($this->flash('success') as $msg): ?>

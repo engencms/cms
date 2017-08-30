@@ -116,11 +116,11 @@ class PagesFileDB implements PagesInterface
      */
     public function getPageById($id)
     {
-        $page = $this->pages[$id] ?? null;
-        if ($page) {
-            $page->content = $this->getPageContent($id);
+        if (!$page = ($this->pages[$id] ?? null)) {
+            return null;
         }
 
+        $page->content = $this->getPageContent($id);
         return $page;
     }
 

@@ -17,6 +17,7 @@ return [
             'Engen\ViewExtensions\EngenExtension',
             'Engen\ViewExtensions\PagesExtension',
             'Engen\ViewExtensions\BlocksExtension',
+            'Engen\ViewExtensions\FieldsExtension',
             'Engen\ViewExtensions\MenusExtension',
             'Engen\ViewExtensions\UsersExtension',
             'Engen\ViewExtensions\FilesExtension',
