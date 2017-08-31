@@ -12226,6 +12226,9 @@ $(function () {
 });
 ;
 $(function () {
+    /**
+     * Repeaters & Groups
+     */
     $('body').on('click', '.group-title .add-field-btn', function (e) {
         e.preventDefault();
 
@@ -12263,6 +12266,28 @@ $(function () {
         $group.slideUp(600, function () {
             $(this).remove();
         });
+    });
+
+    /**
+     * Images
+     */
+    $('body').on('click', '.field-select-image-btn', function (e) {
+        e.preventDefault();
+
+        var $container = $(this).closest('.form-item');
+
+        app.lbox.fileSelector(function(url, alt) {
+            if (!alt) {
+                var alt = '';
+            }
+
+            $('.preview-container', $container).css(
+                'background-image', 'url(' + url +  ')'
+            );
+
+            $('.image-input', $container).val(url);
+
+        }, {type: 'image'});
     });
 
     app.fields.registerFields();
@@ -12573,7 +12598,8 @@ app.lbox = (function () {
         openAjax('/admin/partials/file-selector', function () {
             $('a.file-selector-url').on('click', function (e) {
                 e.preventDefault();
-                onConfirm.call(this, $(this).attr('href'));
+                var url = $(this).attr('href');
+                onConfirm.call(this, url);
                 close();
             });
         }, params);

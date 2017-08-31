@@ -57,7 +57,8 @@ app.lbox = (function () {
         openAjax('/admin/partials/file-selector', function () {
             $('a.file-selector-url').on('click', function (e) {
                 e.preventDefault();
-                onConfirm.call(this, $(this).attr('href'));
+                var url = $(this).attr('href');
+                onConfirm.call(this, url);
                 close();
             });
         }, params);

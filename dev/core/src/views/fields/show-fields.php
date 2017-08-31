@@ -2,12 +2,13 @@
 $id   = $id ?? 'frm-field';
 $name = $name ?? 'field';
 
+
 foreach ($fields as $key => $field):
 ?>
 
 
     <?php
-    $this->insert('admin::fields/' . $field['type'], [
+    $this->insert($this->fieldView($field['type']), [
         'field'    => $field,
         'key'      => $key,
         'value'    => $content[$key] ?? null,

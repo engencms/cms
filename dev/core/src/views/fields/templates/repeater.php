@@ -12,12 +12,17 @@
 
             <?php
 
-                $this->insert('admin::fields/show-fields', [
-                    'fields'   => $fields,
-                    'content'  => [],
-                    'name'     => $name,
+            foreach ($fields as $key => $field):
+
+                $this->insert($this->fieldView($field['type']), [
+                    'field'    => $field,
+                    'key'      => $key,
+                    'value'    => null,
+                    'name'     => "{$name}[{$key}][]",
                     'id'       => $id,
                 ]);
+
+            endforeach;
 
             ?>
 

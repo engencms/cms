@@ -17,9 +17,6 @@ return [
             'content' => [
                 'type'  => 'markdown',
                 'label' => 'Content',
-                'settings' => [
-                    'attributes' => 'style="height: 150px"',
-                ],
             ],
         ],
     ],

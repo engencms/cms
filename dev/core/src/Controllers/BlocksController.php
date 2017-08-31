@@ -89,6 +89,8 @@ class BlocksController extends BaseController
                 ->setMessage('validation_error');
         }
 
+        $fields = $this->reorderFields($fields);
+
          if ($id) {
             if (!$this->blocks->updateBlock($id, $info, $fields)) {
                 return $response->setError('Error updating block');

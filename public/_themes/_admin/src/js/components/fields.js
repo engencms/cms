@@ -1,4 +1,7 @@
 $(function () {
+    /**
+     * Repeaters & Groups
+     */
     $('body').on('click', '.group-title .add-field-btn', function (e) {
         e.preventDefault();
 
@@ -36,6 +39,28 @@ $(function () {
         $group.slideUp(600, function () {
             $(this).remove();
         });
+    });
+
+    /**
+     * Images
+     */
+    $('body').on('click', '.field-select-image-btn', function (e) {
+        e.preventDefault();
+
+        var $container = $(this).closest('.form-item');
+
+        app.lbox.fileSelector(function(url, alt) {
+            if (!alt) {
+                var alt = '';
+            }
+
+            $('.preview-container', $container).css(
+                'background-image', 'url(' + url +  ')'
+            );
+
+            $('.image-input', $container).val(url);
+
+        }, {type: 'image'});
     });
 
     app.fields.registerFields();

@@ -30,6 +30,7 @@ class FieldsExtension implements ExtensionInterface
      */
     protected $methods = [
         'fields',
+        'fieldView',
         'addFieldTemplate',
         'fieldTemplates',
     ];
@@ -68,6 +69,17 @@ class FieldsExtension implements ExtensionInterface
     public function fields($sort = false)
     {
         return $this->app->fields->getFields($sort);
+    }
+
+
+    /**
+     * Get the name of a field view
+     *
+     * @return array
+     */
+    public function fieldView($key)
+    {
+        return $this->app->fields->getFieldView($key);
     }
 
 

@@ -26,4 +26,9 @@ class FieldsCollection
 
         return $this->fields;
     }
+
+    public function getFieldView($key)
+    {
+        return $this->fields[$key]->view ?? 'admin::fields/none' ;
+    }
 }

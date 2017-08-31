@@ -62,7 +62,7 @@
         </div>
 
         <div class="prop select">
-            <a href="<?= $this->fileUri($item->name) ?>" class="file-selector-url">Select</a>
+            <a href="<?= $this->fileUri(urlencode($item->name)) ?>" class="file-selector-url">Select</a>
         </div>
 
     </div>

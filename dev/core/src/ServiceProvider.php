@@ -182,6 +182,11 @@ class ServiceProvider implements ServiceProviderInterface
             'key'  => 'textarea',
             'view' => 'admin::fields/textarea',
         ]));
-    }
 
+        $c->fields->register(new \Engen\Entities\Field([
+            'name' => 'Image',
+            'key'  => 'image',
+            'view' => 'admin::fields/image',
+        ]));
+    }
 }
