@@ -352,5 +352,4 @@ class PagesFileDB implements PagesInterface
 
         return is_null($slug) ? '' : $parent . '/' . $slug;
     }
-
 }

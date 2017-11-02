@@ -53,5 +53,6 @@ return [
 
     'commands' => [
         'App\Commands\BuildCommand',
+        'App\Commands\UsersCreateCommand',
     ],
 ];

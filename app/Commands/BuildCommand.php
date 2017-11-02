@@ -24,7 +24,7 @@ class BuildCommand extends Command
 
     protected function configure()
     {
-        $this->setName('build')
+        $this->setName('build:site')
             ->setDescription('Generate static pages');
     }
 
