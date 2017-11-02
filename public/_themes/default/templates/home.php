@@ -22,8 +22,9 @@
             <?php foreach ($blurbs as $blurb) : ?>
 
                 <div class="blurb">
-                    <div class="title"><?= $blurb['title']?></div>
-                    <div class="content"><?= $blurb['content']?></div>
+                    <div class="icon"><span class="fa fa-<?= $blurb['icon'] ?? '' ?>"></span></div>
+                    <div class="title"><?= $blurb['title'] ?? '' ?></div>
+                    <div class="content"><?= $blurb['content'] ?? '&nbsp;' ?></div>
                 </div>
 
             <?php endforeach ?>

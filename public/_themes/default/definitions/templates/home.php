@@ -15,9 +15,13 @@ return [
         'type'   => 'repeater',
         'label'  => 'Blurbs',
         'fields' => [
-            'title' => [
+            'title'   => [
                 'type'  => 'string',
                 'label' => 'Title',
+            ],
+            'icon'    => [
+                'type'  => 'string',
+                'label' => 'Icon',
             ],
             'content' => [
                 'type'  => 'markdown',

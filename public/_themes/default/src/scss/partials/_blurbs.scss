@@ -8,32 +8,52 @@
     .blurb {
         position: relative;
         min-height: 100px;
-        width: 30%;
-        min-width: 250px;
+        width: 33.33%;
         flex: 0 0 auto;
         margin-bottom: 20px;
         text-align: center;
+        padding: 0 1.5%;
+
+        &:last-child {
+            border-right: 0;
+        }
 
         @media (max-width: 810px) {
-            width: 48%;
+            width: 50%;
         }
 
         @media (max-width: 550px) {
+            display: block;
             width: 100%;
-            min-width: auto;
+            margin: 0 auto;
         }
 
         .title {
-            font-size: 1.2em;
-            font-weight: 700;
+            font-size: 1.8em;
+            font-weight: 400;
             height: 40px;
-            line-height: 1.2em;
+            line-height: 1.7em;
             margin-bottom: 10px;
+            text-decoration: uppercase;
+        }
+
+        .icon {
+            margin: 0 0 20px 0;
+
+            span {
+                font-size: 40px;
+                background-color: #222;
+                color: #fff;
+                width: 90px;
+                height: 90px;
+                border-radius: 50%;
+                line-height: 90px;
+            }
         }
 
         .content {
-            background-color: #f3f3f3;
             padding: 10px;
+            min-height: 123px;
         }
     }
 }
