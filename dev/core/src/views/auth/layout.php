@@ -21,11 +21,11 @@
 
     <script>
     $(function () {
-        <?php foreach ($this->flash('success') as $msg): ?>
+        <?php foreach ($this->flash('success') as $msg) : ?>
             app.notify.success('<?= $msg ?>');
         <?php endforeach ?>
 
-        <?php foreach ($this->flash('error') as $msg): ?>
+        <?php foreach ($this->flash('error') as $msg) : ?>
             app.notify.error('<?= $msg ?>');
         <?php endforeach ?>
     });

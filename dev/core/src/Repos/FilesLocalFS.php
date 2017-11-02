@@ -101,7 +101,6 @@ class FilesLocalFS implements FilesInterface
 
         unlink($filePath);
         return true;
-
     }
 
     /**

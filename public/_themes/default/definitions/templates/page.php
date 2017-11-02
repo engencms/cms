@@ -2,7 +2,7 @@
 
 return [
     'body'  => [
-        'type'  => 'textarea',
+        'type'  => 'markdown',
         'label' => 'Body',
     ],
 ];

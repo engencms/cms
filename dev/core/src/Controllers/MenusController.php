@@ -31,7 +31,7 @@ class MenusController extends BaseController
      */
     public function editMenu($id)
     {
-       $this->addBreadCrumb([
+        $this->addBreadCrumb([
             'Edit' => $this->router->getRoute('engen.menus.edit', [$id]),
         ]);
 
@@ -82,10 +82,12 @@ class MenusController extends BaseController
         $items = [];
         if ($tmp) {
             foreach ($tmp['label'] as $i => $value) {
+                $type = $tmp['type'][$i];
                 $items[] = [
                     'label'   => $value,
-                    'page_id' => !empty($tmp['page_id'][$i]) ? $tmp['page_id'][$i] : null,
-                    'link'    => !empty($tmp['link'][$i]) && empty($tmp['page_id'][$i]) ? $tmp['link'] : null,
+                    'type'    => $type,
+                    'page_id' => $type == "page" ? $tmp['page_id'][$i] : null,
+                    'link'    => $type == "custom" ? $tmp['link'][$i] : null,
                     'target'  => !empty($tmp['target'][$i]) ? $tmp['target'][$i] : null,
                 ];
             }
@@ -107,7 +109,7 @@ class MenusController extends BaseController
 
         $menu['items'] = $items;
 
-         if ($id) {
+        if ($id) {
             if (!$this->menus->updateMenu($id, $menu)) {
                 return $response->setError('Error updating menu');
             }

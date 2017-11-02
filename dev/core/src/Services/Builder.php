@@ -46,7 +46,7 @@ class Builder
             return false;
         }
 
-        foreach (array_reverse($this->pages->getPages()) as $page)  {
+        foreach (array_reverse($this->pages->getPages()) as $page) {
             if ($page->status != 'published') {
                 continue;
             }

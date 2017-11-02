@@ -126,9 +126,12 @@ class PagesExtension implements ExtensionInterface
      */
     public function pageOptions($currentId, $currentParentId, $hideSelf = false, $parentId = 'root')
     {
-        if ($children = $this->pageChildren($parentId)):
-            foreach ($children as $item):
-                if ($hideSelf && $item->id == $currentId) continue;
+        if ($children = $this->pageChildren($parentId)) :
+            foreach ($children as $item) :
+                if ($hideSelf && $item->id == $currentId) {
+                    continue;
+                }
+
                 $indent = str_repeat('&nbsp;', $item->level * 4);
         ?>
 

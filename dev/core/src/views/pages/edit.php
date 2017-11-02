@@ -36,7 +36,7 @@
                             <label for="frm-template">Template</label>
                             <select id="frm-template" name="info[template]">>
                                 <option value="">Select a template</option>
-                                <?php foreach ($this->pageTemplates() as $template): ?>
+                                <?php foreach ($this->pageTemplates() as $template) : ?>
 
                                 <option value="<?= $template ?>" <?= $page->template == $template ? 'selected' : '' ?>>
                                     <?= $template ?>

@@ -31,7 +31,7 @@ class BlocksController extends BaseController
      */
     public function editBlock($id)
     {
-       $this->addBreadCrumb([
+        $this->addBreadCrumb([
             'Edit' => $this->router->getRoute('engen.blocks.edit', [$id]),
         ]);
 
@@ -89,9 +89,9 @@ class BlocksController extends BaseController
                 ->setMessage('validation_error');
         }
 
-        $fields = $this->reorderFields($fields);
+         $fields = $this->reorderFields($fields);
 
-         if ($id) {
+        if ($id) {
             if (!$this->blocks->updateBlock($id, $info, $fields)) {
                 return $response->setError('Error updating block');
             }

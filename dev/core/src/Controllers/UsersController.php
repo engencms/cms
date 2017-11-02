@@ -144,5 +144,4 @@ class UsersController extends BaseController
 
         return $response->setData($this->router->getRoute('engen.users'));
     }
-
 }

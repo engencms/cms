@@ -1,4 +1,8 @@
 <?php
+/**
+ * This mock request is used when the system is generating the pages from command line.
+ * The values in this request is irrelevant and do not need to be changed.
+ */
 return [
   'REDIRECT_STATUS' => '200',
   'HTTP_HOST' => 'localhost',

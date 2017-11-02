@@ -10,13 +10,14 @@
 
     <div class="content-inner">
 
-    <?php $list = function ($parent, $list) { ?>
-
-        <?php if ($children = $this->pageChildren($parent)): ?>
+    <?php
+    $list = function ($parent, $list) {
+        if ($children = $this->pageChildren($parent)) :
+    ?>
 
         <ul class="list <?= $parent != 'root' ? 'sub-list' : '' ?>" id="pages-<?= $parent ?>">
 
-            <?php if ('root' == $parent):?>
+            <?php if ('root' == $parent) : ?>
 
             <li class="row header">
                 <div class="item">
@@ -31,7 +32,7 @@
             <?php endif ?>
 
 
-        <?php foreach ($children as $item): ?>
+        <?php foreach ($children as $item) : ?>
 
             <li class="row level-<?= $item->level ?>">
                 <div class="item">
@@ -52,9 +53,13 @@
 
         </ul>
 
-        <?php endif ?>
+        <?php
+        endif
+        ?>
 
-    <?php } ?>
+    <?php
+    }
+    ?>
 
     <?php $list('root', $list) ?>
 

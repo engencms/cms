@@ -21,7 +21,7 @@
             </div>
 
 
-        <?php foreach ($this->menus() as $item): ?>
+        <?php foreach ($this->menus() as $item) : ?>
 
             <div class="item">
 

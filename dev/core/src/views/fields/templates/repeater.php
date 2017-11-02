@@ -11,9 +11,7 @@
             <div class="group-inner">
 
             <?php
-
-            foreach ($fields as $key => $field):
-
+            foreach ($fields as $key => $field) :
                 $this->insert($this->fieldView($field['type']), [
                     'field'    => $field,
                     'key'      => $key,
@@ -21,9 +19,7 @@
                     'name'     => "{$name}[{$key}][]",
                     'id'       => $id,
                 ]);
-
             endforeach;
-
             ?>
 
             </div>

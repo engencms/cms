@@ -24,6 +24,7 @@ class File extends \Enstart\Entity\Entity
         if ($factor == 0) {
             $decimals = 0;
         }
+
         return sprintf("%.{$decimals}f", $this->size / pow(1024, $factor)) . ' ' . @$size[$factor];
     }
 
@@ -37,5 +38,3 @@ class File extends \Enstart\Entity\Entity
         return strtolower($type) === $this->realType();
     }
 }
-
-

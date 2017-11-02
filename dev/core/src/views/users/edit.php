@@ -1,7 +1,7 @@
 <?php $this->layout('admin::layout') ?>
 
 <?php
-if ($user->id && !$this->isMe($user->id)):
+if ($user->id && !$this->isMe($user->id)) :
     $this->start('sub-nav')
 ?>
 

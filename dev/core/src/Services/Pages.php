@@ -1,6 +1,6 @@
 <?php namespace Engen\Services;
 
-use Engen\Entities;
+use Engen\Entities\Page;
 use Engen\Repos\PagesInterface;
 
 class Pages
@@ -84,7 +84,6 @@ class Pages
     public function getPageByKey($key)
     {
         return $this->repo->getPageByKey($key);
-
     }
 
 

@@ -31,7 +31,7 @@ class PagesController extends BaseController
      */
     public function editPage($id)
     {
-       $this->addBreadCrumb([
+        $this->addBreadCrumb([
             'Edit' => $this->router->getRoute('engen.pages.edit', [$id]),
         ]);
 
@@ -172,5 +172,35 @@ class PagesController extends BaseController
         }
 
         return $response->setData($key);
+    }
+
+
+    /**
+     * Preview a page
+     *
+     * @return string
+     */
+    public function preview()
+    {
+        if (!$this->csrf->validateToken($this->request->post('token'), 'edit-page')) {
+            return $this->notFoundError();
+        }
+
+        $info = $this->request->post('info', []);
+
+        if (!$info || !is_array($info)) {
+            return $this->notFoundError();
+        }
+
+        $page    = new Page($info);
+        $content = $this->reorderFields($this->request->post('field', []));
+
+        $page->content = is_array($content)
+            ? $content
+            : [];
+
+        $this->views->addData(['page' => $page]);
+
+        return $this->views->render("templates/{$page->template}");
     }
 }

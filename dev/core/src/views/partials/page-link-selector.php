@@ -7,7 +7,7 @@
     <label>Link to page</label>
     <select id="page-link-selector-page-key">
     <option value="">Use custom URL</option>
-    <?php foreach ($this->pages() as $page):
+    <?php foreach ($this->pages() as $page) :
         $indent = str_repeat('&nbsp;', ($page->level * 2));
         $indent .= $indent? '&mdash; ' : '';
     ?>

@@ -25,7 +25,7 @@
 
             </div>
 
-            <?php foreach ($this->files() as $item): ?>
+            <?php foreach ($this->files() as $item) : ?>
 
             <div class="item">
 
@@ -34,13 +34,13 @@
                 </div>
 
                 <div class="prop thumb">
-                    <?php if($item->realType() == 'image'): ?>
+                    <?php if ($item->realType() == 'image') : ?>
 
                         <a href="<?= $this->fileUri($item->name) ?>" target="_blank">
                             <img src="<?= $this->fileUri($item->name) ?>" />
                         </a>
 
-                    <?php else: ?>
+                    <?php else : ?>
 
                         <span class="icon <?= $item->realType() ?>"></span>
 
@@ -66,7 +66,7 @@
                     <div class="type">
                         <?= ucfirst($item->realType()) ?>
 
-                        <?php if ($item->realType() == 'image'): ?>
+                        <?php if ($item->realType() == 'image') : ?>
                         <span class="dimensions">
                             (<?= implode('x', $this->imageDimensions($item->name)) ?>)
                         </span>

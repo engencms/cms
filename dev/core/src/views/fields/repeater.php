@@ -12,7 +12,7 @@
 
         </div>
 
-       <?php foreach ($value ?? [] as $index => $groupValues) : ?>
+        <?php foreach ($value ?? [] as $index => $groupValues) : ?>
 
         <div class="group-content sortable-item">
 
@@ -24,8 +24,8 @@
 
             <div class="group-inner">
 
-        <?php
-            foreach ($field['fields'] as $itemKey => $itemField):
+            <?php
+            foreach ($field['fields'] as $itemKey => $itemField) :
                 $this->insert($this->fieldView($itemField['type']), [
                     'field'    => $itemField,
                     'key'      => $itemKey,
@@ -34,7 +34,7 @@
                     'id'       => "{$id}-{$itemKey}-{$index}",
                 ]);
             endforeach;
-        ?>
+            ?>
 
             </div>
 
@@ -46,11 +46,11 @@
     </div>
 
     <?php
-        $this->addFieldTemplate('admin::fields/templates/repeater', [
-            'fields' => $field['fields'],
-            'id'     => $id,
-            'name'   => "{$name}",
-            'value'  => $value,
-        ]);
+    $this->addFieldTemplate('admin::fields/templates/repeater', [
+        'fields' => $field['fields'],
+        'id'     => $id,
+        'name'   => "{$name}",
+        'value'  => $value,
+    ]);
     ?>
 

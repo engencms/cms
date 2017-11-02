@@ -23,7 +23,7 @@
                     <label for="frm-definition">Block templates</label>
                     <select id="frm-definition" name="definition">>
                         <option value="">Select a definition file</option>
-                        <?php foreach ($this->blockDefinitions() as $definition): ?>
+                        <?php foreach ($this->blockDefinitions() as $definition) : ?>
 
                         <option value="<?= $definition ?>" <?= $block->definition == $definition ? 'selected' : '' ?>>
                             <?= $definition ?>

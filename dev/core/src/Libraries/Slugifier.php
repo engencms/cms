@@ -78,10 +78,10 @@ class Slugifier
         '¹' => '1', '²' => '2', '³' => '3', '¶' => 'P'
     ];
 
-    function slugify($text, $separator = '-', array $modifier = [])
+    public function slugify($text, $separator = '-', array $modifier = [])
     {
         $normalized = strtolower(strtr($text, $modifier + $this->charMap));
-        $cleaned = preg_replace('/([^a-z0-9\_\.]|-)+/', $separator, $normalized);
+        $cleaned    = preg_replace('/([^a-z0-9\_\.]|-)+/', $separator, $normalized);
         return trim($cleaned, $separator);
     }
 }

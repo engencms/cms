@@ -57,7 +57,7 @@ $app->router->group(['prefix' => $adminPrefix, 'before' => 'admin_setup'], funct
                 'name' => 'engen.pages.slugify.key'
             ]);
 
-            $router->post('/preview', 'App\Controllers\HomeController@preview', [
+            $router->post('/preview', 'Engen\Controllers\PagesController@preview', [
                 'name' => 'engen.pages.preview'
             ]);
 
@@ -200,7 +200,6 @@ $app->router->group(['prefix' => $adminPrefix, 'before' => 'admin_setup'], funct
                 'name' => 'engen.build'
             ]);
         });
-
     });
 });
 

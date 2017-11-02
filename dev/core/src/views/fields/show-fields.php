@@ -3,7 +3,7 @@ $id   = $id ?? 'frm-field';
 $name = $name ?? 'field';
 
 
-foreach ($fields as $key => $field):
+foreach ($fields as $key => $field) :
 ?>
 
 
@@ -20,4 +20,3 @@ foreach ($fields as $key => $field):
 
 <?php
 endforeach;
-?>

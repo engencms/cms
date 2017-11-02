@@ -24,11 +24,11 @@
             <ul>
             <?php
             $crumbs = $this->breadCrumbs('engen');
-            foreach ($crumbs as $index => $crumb): ?>
+            foreach ($crumbs as $index => $crumb) : ?>
 
-                <?php if (count($crumbs) == $index + 1): ?>
+                <?php if (count($crumbs) == $index + 1) : ?>
                     <li class="current"><?= $crumb['label'] ?></li>
-                <?php else: ?>
+                <?php else : ?>
                     <li><a href="<?= $crumb['uri'] ?>"><?= $crumb['label'] ?></a></li>
                 <?php endif ?>
 
@@ -102,7 +102,7 @@
 
         <div id="content">
 
-            <?php if ($subnav = $this->section('sub-nav')): ?>
+            <?php if ($subnav = $this->section('sub-nav')) : ?>
             <div id="sub-nav">
                 <?= $subnav ?>
             </div>
@@ -122,18 +122,18 @@
     <div id="notify"></div>
 
     <?php
-    foreach ($this->fieldTemplates() as $field):
+    foreach ($this->fieldTemplates() as $field) :
         $this->insert($field['template'], $field['data']);
     endforeach;
     ?>
 
     <script>
     $(function () {
-        <?php foreach ($this->flash('success') as $msg): ?>
+        <?php foreach ($this->flash('success') as $msg) : ?>
             app.notify.success('<?= $msg ?>');
         <?php endforeach ?>
 
-        <?php foreach ($this->flash('error') as $msg): ?>
+        <?php foreach ($this->flash('error') as $msg) : ?>
             app.notify.error('<?= $msg ?>');
         <?php endforeach ?>
     });

@@ -92,7 +92,6 @@ class Definitions
         $file = "{$this->definitionsPath}/{$type}/{$template}.php";
 
         if (!array_key_exists($file, $this->defs[$type])) {
-
             $this->defs[$type][$file] = is_file($file)
                 ? include $file
                 : [];

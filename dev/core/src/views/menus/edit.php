@@ -1,7 +1,7 @@
 <?php $this->layout('admin::layout') ?>
 
 <?php
-if ($menu->id):
+if ($menu->id) :
     $this->start('sub-nav')
 ?>
 
@@ -49,7 +49,7 @@ endif;
 
                 </div>
 
-            <?php foreach ($menu->items as $item): ?>
+            <?php foreach ($menu->items as $item) : ?>
 
                 <?php $this->insert('admin::menus/partials/item', ['item' => $item]) ?>
 

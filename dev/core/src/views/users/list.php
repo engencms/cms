@@ -21,7 +21,7 @@
 
             </div>
 
-            <?php foreach ($this->users() as $item): ?>
+            <?php foreach ($this->users() as $item) : ?>
 
             <div class="item <?= $this->isMe($item->id) ? 'me' : ''?>">
 

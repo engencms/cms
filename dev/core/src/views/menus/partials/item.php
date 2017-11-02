@@ -7,7 +7,7 @@
         </div>
 
         <div class="prop link-type">
-            <select class="link-type-select">
+            <select class="link-type-select" name="item[type][]">
                 <option value="page" <?= isset($item) && $item->page_id ? 'selected' : '' ?>>Link to page</option>
                 <option value="custom" <?= isset($item) && !$item->page_id ? 'selected' : '' ?>>Custom</option>
             </select>

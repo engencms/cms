@@ -14,7 +14,7 @@ class Block extends \Enstart\Entity\Entity
 
     public function content($key, $default = null)
     {
-       if (!$key) {
+        if (!$key) {
             return $default;
         }
 

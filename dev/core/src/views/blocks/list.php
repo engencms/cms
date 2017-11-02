@@ -21,7 +21,7 @@
 
             </div>
 
-            <?php foreach ($this->blocks() as $item): ?>
+            <?php foreach ($this->blocks() as $item) : ?>
 
             <div class="item">
 

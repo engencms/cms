@@ -11,18 +11,19 @@
 
     <div id="content">
 
-        <?= $this->parse('markdown', $page->content('body')) ?>
+        <div id="home-intro">
+            <?= $this->parse('markdown', $page->content('body')) ?>
+        </div>
 
         <?php if ($blurbs = $page->content('blurbs', [])) : ?>
 
-        <div id="home-blurbs">
+        <div id="home-blurbs" class="blurbs">
 
-            <?php foreach ( $blurbs as $blurb): ?>
+            <?php foreach ($blurbs as $blurb) : ?>
 
                 <div class="blurb">
                     <div class="title"><?= $blurb['title']?></div>
                     <div class="content"><?= $blurb['content']?></div>
-                    <br />
                 </div>
 
             <?php endforeach ?>

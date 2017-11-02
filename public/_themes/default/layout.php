@@ -25,7 +25,7 @@
                     if ($item->page_status != 'published') continue;
                 ?>
 
-                <a href="<?= $item->link ?>" class="<?= $this->uri($item->link, 'current')?>"><?= $item->label ?></a>
+                <a href="<?= $item->link ?>" target="<?= $item->target ?>" class="<?= $this->uri($item->link, 'current')?>"><?= $item->label ?></a>
 
                 <?php endforeach ?>
 

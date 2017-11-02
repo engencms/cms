@@ -4,9 +4,10 @@ class MenuItem extends \Enstart\Entity\Entity
 {
     protected $_params = [
         'label'       => null,
+        'type'        => null,
         'link'        => null,
-        'target'      => null,
         'page_id'     => null,
         'page_status' => 'published',
+        'target'      => null,
     ];
 }
