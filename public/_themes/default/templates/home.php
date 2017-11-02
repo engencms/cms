@@ -1,6 +1,6 @@
 <?php $this->layout('layout') ?>
 
-    <div id="hero">
+    <div id="hero" style="background-image: url(<?= $page->content('hero-image') ?>)">
         <div class="inner">
 
             <h1><?= $page->title ?></h1>

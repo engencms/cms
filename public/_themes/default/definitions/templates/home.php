@@ -1,6 +1,11 @@
 <?php
 
 return [
+    'hero-image'  => [
+        'type'  => 'image',
+        'label' => 'Hero image',
+    ],
+
     'body'  => [
         'type'  => 'markdown',
         'label' => 'Body',

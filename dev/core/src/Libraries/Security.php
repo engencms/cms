@@ -57,11 +57,9 @@ class Security
      */
     public function hashPassword($password)
     {
-        return password_hash(
-            $this->preparePassword($password),
-            $this->algo,
-            ['cost' => $this->cost]
-        );
+        return password_hash($password, $this->algo, [
+            'cost' => $this->cost
+        ]);
     }
 
 
@@ -74,10 +72,7 @@ class Security
      */
     public function verifyPassword($password, $hash)
     {
-        return password_verify(
-            $this->preparePassword($password),
-            $hash
-        );
+        return password_verify($password, $hash);
     }
 
 
@@ -111,25 +106,5 @@ class Security
         }
 
         throw new \Exception('Your system must support either: random_bytes, openssl_random_pseudo_bytes or mcrypt_create_iv');
-    }
-
-
-    /**
-     * Prepare the password
-     *     Making sure the password doesn't get truncated
-     *
-     * @param  string $password
-     * @return string
-     */
-    protected function preparePassword($password)
-    {
-        // BCRYPT has a limit of 72 characters and will truncate any string that's longer.
-        // Since we don't want passwords to have a max limit, or that all passwords with
-        // the same first 72 characters should be equal, we need to hash the password once first.
-        $password = hash('sha384', $password, true);
-
-        // The password is now in binary. Convert it to base64 to make sure that there aren't
-        // any null-bites that will stop the BCRYPT hashing
-        return base64_encode($password);
     }
 }
