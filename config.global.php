@@ -12,6 +12,10 @@ return [
         'theme' => 'default',
     ],
 
+    'admin' => [
+        'url_prefix' => 'admin',
+    ],
+
     'views' => [
         'extensions' => [
             'Engen\ViewExtensions\EngenExtension',

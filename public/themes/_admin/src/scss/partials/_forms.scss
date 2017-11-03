@@ -270,6 +270,18 @@ label {
             margin-left: auto;
         }
     }
+
+    &.inline {
+        position: relative;
+        left: auto;
+        right: auto;
+        bottom: auto;
+        border: none;
+        padding-left: 0;
+        padding-right: 0;
+        background-color: transparent;
+        margin-bottom: 60px;
+    }
 }
 
 #form-page-preview {

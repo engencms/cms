@@ -102,3 +102,38 @@ a {
 .size-medium {
     max-width: 1000px;
 }
+
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    padding: 0;
+    font-weight: 300;
+    color: #222;
+}
+
+h1 {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: solid 1px #ddd;
+    font-size: 28px;
+}
+
+h2 {
+    margin-bottom: 15px;
+    font-size: 24px;
+}
+
+h3 {
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+h4 {
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+h5, h6 {
+    margin-bottom: 10px;
+    font-size: 16px;
+}

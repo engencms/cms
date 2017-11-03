@@ -13,7 +13,10 @@ class ServiceProvider implements ServiceProviderInterface
     public function register(ContainerInterface $c)
     {
         $c->alias('Enstart\App', 'app');
-        $c->app->addPath(['engen_assets' => __DIR__ . '/assets']);
+        $c->app->addPath([
+            'engen_assets' => __DIR__ . '/assets',
+            'engen'        => __DIR__,
+        ]);
 
         require_once __DIR__ . '/helpers.php';
 

@@ -49,10 +49,6 @@
             <button type="submit" class="confirm" id="edit-block-submit">
                 <span>Save</span>
             </button>
-
-            <button type="button" class="right" id="edit-block-preview" data-form-id="form-edit-block" data-url="<?= $this->route('engen.blocks.preview') ?>">
-                <span>Preview</span>
-            </button>
         </div>
 
     </form>
