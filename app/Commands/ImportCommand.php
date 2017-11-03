@@ -26,7 +26,11 @@ class ImportCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $filename = $this->app->path('root') . '/' . ltrim($input->getArgument('file'), '/');
+        $file     = $input->getArgument('file');
+        $filename = strpos($file, '/') === 0
+            ? $file
+            : $this->app->path('root') . '/' . $input->getArgument('file');
+
         if (!is_file($filename)) {
             $output->writeln('<error>The file ' . $filename . ' does not exist</error>');
             return;
