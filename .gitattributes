@@ -7,3 +7,6 @@
 /README.md export-ignore
 /public/themes/_admin/src/* linguist-vendored export-ignore
 /public/themes/default/src/* linguist-vendored export-ignore
+*.json linguist-vendored
+*.js linguist-vendored
+*.css linguist-vendored
