@@ -1,2 +1,9 @@
-public/themes/_admin/src/* linguist-vendored
-public/themes/default/src/* linguist-vendored
+/tests export-ignore
+/.gitattributes export-ignore
+/.git export-ignore
+/.gitignore export-ignore
+/.travis.yml export-ignore
+/phpunit.xml export-ignore
+/README.md export-ignore
+/public/themes/_admin/src/* linguist-vendored export-ignore
+/public/themes/default/src/* linguist-vendored export-ignore
