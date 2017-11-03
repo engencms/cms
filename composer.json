@@ -1,5 +1,5 @@
 {
-    "name": "engen/engen",
+    "name": "engencms/engen",
     "description": "A static site generator and CMS",
     "type": "project",
     "license": "MIT",
