@@ -28,7 +28,7 @@ class Importer
     public function import($file)
     {
         $zip = new ZipArchive;
-        if ($zip->open($file) === TRUE) {
+        if ($zip->open($file) === true) {
             $zip->extractTo($this->app->path('root'));
             $zip->close();
             return true;

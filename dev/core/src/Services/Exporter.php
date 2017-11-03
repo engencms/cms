@@ -29,7 +29,7 @@ class Exporter
         $zip      = new ZipArchive();
         $filename = $this->app->path('data') . '/exports/' . date('Y-m-d_His') . '.zip';
 
-        if ($zip->open($filename, ZipArchive::CREATE) !== TRUE) {
+        if ($zip->open($filename, ZipArchive::CREATE) !== true) {
             return false;
         }
 

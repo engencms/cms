@@ -33,5 +33,4 @@ class ExportCommand extends Command
 
         $output->writeln('Exported to: ' . $filename);
     }
-
 }
