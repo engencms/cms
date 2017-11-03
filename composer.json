@@ -1,6 +1,6 @@
 {
-    "name": "engencms/engen",
-    "description": "A static site generator and CMS",
+    "name": "engencms/cms",
+    "description": "A static site generator with a proper CMS",
     "type": "project",
     "license": "MIT",
     "authors": [
