@@ -8,7 +8,7 @@ return [
     ],
 
     'themes' => [
-        'path'  => __DIR__ . '/public/_themes',
+        'path'  => __DIR__ . '/public/themes',
         'theme' => 'default',
     ],
 
@@ -55,5 +55,6 @@ return [
         'App\Commands\BuildCommand',
         'App\Commands\UsersCreateCommand',
         'App\Commands\ExportCommand',
+        'App\Commands\ImportCommand',
     ],
 ];

@@ -4,8 +4,6 @@ use Enstart\App;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use ZipArchive;
-
 
 class ExportCommand extends Command
 {
@@ -26,36 +24,14 @@ class ExportCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $zip      = new ZipArchive();
-        $filename = $this->app->path('data') . '/exports/' . date('Y-m-d_His') . '.zip';
-
-        if ($zip->open($filename, ZipArchive::CREATE) !== TRUE) {
-            $output->writeln('<error>Unable to create zip folder.</error>');
+        $exporter = $this->app->container->make('Engen\Services\Exporter');
+        $filename = $exporter->export();
+        if (!$filename) {
+            $output->writeln('<error>Something went wrong. Make sure the folder data/export is writeable.</error>');
             return;
         }
 
-        $paths = [
-            '/data/blocks',
-            '/data/meta',
-            '/data/pages',
-            '/public/uploads',
-        ];
-
-        foreach ($paths as $path) {
-            $this->addFiles($zip, $this->app->path('root') . $path, $path);
-        }
-
-        $zip->close();
         $output->writeln('Exported to: ' . $filename);
     }
 
-    protected function addFiles($zip, $source, $target)
-    {
-        $target = ltrim($target, '/');
-        $zip->addEmptyDir($target);
-
-        foreach (glob($source . '/*') as $file) {
-            $zip->addFile($file, $target . '/' . basename($file));
-        }
-    }
 }
