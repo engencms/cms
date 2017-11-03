@@ -74,14 +74,22 @@ if (!function_exists('rcopy')) {
 }
 
 if (!function_exists('rchmod')) {
-    function rchmod($dir, $dirPermissions, $filePermissions)
+    function rchmod($dir, $dirPermissions, $filePermissions, $falseOnError = false)
     {
+        if (empty($dir) || '/' == $dir) {
+            return;
+        }
+
         foreach (glob($dir . '/*') as $file) {
             if (is_dir($file)) {
-                chmod($file, $dirPermissions);
+                if (!@chmod($file, $dirPermissions) && $falseOnError) {
+                    return false;
+                }
                 rchmod($file, $dirPermissions, $filePermissions);
             } else {
-                chmod($file, $filePermissions);
+                if (!@chmod($file, $filePermissions) && $falseOnError) {
+                    return false;
+                }
             }
         }
     }
