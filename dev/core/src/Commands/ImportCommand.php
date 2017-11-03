@@ -1,4 +1,4 @@
-<?php namespace App\Commands;
+<?php namespace Engen\Commands;
 
 use Enstart\App;
 use Symfony\Component\Console\Command\Command;

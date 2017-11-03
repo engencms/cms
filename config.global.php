@@ -52,9 +52,5 @@ return [
     ],
 
     'commands' => [
-        'App\Commands\BuildCommand',
-        'App\Commands\UsersCreateCommand',
-        'App\Commands\ExportCommand',
-        'App\Commands\ImportCommand',
     ],
 ];

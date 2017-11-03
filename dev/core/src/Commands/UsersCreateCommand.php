@@ -1,4 +1,4 @@
-<?php namespace App\Commands;
+<?php namespace Engen\Commands;
 
 use Enstart\App;
 use Engen\Entities\User;

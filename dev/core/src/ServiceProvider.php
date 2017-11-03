@@ -59,6 +59,9 @@ class ServiceProvider implements ServiceProviderInterface
 
         // Register fields
         $this->fields($c);
+
+        // Register commands
+        $this->commands($c);
     }
 
 
@@ -188,5 +191,16 @@ class ServiceProvider implements ServiceProviderInterface
             'key'  => 'image',
             'view' => 'admin::fields/image',
         ]));
+    }
+
+    /**
+     * @param  ContainerInterface $c
+     */
+    protected function commands(ContainerInterface $c)
+    {
+        $c->config->push('commands', 'Engen\Commands\BuildCommand');
+        $c->config->push('commands', 'Engen\Commands\UsersCreateCommand');
+        $c->config->push('commands', 'Engen\Commands\ExportCommand');
+        $c->config->push('commands', 'Engen\Commands\ImportCommand');
     }
 }
