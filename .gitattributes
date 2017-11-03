@@ -1,2 +1,2 @@
-public/themes/_admin/src linguist-vendored
-public/themes/default/src* linguist-vendored
+public/themes/_admin/src/* linguist-vendored
+public/themes/default/src/* linguist-vendored
