@@ -22,8 +22,27 @@ class ServiceProvider implements ServiceProviderInterface
 
         $this->views($c);
         $this->database($c);
+        $this->repos($c);
+        $this->services($c);
         $this->parsers($c);
+        $this->fields($c);
+        $this->commands($c);
 
+        $c->singleton('Engen\Validators\Validator');
+        $c->alias('Engen\Validators\Validator', 'validator');
+
+        $c->singleton('Engen\Libraries\Slugifier');
+        $c->alias('Engen\Libraries\Slugifier', 'slugifier');
+    }
+
+
+    /**
+     * Set up services
+     *
+     * @param  ContainerInterface $c
+     */
+    protected function services(ContainerInterface $c)
+    {
         $c->singleton('Engen\Services\Templates', function ($c) {
             return new \Engen\Services\Templates($c->config->get('views.path') . '/templates');
         });
@@ -40,12 +59,6 @@ class ServiceProvider implements ServiceProviderInterface
             return $v;
         });
 
-        $c->singleton('Engen\Validators\Validator');
-        $c->alias('Engen\Validators\Validator', 'validator');
-
-        $c->singleton('Engen\ViewExtensions\BreadCrumbs');
-        $c->alias('Engen\ViewExtensions\BreadCrumbs', 'breadCrumbs');
-
         $c->singleton('Engen\Repos\FilesInterface', function ($c) {
             return new \Engen\Repos\FilesLocalFS(
                 $c->config->get('uploads.path')
@@ -53,18 +66,9 @@ class ServiceProvider implements ServiceProviderInterface
         });
         $c->alias('Engen\Repos\FilesInterface', 'files');
 
-        $c->singleton('Engen\Libraries\Slugifier');
-        $c->alias('Engen\Libraries\Slugifier', 'slugifier');
-
         // Auth
         $c->singleton('Engen\Services\Auth');
         $c->alias('Engen\Services\Auth', 'auth');
-
-        // Register fields
-        $this->fields($c);
-
-        // Register commands
-        $this->commands($c);
     }
 
 
@@ -79,10 +83,15 @@ class ServiceProvider implements ServiceProviderInterface
         $views  = rtrim($c->config->get('themes.path'), '/');
         $views .= '/' . $c->config->get('themes.theme');
         $c->config->set('views.path', $views);
+
+        $c->singleton('Engen\ViewExtensions\BreadCrumbs');
+        $c->alias('Engen\ViewExtensions\BreadCrumbs', 'breadCrumbs');
     }
 
 
     /**
+     * Set up database
+     *
      * @param  ContainerInterface $c
      */
     protected function database(ContainerInterface $c)
@@ -95,18 +104,25 @@ class ServiceProvider implements ServiceProviderInterface
 
             return new \Maer\FileDB\FileDB($storage);
         });
+    }
 
+
+    /**
+     * @param  ContainerInterface $c
+     */
+    protected function repos(ContainerInterface $c)
+    {
         // Pages
         $c->singleton('Engen\Repos\PagesInterface', function ($c) {
-            return new \Engen\Repos\PagesFileDB(
+            return new \Engen\Repos\FileDB\Pages(
                 $c->make('Maer\FileDB\FileDB'),
                 $c->app->path('data') . '/pages'
             );
         });
 
-        // Pages
+        // Blocks
         $c->singleton('Engen\Repos\BlocksInterface', function ($c) {
-            return new \Engen\Repos\BlocksFileDB(
+            return new \Engen\Repos\FileDB\Blocks(
                 $c->make('Maer\FileDB\FileDB'),
                 $c->app->path('data') . '/blocks'
             );
@@ -114,15 +130,15 @@ class ServiceProvider implements ServiceProviderInterface
         $c->alias('Engen\Repos\BlocksInterface', 'blocks');
 
         // Menus
-        $c->singleton('Engen\Repos\MenusInterface', 'Engen\Repos\MenusFileDB');
+        $c->singleton('Engen\Repos\MenusInterface', 'Engen\Repos\FileDB\Menus');
         $c->alias('Engen\Repos\MenusInterface', 'menus');
 
         // Users
-        $c->singleton('Engen\Repos\UsersInterface', 'Engen\Repos\UsersFileDB');
+        $c->singleton('Engen\Repos\UsersInterface', 'Engen\Repos\FileDB\Users');
         $c->alias('Engen\Repos\UsersInterface', 'users');
 
         // Menus
-        $c->singleton('Engen\Repos\SettingsInterface', 'Engen\Repos\SettingsFileDB');
+        $c->singleton('Engen\Repos\SettingsInterface', 'Engen\Repos\FileDB\Settings');
         $c->alias('Engen\Repos\SettingsInterface', 'settings');
 
         // Content

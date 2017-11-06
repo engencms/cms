@@ -1,10 +1,11 @@
-<?php namespace Engen\Repos;
+<?php namespace Engen\Repos\FileDB;
 
 use Engen\Entities\User;
 use Engen\Libraries\Security;
+use Engen\Repos\UsersInterface;
 use Maer\FileDB\FileDB;
 
-class UsersFileDB implements UsersInterface
+class Users implements UsersInterface
 {
     /**
      * @var FileDB

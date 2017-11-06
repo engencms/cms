@@ -1,10 +1,11 @@
-<?php namespace Engen\Repos;
+<?php namespace Engen\Repos\FileDB;
 
 use Engen\Entities\Menu;
 use Engen\Entities\MenuItem;
+use Engen\Repos\MenusInterface;
 use Maer\FileDB\FileDB;
 
-class MenusFileDB implements MenusInterface
+class Menus implements MenusInterface
 {
     /**
      * @var FileDB

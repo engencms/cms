@@ -1,8 +1,9 @@
-<?php namespace Engen\Repos;
+<?php namespace Engen\Repos\FileDB;
 
+use Engen\Repos\SettingsInterface;
 use Maer\FileDB\FileDB;
 
-class SettingsFileDB implements SettingsInterface
+class Settings implements SettingsInterface
 {
     /**
      * @var FileDB

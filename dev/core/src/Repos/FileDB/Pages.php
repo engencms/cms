@@ -1,9 +1,10 @@
-<?php namespace Engen\Repos;
+<?php namespace Engen\Repos\FileDB;
 
 use Engen\Entities\Page;
+use Engen\Repos\PagesInterface;
 use Maer\FileDB\FileDB;
 
-class PagesFileDB implements PagesInterface
+class Pages implements PagesInterface
 {
     /**
      * @var FileDB

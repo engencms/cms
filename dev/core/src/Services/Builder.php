@@ -63,6 +63,11 @@ class Builder
         return true;
     }
 
+    /**
+     * Update the request parameters to use mock data
+     *
+     * @param  string $uri
+     */
     protected function updateRequestParams($uri)
     {
         if (is_null($this->mockRequest)) {

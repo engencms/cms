@@ -1,9 +1,10 @@
-<?php namespace Engen\Repos;
+<?php namespace Engen\Repos\FileDB;
 
 use Engen\Entities\Block;
+use Engen\Repos\BlocksInterface;
 use Maer\FileDB\FileDB;
 
-class BlocksFileDB implements BlocksInterface
+class Blocks implements BlocksInterface
 {
     /**
      * @var FileDB
