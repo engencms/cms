@@ -1,0 +1,33 @@
+#import {
+    position: relative;
+    margin-bottom: 50px;
+
+    #import-selection-file {
+        position: relative;
+        font-size: 13px;
+        font-weight: 700;
+        font-style: italic;
+        color: #333;
+        margin: 0 0 10px 10px;
+
+        span {
+            font-weight: 400;
+        }
+    }
+
+    #import-selection {
+        margin: 0 0 20px 10px;
+        padding: 0;
+        list-style: none;
+
+        li {
+            margin: 0;
+            padding: 0;
+
+            label {
+                line-height: 30px;
+                font-size: 14px;
+            }
+        }
+    }
+}
